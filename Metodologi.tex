@@ -1,0 +1,69 @@
+\chapter{Metodologi dan Desain Sistem}
+\section{Flowchart sistem}
+
+%Definisikan bentuk dan warna
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, minimum width=3cm, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20,
+    minimum height=2em]
+
+\begin{figure}[h!]
+    \centering
+    %Mulai menggambar Flowchart
+\begin{tikzpicture}[node distance=2cm]
+\node (start) [cloud] {Start};
+\node (in1) [io, below of=start] {Input};
+\node (pro1) [process, below of=in1] {Process 1};
+\node (dec1) [decision, below of=pro1] {Decision 1};
+\node (pro2a) [process, below of=dec1, yshift=-0.5cm] {Process 2a};
+\node (pro2b) [process, right of=dec1, xshift=2cm] {Process 2b};
+\node (out1) [io, below of=pro2a] {Output};
+\node (stop) [cloud, below of=out1] {Stop};
+\draw [arrow] (start) -- (in1);
+\draw [arrow] (in1) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- (pro2a);
+\draw [arrow] (dec1) -- (pro2b);
+\draw [arrow] (pro2b) |- (pro1);
+\draw [arrow] (pro2a) -- (out1);
+\draw [arrow] (out1) -- (stop);
+\end{tikzpicture}
+    \caption{Caption flowchart}
+    \label{figflow}
+\end{figure}
+
+\section{Algoritma}
+ Atau dalam bentuk algoritma seperti contoh pada Algoritma \ref{Algo:FVDM} berikut ini:
+ 
+
+\begin{algorithm}
+ \begin{algorithmic}[1]
+    \Procedure{FVDM}{$Tfinal, \Delta t$}
+    \State \text{Start}
+	\State \textbf{For }$n=1:N$\textbf{ do} \Comment{Pemberian nilai awal}
+	\State \hspace{0.5cm} Input nilai $x[n]$
+	\State \hspace{0.5cm} Input nilai $v[n]$
+	\State \textbf{EndFor}
+	\State \text{time=0}
+	\While{$time < Tfinal$}
+	\State \hspace{0.5cm} $time=time +\Delta t$
+	\State \hspace{0.5cm} Hitung jarak bamper menggunakan rumus  untuk $n=2,\cdots,N$ 
+	\State \hspace{0.5cm} \textbf{If}( $S(n) \leq 0 m)$ \textbf{then return End If}.
+	\State \hspace{0.5cm} Tentukan $\lambda$ menggunakan.
+	\State \hspace{0.5cm} Hitung kecepatan optimal $v_o(t)$ menggunakan.
+	\State \hspace{0.5cm} Hitung percepatan $a_n(time)$ menggunakan .
+	\State \hspace{0.5cm} Hitung kecepatan baru dengan $v_n(time)=v_n(time-\Delta t) + a_n(time) \Delta t$.
+	\State \hspace{0.5cm} Hitung posisi baru dengan $x_n(time)=x_n(time-\Delta t) + v_n(time) \Delta t$.
+	\State \hspace{0.5cm} \textbf{If}( $\Delta v \leq 10^{-5} \&\& a_n(time)\leq 10^{-5})$ \textbf{then}  
+    \State \hspace{0.5cm} \hspace{0.5cm} \text{OUTPUT }Cetak hasil data $a_n, v_n, x_n$.
+	\State \hspace{0.5cm} \hspace{0.5cm} \textbf{return}.
+	\State \hspace{0.5cm} \textbf{End If}.
+	\EndWhile
+	\State \text{End}
+ \EndProcedure
+ \end{algorithmic}
+ \caption{Prosedur simulasi dinamika lalu lintas menggunakan FVDM.}\label{Algo:FVDM}
+\end{algorithm}
