@@ -18,3 +18,4 @@ I will tidy it up later.
 ## Change Log
 
 - \[23/10/2019\] Adding cover, validity sheet, and abstract.
+- \[24/10/2019\] Adding NIP and comment unnecessary things.
