@@ -1,24 +1,42 @@
 \chapter{Pendahuluan}
 \section{Latar Belakang}
 
-Riset pemrosesan bahasa natural untuk bahasa Indonesia saat ini terbilang sangat sedikit.
+Riset pemrosesan bahasa natural untuk bahasa Indonesia saat ini terbilang sedikit.
 Bahkan, masih banyak area riset yang belum tersentuh seperti contohnya
 \textit{combinatory categorial grammar} (CCG).
+CCG merupakan sebuah formalisme tatabahasa yang dapat dimanfaatkan untuk membangun CCG \textit{parser}.
+CCG \textit{parser} dapat digunakan untuk mendapatkan berbagai macam informasi dari suatu kalimat.
+Sebagai contoh, CCG \textit{parser} dapat mem-\textit{parse} kalimat
+"sebutkan negara-negara yang bertetangga dengan Indonesia" ke dalam bentuk formal yang dapat dipahami
+oleh komputer yaitu $\lambda{(x). negara(x) \land bertetangga(x, Indonesia)}$.
+Bentuk formal tersebut merupakan \textit{lambda calculus}
+(umumnya bentuk formal yang digunakan adalah \textit{combinatory logic}) yang kemudian dapat diproses
+oleh komputer strukturnya dan akan mendapatkan \textit{query} untuk mencari $x$ yang berupa
+suatu negara dan memiliki ketetanggaan dengan Indonesia.
 
-% \section{Perumusan Masalah}
-% Berikut rumusan masalah yang ingin saya angkat adalah
-% \begin{enumerate}
-%     \item Mengapa ini terjadi?
-%     \item Bagaimana proses kejadiannya?
-%     \item Apa saja yang dipengaruhinya?
-% \end{enumerate}
-% \section{Tujuan}
-% Berikut adalah tujuan yang ingin dicapai pada penulisan proposal/TA.
-% \begin{enumerate}
-%     \item Untuk mengetahui mengapa ini terjadi;
-%     \item Untuk mempelajari proses kejadian masalah;
-%     \item Untuk melihat dampak yang dipengaruhi oleh kejadian ini.
-% \end{enumerate}
+CCG \textit{parser} membutuhkan CCG \textit{lexicon} (atau dikenal juga sebagai CCG \textit{supertag})
+untuk dapat melakukan tugasnya. Sejauh ini belum ditemukan adanya riset mengenai CCG untuk
+bahasa Indonesia termasuk pada tahap awalnya yaitu pembentukan CCG \textit{supertag}.
+Demikian itu, tugas akhir ini diharapkan dapat menjadi inisiator riset untuk area CCG dalam
+pemrosesan bahasa alami yaitu dengan membangun perangkat lunak untuk menghasilkan CCG \textit{supertag}
+bahasa Indonesia. Proses yang menghasilkan \textit{supertag} tersebut bernama \textit{supertagging}
+adapun perangkat lunaknya bernama \textit{supertagger}.
+
+\section{Perumusan Masalah}
+Berikut adalah rumusan masalah yang akan diangkat:
+\begin{enumerate}
+    \item Mengapa CCG \textit{supertagger} diperlukan?
+    \item Apa saja yang harus dipersiapkan untuk membangun CCG \textit{supertagger}?
+    \item Bagaimana proses membangun CCG \textit{supertagger}?
+\end{enumerate}
+\section{Tujuan}
+Berikut adalah tujuan yang diharapkan dapat dicapai oleh tugas akhir ini:
+\begin{enumerate}
+    \item Mengenalkan alternatif metode yang dapat digunakan dalam pemrosesan bahasa alami untuk
+      bahasa Indonesia.
+    \item Merilis CCG \textit{supertagger} pertama untuk bahasa Indonesia.
+    \item Membuka peluang riset untuk CCG \textit{parser} bahasa Indonesia.
+\end{enumerate}
 % \section{Batassan Masalah}
 % Hipotesis dari tulisan ini adalah
 % \begin{enumerate}

@@ -19,3 +19,5 @@ I will tidy it up later.
 
 - \[23/10/2019\] Adding cover, validity sheet, and abstract.
 - \[24/10/2019\] Adding NIP and comment unnecessary things.
+- \[28/10/2019\] Adding "Latar Belakang", "Perumusan Masalah", and "Tujuan" section.
+  Also, adding the first reference.
