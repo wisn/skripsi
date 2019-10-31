@@ -1,31 +1,25 @@
 \chapter*{Abstrak}
 
-Riset pemrosesan bahasa natural untuk bahasa Indonesia saat ini terbilang sedikit.
-Bahkan, masih banyak area riset yang belum tersentuh seperti contohnya
-\textit{combinatory categorial grammar} (CCG).
-CCG merupakan formalisme tatabahasa yang pada akhirnya dapat dimanfaatkan untuk memperoleh informasi
-dari suatu kalimat.
-Informasi tersebut diperoleh setelah melakukan \textit{parsing} berdasarkan formalisme CCG dengan
-menggunakan CCG \textit{parser}.
-Untuk dapat melakukan \textit{parsing}, CCG \textit{parser} membutuhkan CCG lexicon yang mengandung
-bentuk formal dari suatu token kata.
-Bentuk formal tersebut umumnya adalah \textit{combinatory logic}.
-CCG \textit{lexicon} diperoleh dari proses pelabelan suatu token kata terhadap bentuk formalnya dengan
-menggunakan \textit{supertagging}.
-Proses \textit{supertagging} akan menghasilkan \textit{supertag} yang kemudian disebut sebagai CCG
-\textit{lexicon} karena formalisme yang digunakan adalah formalisme CCG.
-
-Tugas akhir dengan judul \textbf{\Title} berusaha untuk membangun versi awal dari CCG
-\textit{supertagger} untuk bahasa Indonesia dengan harapan dapat menjadi inisiator riset
-pemrosesan bahasa natural dengan tema CCG sehingga ke depannya akan ada lebih banyak riset
-mengenai CCG yang tersedia.
-\textit{Supertagger} tersebut akan dibangun dengan menggunakan model Maximum Entropy dan implementasinya
-akan ditulis dalam bahasa pemrograman Haskell.
+Dalam pemrosesan bahasa alami, combinatory categorial grammar (CCG) merupakan salah satu
+formalisme tatabahasa yang dapat digunakan untuk membangun sebuah \textit{parser} yang umumnya
+dikenal sebagai CCG \textit{parser}.
+CCG \textit{parser} dapat digunakan untuk berbagai macam keperluan dalam pemrosesan bahasa alami.
+Sebagai contoh, CCG \textit{parser} dapat digunakan untuk memperoleh informasi
+(\textit{information extraction}) dari suatu kalimat yang kemudian membentuk sebuah \textit{query}.
+Agar dapat bekerja, CCG \textit{parser} membutuhkan CCG \textit{lexicon}.
+CCG \textit{lexicon} diperoleh dari proses yang bernama \textit{supertagging}.
+\textit{Supertagging} adalah proses pelabelan suatu token kata terhadap \textit{supertag}-nya.
+Perangkat lunak yang melakukan \textit{supertagging} disebut sebagai \textit{supertagger}.
+Demikian itu, \textit{supertagging} merupakan langkah pertama yang perlu dilakukan sebelum
+membangun sebuah CCG \textit{parser}.
+\textit{Supertagger} yang dibangun dalam tugas akhir ini dimaksudkan sebagai produsen CCG
+\textit{lexicon} bahasa Indonesia untuk riset-riset yang berkenaan dengan CCG di masa yang akan datang.
 
 
 \vspace{0.5 cm}
 \begin{flushleft}
 {\textbf{Kata Kunci:}
-  combinatory categorial grammar, supertagger, maximum entropy model, bahasa indonesia, haskell
+  natural language processing, combinatory categorial grammar, supertagger,
+  maximum entropy model, bahasa indonesia, haskell
 }
 \end{flushleft}

@@ -4,30 +4,35 @@
 Riset pemrosesan bahasa natural untuk bahasa Indonesia saat ini terbilang sedikit.
 Bahkan, masih banyak area riset yang belum tersentuh seperti contohnya
 \textit{combinatory categorial grammar} (CCG).
-CCG merupakan sebuah formalisme tatabahasa yang dapat dimanfaatkan untuk membangun CCG \textit{parser}.
-CCG \textit{parser} dapat digunakan untuk mendapatkan berbagai macam informasi dari suatu kalimat.
-Sebagai contoh, CCG \textit{parser} dapat mem-\textit{parse} kalimat
-"sebutkan negara-negara yang bertetangga dengan Indonesia" ke dalam bentuk formal yang dapat dipahami
-oleh komputer yaitu $\lambda{(x). negara(x) \land bertetangga(x, Indonesia)}$.
-Bentuk formal tersebut merupakan \textit{lambda calculus}
-(umumnya bentuk formal yang digunakan adalah \textit{combinatory logic}) yang kemudian dapat diproses
-oleh komputer strukturnya dan akan mendapatkan \textit{query} untuk mencari $x$ yang berupa
-suatu negara dan memiliki ketetanggaan dengan Indonesia.
+CCG merupakan formalisme tatabahasa yang salah satu manfaatnya adalah untuk memperoleh informasi
+(\textit{information extraction}) dari suatu kalimat.
+Informasi tersebut diperoleh setelah melakukan \textit{parsing} berdasarkan formalisme CCG dengan
+menggunakan perangkat lunak bernama CCG \textit{parser}.
+Untuk dapat melakukan \textit{parsing}, CCG \textit{parser} membutuhkan CCG \textit{lexicon}
+yang mengandung bentuk formal dari suatu token kata.
+Bentuk formal yang dimaksud adalah \textit{category} dalam \textit{category theory}.
+CCG \textit{lexicon} diperoleh dari proses pelabelan suatu token kata terhadap bentuk formalnya yang
+mana dikenal sebagai \textit{supertagging}.
+Proses \textit{supertagging} akan menghasilkan \textit{supertag} yang kemudian disebut sebagai CCG
+\textit{supertag} karena formalisme yang digunakan adalah formalisme CCG.
+Dalam hal ini, CCG \textit{supertag} adalah CCG \textit{lexicon} itu sendiri.
 
-CCG \textit{parser} membutuhkan CCG \textit{lexicon} (atau dikenal juga sebagai CCG \textit{supertag})
-untuk dapat melakukan tugasnya. Sejauh ini belum ditemukan adanya riset mengenai CCG untuk
-bahasa Indonesia termasuk pada tahap awalnya yaitu pembentukan CCG \textit{supertag}.
-Demikian itu, tugas akhir ini diharapkan dapat menjadi inisiator riset untuk area CCG dalam
-pemrosesan bahasa alami yaitu dengan membangun perangkat lunak untuk menghasilkan CCG \textit{supertag}
-bahasa Indonesia. Proses yang menghasilkan \textit{supertag} tersebut bernama \textit{supertagging}
-adapun perangkat lunaknya bernama \textit{supertagger}.
+Tugas akhir dengan judul \say{\Title} berusaha untuk membangun versi awal dari CCG
+\textit{supertagger} untuk bahasa Indonesia yang mana harapannya dapat menjadi inisiator riset
+pemrosesan bahasa natural dengan tema CCG sehingga ke depannya akan ada lebih banyak riset
+mengenai CCG yang tersedia.
+\textit{Supertagger} yang dimaksud dalam tugas akhir ini akan dibangun dengan menggunakan model
+Maximum Entropy (MaxEnt) dan implementasinya akan ditulis dalam bahasa pemrograman Haskell.
+Model MaxEnt digunakan karena keterbatasan \textit{dataset} untuk melakukan \textit{learning}.
+Adapun bahasa pemrograman Haskell digunakan karena abstraksi bahasanya yang sangat mendekati
+\textit{category theory} serta kemampuannya yang sangat baik dalam pemrosesan data.
 
 \section{Perumusan Masalah}
 Rumusan masalah yang akan diangkat yaitu:
 \begin{enumerate}
     \item Mengapa CCG \textit{supertagger} diperlukan?
     \item Apa saja yang harus dipersiapkan untuk membangun CCG \textit{supertagger}?
-    \item Bagaimana proses membangun CCG \textit{supertagger}?
+    \item Bagaimana proses pembangunan CCG \textit{supertagger}?
 \end{enumerate}
 \section{Tujuan}
 Tujuan yang diharapkan dapat tercapai oleh tugas akhir ini yaitu:
@@ -40,10 +45,12 @@ Tujuan yang diharapkan dapat tercapai oleh tugas akhir ini yaitu:
 \section{Batasan Masalah}
 Hipotesis dari tugas akhir ini yaitu:
 \begin{enumerate}
-    \item Memberikan label CCG untuk proses \textit{learning} merupakan permasalahan utama dari tugas akhir
-        ini.
-    \item Supertagger yang akan dibangun kemungkinan besar memiliki akurasi yang cenderung rendah.
-    \item CCG \textit{lexicon} sudah dapat digunakan oleh CCG \textit{parser} (apabila ada).
+    \item Memberikan label CCG untuk proses \textit{learning} merupakan permasalahan utama dari tugas
+      akhir ini.
+    \item \textit{Supertagger} yang akan dibangun kemungkinan besar memiliki akurasi yang cenderung
+      rendah.
+    \item CCG \textit{lexicon} sudah dapat digunakan oleh CCG \textit{parser} bahasa Indonesia
+      (apabila ada).
 \end{enumerate}
 
 \section{Rencana Kegiatan}
