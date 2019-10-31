@@ -21,3 +21,4 @@ I will tidy it up later.
 - \[24/10/2019\] Adding NIP and comment unnecessary things.
 - \[28/10/2019\] Adding "Latar Belakang", "Perumusan Masalah", and "Tujuan" section.
   Also, adding the first reference.
+- \[31/10/2019\] Finishing the first chapter.

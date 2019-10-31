@@ -23,59 +23,67 @@ bahasa Indonesia. Proses yang menghasilkan \textit{supertag} tersebut bernama \t
 adapun perangkat lunaknya bernama \textit{supertagger}.
 
 \section{Perumusan Masalah}
-Berikut adalah rumusan masalah yang akan diangkat:
+Rumusan masalah yang akan diangkat yaitu:
 \begin{enumerate}
     \item Mengapa CCG \textit{supertagger} diperlukan?
     \item Apa saja yang harus dipersiapkan untuk membangun CCG \textit{supertagger}?
     \item Bagaimana proses membangun CCG \textit{supertagger}?
 \end{enumerate}
 \section{Tujuan}
-Berikut adalah tujuan yang diharapkan dapat dicapai oleh tugas akhir ini:
+Tujuan yang diharapkan dapat tercapai oleh tugas akhir ini yaitu:
 \begin{enumerate}
     \item Mengenalkan alternatif metode yang dapat digunakan dalam pemrosesan bahasa alami untuk
       bahasa Indonesia.
     \item Merilis CCG \textit{supertagger} pertama untuk bahasa Indonesia.
     \item Membuka peluang riset untuk CCG \textit{parser} bahasa Indonesia.
 \end{enumerate}
-% \section{Batassan Masalah}
-% Hipotesis dari tulisan ini adalah
-% \begin{enumerate}
-%     \item Masalah timbul karena A;
-%     \item Hasil numeriknya menuju $x \rightarrow \infty$
-% \end{enumerate}
+\section{Batasan Masalah}
+Hipotesis dari tugas akhir ini yaitu:
+\begin{enumerate}
+    \item Memberikan label CCG untuk proses \textit{learning} merupakan permasalahan utama dari tugas akhir
+        ini.
+    \item Supertagger yang akan dibangun kemungkinan besar memiliki akurasi yang cenderung rendah.
+    \item CCG \textit{lexicon} sudah dapat digunakan oleh CCG \textit{parser} (apabila ada).
+\end{enumerate}
 
-% \section{Rencana Kegiatan}
-% Rencana kegitana yang akan saya lakukan adalah sebagia berikut:
-% \begin{itemize}
-%     \item Studi literatur
-%     \item Memeriksa hasil
-% \end{itemize}
-% \section{Jadwal Kegiatan}
-% The table \ref{Novella} is an example of referenced \LaTeX elements. Laporan proposal ini akan dijadwalkan sesuai dengan tabel yang diberikna berikutnya. 
+\section{Rencana Kegiatan}
+Rencana kegiatan yang akan dilakukan adalah sebagai berikut:
+\begin{itemize}
+    \item Studi literatur
+    \item Studi \textit{tools} yang tersedia
+    \item Studi bahasa pemrograman yang akan digunakan
+    \item Perancangan sistem \textit{supertagger}
+    \item Membangun \textit{supertagger}
+    \item Memeriksa hasil
+\end{itemize}
 
- 
-% \begin{table}[h!]
-%   \centering
-%     \caption{Jadwal kegiatan proposal tugas akhir}
-%   \label{Novella}
-%   \begin{tabular}{|c|m{2.5cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|}
-%     \hline
-%     \multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textbf{Kegiatan}} & \multicolumn{24}{|c|}{\textbf{Bulan ke-}} \\
-%     \hhline{~~------------------------}
-%     {} & {} & \multicolumn{4}{|c|}{\textbf{1}} & \multicolumn{4}{|c|}{\textbf{2}} & \multicolumn{4}{|c|}{\textbf{3}} & \multicolumn{4}{|c|}{\textbf{4}} & \multicolumn{4}{|c|}{\textbf{5}} & \multicolumn{4}{|c|}{\textbf{6}}\\
-%     \hline
-%     1 & Studi Literatur & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}\\
-%     \hline
-%     2 & Pengumpulan Data & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {} & {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}\\
-%     \hline
-%     3 & Analisis dan Perancangan Sistem &  {} & {} & {} & {}  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}\\
-%     \hline
-%     4 & Implementasi Sistem &  {} & {} & {} & {} & {} & {} & {} & {}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}\\
-%     \hline
-%     5 & Analisa Hasil Implementasi &  {} & {} & {} & {} & {} & {} & {} & {}& {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}\\
-%     \hline
-%     6 & Penulisan Laporan & {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}\\
-%     \hline
-%   \end{tabular}
-
-% \end{table}
+\section{Jadwal Kegiatan}
+Laporan proposal ini akan dijadwalkan sesuai dengan tabel \ref{ScheduleTable}. 
+\begin{table}[h!]
+  \centering
+    \caption{Jadwal kegiatan proposal tugas akhir.}
+  \label{ScheduleTable}
+  \begin{tabular}{|c|m{2.5cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|m{0.01cm}|}
+    \hline
+    \multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textbf{Kegiatan}} & \multicolumn{24}{|c|}{\textbf{Bulan ke-}} \\
+    \hhline{~~------------------------}
+    {} & {} & \multicolumn{4}{|c|}{\textbf{1}} & \multicolumn{4}{|c|}{\textbf{2}} & \multicolumn{4}{|c|}{\textbf{3}} & \multicolumn{4}{|c|}{\textbf{4}} & \multicolumn{4}{|c|}{\textbf{5}} & \multicolumn{4}{|c|}{\textbf{6}}\\
+    \hline
+    1 & Studi Literatur & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}\\
+    \hline
+    2 & Studi \textit{Tools} yang Tersedia & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} &  \cellcolor{blue!25} &  \cellcolor{blue!25} &  \cellcolor{blue!25} &  \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}\\
+    \hline
+    3 & Studi Bahasa Pemrograman & {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}\\
+    \hline
+    4 & Pengumpulan Data & {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {} & {} & {} & {} & {}\\
+    \hline
+    5 & Analisis dan Perancangan Sistem &  {} & {} & {} & {}  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}& {} & {} & {} & {}\\
+    \hline
+    6 & Implementasi Sistem &  {} & {} & {} & {} & {} & {} & {} & {}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}& {} & {} & {} & {}\\
+    \hline
+    7 & Analisa Hasil Implementasi &  {} & {} & {} & {} & {} & {} & {} & {}& {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {} & {} & {}\\
+    \hline
+    8 & Penulisan Laporan & {} & {} & {} & {} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}& \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}\\
+    \hline
+  \end{tabular}
+\end{table}
