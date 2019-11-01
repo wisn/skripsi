@@ -22,4 +22,6 @@ I will tidy it up later.
 - \[28/10/2019\] Adding "Latar Belakang", "Perumusan Masalah", and "Tujuan" section.
   Also, adding the first reference.
 - \[31/10/2019\] Finishing the first chapter.
-- \[01/11/2019\] Updating the first chapter and abstract.
+- \[01/11/2019\]
+  - Updating the first chapter and abstract.
+  - Initialized second chapter.
