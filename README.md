@@ -25,3 +25,4 @@ I will tidy it up later.
 - \[01/11/2019\]
   - Updating the first chapter and abstract.
   - Initialized second chapter.
+  - Finalize literature study on Categorial Grammar.
