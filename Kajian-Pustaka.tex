@@ -21,11 +21,19 @@ dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
 Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
 Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
 $X/Y$ ada di bagian kanan atau dengan kata lain $Y$.
-Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{fucntor}
+Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
 $X\backslash{}Y$ ada di bagian kiri atau dengan kata lain $X$.
+Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
+mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
 
 \section{Combinatory Categorial Grammar}
-TBA.
+Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
+diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru.
+Di CCG, \textit{category} dapat dipasangkan dengan \textit{combinator}.
+Dalam hal ini, \textit{combinator} yang dimaksud adalah abstraksi fungsi lambda
+(dalam \textit{lambda calculus}).
+Sebagai contoh, \textit{category} $(S\backslash{}NP)/NP$ dapat dipasangkan dengan fungsi lambda
+$\lambda{x. fx}$ sehingga dapat ditulis menjadi $(S\backslash{}NP)/NP : \lambda{x. fx}$.
 
 
 \section{Category Theory}
@@ -33,7 +41,31 @@ TBA.
 
 
 \section{Lambda Calculus}
-TBA.
+\textit{Lambda calculus} ({$\lambda$}\textit{-calculus}) merupakan sebuah formalisme yang dikembangkan
+oleh Alonzo Church sebagai alat yang digunakan untuk memahami konsep komputasi yang efektif
+\cite{DBLP:journals/corr/Rojas15}.
+Formalisme {$\lambda$}\textit{-calculus} cukup populer dan bahkan dijadikan sebagai pondasi teori bagi
+paradigma pemrograman \textit{functional programming}.
+Konsep utama dari {$\lambda$}\textit{-calculus} adalah apa yang disebut dengan \textit{expression}.
+Suatu \textit{expression} dalam {$\lambda$}\textit{-calculus} terdiri dari tiga bagian yaitu
+\textit{lambda notation} ({$\lambda$}), \textit{argument} (seperti $a$, $b$, $c$, $x$, dan lain-lain),
+dan \textit{body} yang dipisahkan dengan tanda titik.
+Sebagai contoh, fungsi lambda ${\lambda}x. x$ merupakan sebuah fungsi identitas yang mengambil
+argumen $x$ kemudian mengembalikan nilai $x$ itu sendiri.
+Dalam hal ini, terlihat bahwa notasi {$\lambda$} merupakan sebuah penanda bagi suatu fungsi lambda.
+Kemudian, pengubah $x$ setelah notasi {$\lambda$} merupakan argumen dari fungsi tersebut.
+Selanjutnya, tanda titik merupakan pemisah antara \textit{head} dan \textit{body} fungsi lambda.
+Terakhir, setelah tanda titik adalah \textit{body} dari suatu fungsi lambda yang mana berupa
+\textit{expression}.
+
+Untuk mempermudah pemahaman, {$\lambda$}\textit{-calculus} dapat diperlakukan seperti fungsi tanpa
+nama. Sebagai contoh, fungsi lambda $({\lambda}x. x + 5)$ apabila diberikan nilai $2$ sehingga
+menjadi $({\lambda}x. x + 5) 2$ akan dievaluasi menjadi ${\lambda}(2). (2) + 5$.
+Demikian itu, nilai yang dikembalikan oleh fungsi tersebut adalah $7$.
+Sama seperti fungsi pada umumnya, konsep ini bernama \textit{substition} (substitusi).
+Memahami {$\lambda$}\textit{-calculus} dirasa perlu berhubung dalam tugas akhir ini
+{$\lambda$}\textit{-calculus} digunakan sebagai bentuk formal di \textit{category}
+dalam konteks CCG \textit{lexicon}.
 
 
 \section{Supertagging}

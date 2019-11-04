@@ -26,3 +26,5 @@ I will tidy it up later.
   - Updating the first chapter and abstract.
   - Initialized second chapter.
   - Finalize literature study on Categorial Grammar.
+- \[05/11/2019\]
+  - Init literature study on Lambda Calculus.
