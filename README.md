@@ -28,3 +28,5 @@ I will tidy it up later.
   - Finalize literature study on Categorial Grammar.
 - \[05/11/2019\]
   - Init literature study on Lambda Calculus.
+- \[09/11/2019\]
+  - Update literature study for Combinatory Categorial Grammar.

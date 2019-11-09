@@ -28,12 +28,36 @@
 %\usepackage[pageanchor]{hyperref}
 \usepackage{bookmark}
 \usepackage{dirtytalk}
+% \usepackage{ccg-latex}
+% \usepackage{booktabs}
 
+% CCG
+\usepackage[TABcline]{tabstackengine}
+
+\def\tbs{\,\textbackslash}
+%
 
 \makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
+
+% CCG
+\newcommand{\so}[1]{\ensuremath{\mbox{\it #1}^\prime}}
+\newcommand\CCGFA{%
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{$>$}}}}
+\newcommand\CCGBA{%
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{$<$}}}}
+\newcommand\CCGCOOR{%
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{\footnotesize $<\&>$}}}}
+%
 \makeatother
+
+% CCG
+\setlength\TABruleshift{\dimexpr.5\ht\strutbox-.5\dp\strutbox}
+\setstacktabbedgap{1ex}
+\TABstackTextstyle{\itshape}
+\setstackgap{S}{2pt}
+%
 
 \chapterfont{\centering}
 \newcommand{\bigsize}{\fontsize{16pt}{14pt}\selectfont}
