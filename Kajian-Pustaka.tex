@@ -76,7 +76,10 @@ Dengan kamus seperti tersebut, apabila kita memiliki kalimat
 Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
 yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
 operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
-dan \textit{backward application}. Kita dapatkan:
+dan \textit{backward application}.
+Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
+\textit{backward application}.
+Sehingga, kita dapatkan:
 
 \begin{center}
   \bgroup
@@ -118,9 +121,21 @@ dan \textit{backward application}. Kita dapatkan:
       & & &\\
     \TABrule & \TABrule &
       \TABrule & \TABrule &
+      \TABrule\CCGTR & &
+      & & &\\
+    & &
+      ?{^{$S/(S\backslash NP)$}}
+      \ \ \ \ \ \ \ \ \ 
+      & & & & & & &\\
+    & &
+      ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
+      \ \ \ \ \ \ \ \ \ 
+      & & & & & & &\\
+    \TABrule & \TABrule &
       \TABrule & \TABrule &
       \TABrule & \TABrule &
-      \TABrule\CCGBA &\\
+      \TABrule & \TABrule &
+      \TABrule\CCGFA &\\
     & & &
       ?{^{$S$}}
       & & & & & &\\

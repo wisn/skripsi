@@ -30,3 +30,5 @@ I will tidy it up later.
   - Init literature study on Lambda Calculus.
 - \[09/11/2019\]
   - Update literature study for Combinatory Categorial Grammar.
+- \[11/11/2019\]
+  - Fix CCG evaluation. Use type rising as well.
