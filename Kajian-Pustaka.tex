@@ -16,34 +16,34 @@ Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \tex
 Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
 Lambek, dan kemudian dimodifikasi dalam kelompok teori yang dibedakan sebagai tata bahasa
 \say{\textit{combinatory}} \textit{categorial grammar} (CCG).
-Sebagai contoh, \textit{category} $(S\backslash{}NP)/NP$ merupakan suatu \textit{functor} yang memiliki
-dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ merupakan suatu \textit{functor} yang
+memiliki dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
 Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
 Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
-$X/Y$ ada di bagian kanan atau dengan kata lain $Y$.
+$\text{X}/\text{Y}$ ada di bagian kanan atau dengan kata lain $\text{Y}$.
 Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
-$X\backslash{}Y$ ada di bagian kiri atau dengan kata lain $X$.
+$\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$.
 Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
 mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
 
 \section{Combinatory Categorial Grammar}
 Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
 diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru.
-Di CCG, \textit{category} dapat dipasangkan dengan \textit{combinator}.
-Dalam hal ini, \textit{combinator} yang dimaksud adalah abstraksi fungsi lambda
-(dalam \textit{lambda calculus}).
-Sebagai contoh, \textit{category} $(S\backslash{}NP)/NP$ dapat dipasangkan dengan fungsi lambda
-$\lambda{x. fx}$ sehingga dapat ditulis menjadi $(S\backslash{}NP)/NP : \lambda{x. fx}$.
+Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
+Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
+(dalam \textit{lambda calculus}, \textit{lambda function}).
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
+$\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
 Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
 Sebagai contoh, anggap saja kita memiliki kamus pemetaan sebagai berikut.
 
 \begin{small}
 \begin{align*}
-  {Pamungkas} &\vdash NP: \so{pamungkas}\\
-  {Setyo} &\vdash NP: \so{setyo}\\
-  {dan} &\vdash CONJ: \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
-  {menyukai} &\vdash (S{\backslash}NP)/NP: \lambda x.\lambda y.\ suka(y, x)\\
-  {rendang} &\vdash NP: \so{rendang}
+  \text{Pamungkas} &\vdash \text{NP}: \so{pamungkas}\\
+  \text{Setyo} &\vdash \text{NP}: \so{setyo}\\
+  \text{dan} &\vdash \text{CONJ}: \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+  \text{menyukai} &\vdash \text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)\\
+  \text{rendang} &\vdash \text{NP}: \so{rendang}
 \end{align*}
 \end{small}
 
@@ -59,11 +59,11 @@ Dengan kamus seperti tersebut, apabila kita memiliki kalimat
   \tabbedShortstack{
     !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
     \TABcline{1,3,5,7,9}
-    !^{$NP$} & &
-      !^{$CONJ$} & &
-      !^{$NP$} & &
-      !^{$(S\backslash NP)/NP$} & &
-      !^{$NP$} &\\
+    !^{$\text{NP}$} & &
+      !^{$\text{CONJ}$} & &
+      !^{$\text{NP}$} & &
+      !^{$\text{(S$\backslash$NP)/NP}$} & &
+      !^{$\text{NP}$} &\\
     !{*: \so{pamungkas}} & &
       !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
       !{*: \so{setyo}} & &
@@ -90,11 +90,11 @@ Sehingga, kita dapatkan:
   \tabbedLongunderstack{
     !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
     \TABcline{1,3,5,7,9}
-    !^{$NP$} & &
-      !^{$CONJ$} & &
-      !^{$NP$} & &
-      !^{$(S\backslash NP)/NP$} & &
-      !^{$NP$} &\\
+    !^{$\text{NP}$} & &
+      !^{$\text{CONJ}$} & &
+      !^{$\text{NP}$} & &
+      !^{$\text{(S$\backslash$NP)/NP}$} & &
+      !^{$\text{NP}$} &\\
     !{*: \so{pamungkas}} & &
       !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
       !{*: \so{setyo}} & &
@@ -106,11 +106,11 @@ Sehingga, kita dapatkan:
       \TABrule & \TABrule &
       \TABrule\CCGFA &\\
     & &
-      ?{^{$NP$}}
+      !?{^{$\text{NP}$}}
       \ \ \ \ \ \ \ \ \ 
       & & & &
       \ \ \ \ \ \ \ 
-      ?{^{$S\backslash NP$}}
+      !?{^{$\text{S$\backslash$NP}$}}
       & & &\\
     & &
       ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
@@ -124,7 +124,7 @@ Sehingga, kita dapatkan:
       \TABrule\CCGTR & &
       & & &\\
     & &
-      ?{^{$S/(S\backslash NP)$}}
+      !?{^{$\text{S/(S$\backslash$NP)}$}}
       \ \ \ \ \ \ \ \ \ 
       & & & & & & &\\
     & &
@@ -137,7 +137,7 @@ Sehingga, kita dapatkan:
       \TABrule & \TABrule &
       \TABrule\CCGFA &\\
     & & &
-      ?{^{$S$}}
+      !?{^{$\text{S}$}}
       & & & & & &\\
     & & &
       ?{*: $suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})$}
@@ -206,11 +206,81 @@ sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir i
 
 
 \section{Supertagging}
-TBA.
+\textit{Supertagging} merupakan proses yang memetakan suatu token kata ke bentuk
+\textit{supertag}-nya. CCG \textit{supertagging} artinya proses pemetaan dari suatu token
+kata ke dalam bentuk CCG \textit{supertag} atau dapat juga disebut sebagai CCG \textit{lexicon}.
+\textit{Supertag} mirip dengan POS \textit{tag}.
+Perbedaannya, \textit{supertag} memiliki bentuk formalisme yang lebih kompleks dari POS
+\textit{tag}.
+Hal ini dikarenakan \textit{supertag} menyimpan informasi lain selain tanda gramatikalnya
+($\text{NP}$, $\text{NN}$, $\text{VB}$, dan sebagainya).
+Sebagai contoh, CCG \textit{supertag} memiliki bentuk dengan format:
+
+\begin{equation*}
+<\text{categorial\ grammar\ tag}>:\ <\text{semantic\ representation}>
+\end{equation*}
+
+Kita dapat menggunakan notasi $\vdash$ untuk memetakan token kata ke bentuk CCG
+\textit{supertag}-nya.
+Anggap kita memiliki kata kerja \say{menyukai} yang akan dipetakan ke
+$\text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)$, kita dapatkan:
+
+\begin{equation*}
+  \text{menyukai} \vdash (S{\backslash}NP)/NP: \lambda x.\lambda y.\ suka(y, x)
+\end{equation*}
+
+Adapun sebuah \textit{tool} yang melakukan proses \textit{supertagging} ini dinamakan
+\textit{supertagger}.
+\textit{Supertagger} sederhananya mengambil daftar token kata yang kemudian untuk setiap
+token kata tersebut \say{dilabelkan} dengan \textit{supertag}-nya.
 
 
 \section{Maximum Entropy Model}
-TBA.
+\textit{Maximum Entropy} (MaxEnt) merupakan model statistik yang dapat digunakan untuk
+melakukan \textit{train} korpus teranotasi dengan Part-Of-Speech (POS) \textit{tag}.
+Salah satu aplikasi MaxEnt adalah POS \textit{tagger} yang mana memiliki hasil akurasi
+yang lebih baik ketimbang \textit{state-of-the-art}.
+Adapun model probabilitasnya didefinisikan dalam $\mathcal{H}\times\mathcal{T}$,
+dimana $\mathcal{H}$ adalah himpunan dari kemungkinan kata dan konteks \textit{tag},
+atau \say{\textit{history}} (riwayat), dan $\mathcal{T}$ adalah himpunan dari
+\textit{tag} yang diizinkan.
+Model probabilitas dari suatu \textit{history} $h$ bersama dengan \textit{tag} $t$
+didefinisikan dalam persamaan \ref{maxent:equation:1}.
+
+\begin{equation}\label{maxent:equation:1}
+  p(h, t) = \pi\mu\prod_{j = 1}^{k} a_{j}^{f_{j}(h, t)}
+\end{equation}
+
+\noindent
+dimana $\pi$ merupakan konstan normalisasi,
+$\{\mu, a_1, \dots, a_k\}$ merupakan parameter model positif,
+dan $\{f_1, \dots, f_k\}$ merupakan apa yang kita sebut sebagai
+\say{\textit{feature}},
+dimana $f_j(h, t) \in \{0, 1\}$.
+
+Meskipun MaxEnt dipernalkan untuk POS \textit{tagging},
+MaxEnt dapat pula digunakan untuk \textit{supertagging}.
+Stephen Clark 2002 mempublikasikan literatur \textit{supertagging} untuk CCG yang
+mana MaxEnt merupakan model yang digunakan.
+Adapun persamaan modelnya dapat dilihat di persamaan \ref{maxent:equation:2}.
+
+\begin{equation}\label{maxent:equation:2}
+  p(c|h) = \frac{1}{Z(h)} e^{\Sigma_i \lambda_if_i(c, h)}
+\end{equation}
+
+\noindent
+dimana $c$ merupakan \textit{category}, $h$ merupakan \textit{context},
+fungsi $f_i(c, h)$ merupakan \say{\textit{feature}} dari suatu
+\textit{category} dan \textit{context}, dan $Z(h)$ merupakan konstan normalisasinya.
+Adapun contoh \say{\textit{feature}} yang dimaksud sebagai berikut.
+
+\begin{equation}\label{maxent:equation:3}
+  f_j(c, h) =
+  \begin{cases}
+    1 &, \text{if } merupakan\_kata\_yang(h) = true\ \&\ c = \text{NP/N}\\
+    0 &, \text{selainnya}
+  \end{cases}
+\end{equation}
 
 
 % \section{Time Seies method}

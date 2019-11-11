@@ -2,8 +2,8 @@
 
 This is my final project repository as a college student from Telkom University.
 I have an interest in natural language processing so I decided to write something.
-The title is **Building a Maximum Entropy based Combinatory Categorial Grammar (CCG) Supertagger**
-**for Bahasa Indonesia**.
+The title is **Building a Combinatory Categorial Grammar (CCG) Supertagger
+Based on the Maximum Entropy for Bahasa Indonesia**.
 It is written in bahasa Indonesia.
 As for the English version, it will be coming up later on the different repository.
 
@@ -33,3 +33,4 @@ I will tidy it up later.
 - \[11/11/2019\]
   - Fix CCG evaluation. Use type rising as well.
   - Add Category Theory on the literature study.
+  - Add some stuff. I actually forgot lmao.
