@@ -32,3 +32,4 @@ I will tidy it up later.
   - Update literature study for Combinatory Categorial Grammar.
 - \[11/11/2019\]
   - Fix CCG evaluation. Use type rising as well.
+  - Add Category Theory on the literature study.
