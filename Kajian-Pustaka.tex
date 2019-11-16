@@ -35,20 +35,20 @@ Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi f
 Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
 $\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
 Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
-Sebagai contoh, anggap saja kita memiliki kamus pemetaan sebagai berikut.
+Sebagai contoh, anggap saja kita memiliki kamus pemetaan seperti pada Gambar \ref{ccg:mapping:1}.
+Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka kita dapatkan:
 
-\begin{small}
-\begin{align*}
-  \text{Pamungkas} &\vdash \text{NP}: \so{pamungkas}\\
-  \text{Setyo} &\vdash \text{NP}: \so{setyo}\\
-  \text{dan} &\vdash \text{CONJ}: \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
-  \text{menyukai} &\vdash \text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)\\
-  \text{rendang} &\vdash \text{NP}: \so{rendang}
-\end{align*}
-\end{small}
-
-Dengan kamus seperti tersebut, apabila kita memiliki kalimat
-\say{Pamungkas dan Setyo menyukai rendang}, maka akan kita dapatkan:
+\begin{figure}\centering\small
+  \begin{align*}
+    \text{Pamungkas} &\vdash \text{NP}: \so{pamungkas}\\
+    \text{Setyo} &\vdash \text{NP}: \so{setyo}\\
+    \text{dan} &\vdash \text{CONJ}: \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+    \text{menyukai} &\vdash \text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)\\
+    \text{rendang} &\vdash \text{NP}: \so{rendang}
+  \end{align*}
+  \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
+  \label{ccg:mapping:1}
+\end{figure}
 
 \begin{center}
   \bgroup
@@ -76,9 +76,9 @@ Dengan kamus seperti tersebut, apabila kita memiliki kalimat
 Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
 yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
 operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
-dan \textit{backward application}.
+dan \textit{type rising}.
 Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
-\textit{backward application}.
+\textit{forward application} di akhir.
 Sehingga, kita dapatkan:
 
 \begin{center}
@@ -149,16 +149,15 @@ Sehingga, kita dapatkan:
 Berdasarkan hasil evaluasi tersebut, kita dapatkan \textit{query} \ref{ccg:query:1}
 yang diperoleh dari kalimat \say{Pamungkas dan Setyo menyukai rendang}.
 Demikian itu, komputer dapat melakukan komputasi berdasarkan \textit{query} yang telah diperoleh.
-
-\begin{equation}\label{ccg:query:1}
-  suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
-\end{equation}
-
 Kegiatan tersebut merupakan apa yang disebut dengan CCG \textit{parsing}.
 Untuk dapat melakukan parsing, CCG \textit{lexicon} diperlukan.
 Untuk mendapatkan CCG \textit{lexicon} kita dapat menggunakan CCG \textit{supertagger}
 yang akan melakukan pelabelan suatu token kata ke CCG \textit{lexicon} berdasarkan
 pemetaannya.
+
+\begin{equation}\label{ccg:query:1}
+  suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
+\end{equation}
 
 \section{Category Theory}
 \textit{Category Theory} (CT) merupakan formalisme yang dapat digunakan untuk memformalkan
@@ -272,7 +271,8 @@ Adapun persamaan modelnya dapat dilihat di persamaan \ref{maxent:equation:2}.
 dimana $c$ merupakan \textit{category}, $h$ merupakan \textit{context},
 fungsi $f_i(c, h)$ merupakan \say{\textit{feature}} dari suatu
 \textit{category} dan \textit{context}, dan $Z(h)$ merupakan konstan normalisasinya.
-Adapun contoh \say{\textit{feature}} yang dimaksud sebagai berikut.
+Adapun contoh \say{\textit{feature}} yang dimaksud dapat dilihat di persamaan
+\ref{maxent:equation:3}.
 
 \begin{equation}\label{maxent:equation:3}
   f_j(c, h) =

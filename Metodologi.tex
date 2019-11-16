@@ -1,69 +1,198 @@
-\chapter{Metodologi dan Desain Sistem}
-\section{Flowchart sistem}
-
-%Definisikan bentuk dan warna
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
 \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, minimum width=3cm, draw=black, fill=orange!30]
 \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20,
-    minimum height=2em]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, minimum height=2em]
 
-\begin{figure}[h!]
-    \centering
-    %Mulai menggambar Flowchart
-\begin{tikzpicture}[node distance=2cm]
-\node (start) [cloud] {Start};
-\node (in1) [io, below of=start] {Input};
-\node (pro1) [process, below of=in1] {Process 1};
-\node (dec1) [decision, below of=pro1] {Decision 1};
-\node (pro2a) [process, below of=dec1, yshift=-0.5cm] {Process 2a};
-\node (pro2b) [process, right of=dec1, xshift=2cm] {Process 2b};
-\node (out1) [io, below of=pro2a] {Output};
-\node (stop) [cloud, below of=out1] {Stop};
-\draw [arrow] (start) -- (in1);
-\draw [arrow] (in1) -- (pro1);
-\draw [arrow] (pro1) -- (dec1);
-\draw [arrow] (dec1) -- (pro2a);
-\draw [arrow] (dec1) -- (pro2b);
-\draw [arrow] (pro2b) |- (pro1);
-\draw [arrow] (pro2a) -- (out1);
-\draw [arrow] (out1) -- (stop);
-\end{tikzpicture}
-    \caption{Caption flowchart}
-    \label{figflow}
+\chapter{Metodologi dan Desain Sistem}
+
+\section{Pembuatan \textit{Dataset}}
+
+\textit{Dataset} untuk melakukan \textit{train} CCG sayangnya belum tersedia.
+Karenanya, kita akan membuatkan \textit{dataset} secara semi otomatis dengan memanfaatkan POS
+\textit{tagger} untuk bahasa Indonesia.
+Secara formal, \textit{flowchart} untuk proses pembuatan \textit{dataset} dapat dilihat pada
+Gambar \ref{flowchart:dataset:1}.
+
+\begin{figure}[h!]\centering
+	\begin{tikzpicture}[node distance=2cm]
+		\node (start) [cloud] {Start};
+		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
+		\node (pro1) [process, below of=in, yshift=0.5cm] {POS \textit{tagging}};
+		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
+		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
+		\node (pro3) [process, below of=dec, yshift=-1cm] {Transformasi POS \textit{tag}};
+		\node (out) [io, below of=pro3, yshift=0.5cm] {\textit{Output} CCG \textit{lexicon}};
+		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
+		\draw [arrow] (start) -- (in);
+		\draw [arrow] (in) -- (pro1);
+		\draw [arrow] (pro1) -- (pro2);
+		\draw [arrow] (pro2) -- (dec);
+		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
+		\draw [arrow] (pro3) -- +(-3,0) |- (dec);
+		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
+		\draw [arrow] (out) -- (stop);
+	\end{tikzpicture}
+	\caption{Alur kerja pembuatan \textit{dataset} untuk CCG \textit{lexicon}.}
+	\label{flowchart:dataset:1}
 \end{figure}
 
-\section{Algoritma}
- Atau dalam bentuk algoritma seperti contoh pada Algoritma \ref{Algo:FVDM} berikut ini:
+\subsection{\textit{Input} Teks Bahasa Indonesia}
+
+Pada bagian \textit{input} dalam pembuatan \textit{dataset}, kita dapat mengambil teks bahasa Indonesia
+dari Indonesian Treebank\footnotemark\ dan/atau dari beberapa contoh artikel yang terdapat di
+\textit{website} Wikipedia Indonesia\footnotemark.
+Indonesian Treebank terdapat setidaknya 1000 kalimat yang dirasa cukup untuk melakukan
+\textit{training} menggunakan model MaxEnt.
+Apa yang perlu dilakukan setelah mengambil \textit{input} adalah membersihkan bentuk \textit{tree}-nya
+untuk kemudian diambilkan kalimat yang sebenarnya.
+Caranya cukup sederhana yaitu dengan mengambil \textit{leaf} dari \textit{tree} tersebut kemudian
+disatukan di suatu pengubah dengan tipe data \textit{string}.
+
+Sebagai contoh, salah satu \textit{tree} yang terdapat di Indonesian Treebank dapat dilihat pada
+Gambar \ref{treebank:tree:1}.
+Apa yang dimaksud dengan \textit{leaf} pada \textit{tree} tersebut adalah $(Kera)$, $(untuk)$,
+$(*)$, $(amankan)$, $(pesta\ olahraga)$.
+Terkhusus untuk \textit{leaf} dengan bentuk spesial, seperti $(*)$, kita hilangkan sehingga teks
+yang diperoleh dari \textit{tree} tersebut adalah \say{Kera untuk amankan pesta olahraga}.
+Selanjutnya, contoh teks yang akan digunakan agar konsisten yaitu
+\say{Pamungkas dan Setyo menyukai rendang}.
+
+
+\begin{figure}\centering\small
+	\begin{align*}
+		&(NP\\
+		&\ \ (NN\ (Kera))\\
+		&\ \ (SBAR\\
+		&\ \ \ \ (SC\ (untuk))\\
+		&\ \ \ \ (S\ (NP-SBJ\ (*))\\
+		&\ \ \ \ \ \ (VP\\
+		&\ \ \ \ \ \ \ \ (VB\ (amankan))\\
+		&\ \ \ \ \ \ \ \ (NP\ (NN\ (pesta\ olahraga)))))))
+	\end{align*}
+	\caption{Salah satu contoh \textit{tree} dalam Indonesian Treebank.}
+	\label{treebank:tree:1}
+\end{figure}
+
+\footnotetext{github.com/famrashel/idn-treebank/blob/master/Indonesian\_Treebank.bracket}
+\footnotetext{id.wikipedia.org}
+
+\subsection{POS \textit{Tagging}}
+
+Berdasarkan teks bahasa Indonesia yang telah diambil, kita manfaatkan \textit{tool} POS \textit{tagger}
+bahasa Indonesia untuk mendapatkan \textit{lexical category} atomik untuk masing-masing token.
+Dengan memanfaatkan POS \textit{tag} kita dapat membuat \textit{dataset} untuk CCG \textit{supertag}
+lebih mudah dibandingkan dengan memberikan \textit{tag} CCG secara manual.
+Ide dasarnya yaitu kita akan mentransformasikan POS \textit{tag} yang didapatkan menjadi CCG
+\textit{supertag} berdasarkan aturan-aturan khusus yang telah ditentukan.
+Sebagai contoh, kita dapat membuat aturan seperti mentransformasikan $\text{VB}$ menjadi
+$\text{(S$\backslash$NP)/NP}$.
+Dengan menggunakan contoh kalimat yang sama seperti di bagian sebelumnya,
+yaitu \say{Pamungkas dan Setyo menyukai rendang}, setelah menggunakan POS \textit{tagger} bahasa
+Indonesia kita dapatkan hasil sesuai dengan Gambar \ref{postag:1}.
+
+\begin{figure}\centering
+  \bgroup
+  \catcode`!=\active \def!{\upshape}
+  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+  \catcode`^=\active \def^#1{\footnotesize{#1}}
+  \catcode`*=\active \def*#1{\scriptsize{#1}}
+  \tabbedShortstack{
+    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+    \TABcline{1,3,5,7,9}
+    !^{$\text{NNP}$} & &
+      !^{$\text{CC}$} & &
+      !^{$\text{NNP}$} & &
+      !^{$\text{VB}$} & &
+      !^{$\text{X}$} &
+  }
+	\egroup
+	\caption{Kalimat contoh dengan POS \textit{tag}-nya.}
+	\label{postag:1}
+\end{figure}
+
+\subsection{Transformasi POS \textit{Tag}}
+
+Pada bagian proses transformasi POS \textit{tag} ke bentuk CCG \textit{supertag}-nya,
+kita buatkan aturan-aturan transformasinya.
+Aturan transformasi tersebut merupakan pemetaan berbasis aturan.
+Sebagai contoh, kata \say{menyukai} memiliki POS \textit{tag} $\text{VB}$.
+Anggap saja dalam aturan transformasi terdapat pemetaan $\text{VB} \vdash \text{(S$\backslash$NP)/NP}$.
+Sehingga, kita dapatkan CCG \textit{supertag} untuk \say{menyukai} yaitu $\text{(S$\backslash$NP)/NP}$.
+Kendati demikian, masih ada bagian yang belum kita dapatkan yaitu \textit{semantic representation}-nya.
+Kita dapat menggunakan \textit{stemmer} bahasa Indonesia agar mendapatkan \textit{root words}
+dari kata \say{menyukai} yaitu \say{suka}.
+Langkah terakhirnya adalah membuatkan \textit{semantic representation}-nya berdasarkan
+\textit{root words} yang telah diperoleh sehingga kita dapatkan fungsi lambdanya yaitu
+$\lambda x.\lambda y.\ \text{suka}(y, x)$.
+
+Selain menggunakan \textit{stemmer}, kita dapat menggunakan \textit{morphological analyzer}.
+Untuk bahasa Indonesia, kita dapat menggunakan \textit{tool} bernama MorphInd\footnotemark.
+\textit{Morphological analyzer} salah satu kegunaannya yaitu dapat menghasilkan \textit{root words}
+sehingga dapat kita manfaatkan untuk membuat fungsi lambda.
+Namun, kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} untuk bahasa Indonesia.
+Hal ini agar \textit{dataset} yang dibuatkan secara semi-otomatis ini dapat memiliki kualitas yang
+baik.
+
+\footnotetext{septinalarasati.com/morphind/}
+
+% \section{Flowchart sistem}
+
+% \begin{figure}[h!]
+%     \centering
+%     %Mulai menggambar Flowchart
+% \begin{tikzpicture}[node distance=2cm]
+% \node (start) [cloud] {Start};
+% \node (in1) [io, below of=start] {Input};
+% \node (pro1) [process, below of=in1] {Process 1};
+% \node (dec1) [decision, below of=pro1] {Decision 1};
+% \node (pro2a) [process, below of=dec1, yshift=-0.5cm] {Process 2a};
+% \node (pro2b) [process, right of=dec1, xshift=2cm] {Process 2b};
+% \node (out1) [io, below of=pro2a] {Output};
+% \node (stop) [cloud, below of=out1] {Stop};
+% \draw [arrow] (start) -- (in1);
+% \draw [arrow] (in1) -- (pro1);
+% \draw [arrow] (pro1) -- (dec1);
+% \draw [arrow] (dec1) -- (pro2a);
+% \draw [arrow] (dec1) -- (pro2b);
+% \draw [arrow] (pro2b) |- (pro1);
+% \draw [arrow] (pro2a) -- (out1);
+% \draw [arrow] (out1) -- (stop);
+% \end{tikzpicture}
+%     \caption{Caption flowchart}
+%     \label{figflow}
+% \end{figure}
+
+% \section{Algoritma}
+%  Atau dalam bentuk algoritma seperti contoh pada Algoritma \ref{Algo:FVDM} berikut ini:
  
 
-\begin{algorithm}
- \begin{algorithmic}[1]
-    \Procedure{FVDM}{$Tfinal, \Delta t$}
-    \State \text{Start}
-	\State \textbf{For }$n=1:N$\textbf{ do} \Comment{Pemberian nilai awal}
-	\State \hspace{0.5cm} Input nilai $x[n]$
-	\State \hspace{0.5cm} Input nilai $v[n]$
-	\State \textbf{EndFor}
-	\State \text{time=0}
-	\While{$time < Tfinal$}
-	\State \hspace{0.5cm} $time=time +\Delta t$
-	\State \hspace{0.5cm} Hitung jarak bamper menggunakan rumus  untuk $n=2,\cdots,N$ 
-	\State \hspace{0.5cm} \textbf{If}( $S(n) \leq 0 m)$ \textbf{then return End If}.
-	\State \hspace{0.5cm} Tentukan $\lambda$ menggunakan.
-	\State \hspace{0.5cm} Hitung kecepatan optimal $v_o(t)$ menggunakan.
-	\State \hspace{0.5cm} Hitung percepatan $a_n(time)$ menggunakan .
-	\State \hspace{0.5cm} Hitung kecepatan baru dengan $v_n(time)=v_n(time-\Delta t) + a_n(time) \Delta t$.
-	\State \hspace{0.5cm} Hitung posisi baru dengan $x_n(time)=x_n(time-\Delta t) + v_n(time) \Delta t$.
-	\State \hspace{0.5cm} \textbf{If}( $\Delta v \leq 10^{-5} \&\& a_n(time)\leq 10^{-5})$ \textbf{then}  
-    \State \hspace{0.5cm} \hspace{0.5cm} \text{OUTPUT }Cetak hasil data $a_n, v_n, x_n$.
-	\State \hspace{0.5cm} \hspace{0.5cm} \textbf{return}.
-	\State \hspace{0.5cm} \textbf{End If}.
-	\EndWhile
-	\State \text{End}
- \EndProcedure
- \end{algorithmic}
- \caption{Prosedur simulasi dinamika lalu lintas menggunakan FVDM.}\label{Algo:FVDM}
-\end{algorithm}
+% \begin{algorithm}
+%  \begin{algorithmic}[1]
+%     \Procedure{FVDM}{$Tfinal, \Delta t$}
+%     \State \text{Start}
+% 	\State \textbf{For }$n=1:N$\textbf{ do} \Comment{Pemberian nilai awal}
+% 	\State \hspace{0.5cm} Input nilai $x[n]$
+% 	\State \hspace{0.5cm} Input nilai $v[n]$
+% 	\State \textbf{EndFor}
+% 	\State \text{time=0}
+% 	\While{$time < Tfinal$}
+% 	\State \hspace{0.5cm} $time=time +\Delta t$
+% 	\State \hspace{0.5cm} Hitung jarak bamper menggunakan rumus  untuk $n=2,\cdots,N$ 
+% 	\State \hspace{0.5cm} \textbf{If}( $S(n) \leq 0 m)$ \textbf{then return End If}.
+% 	\State \hspace{0.5cm} Tentukan $\lambda$ menggunakan.
+% 	\State \hspace{0.5cm} Hitung kecepatan optimal $v_o(t)$ menggunakan.
+% 	\State \hspace{0.5cm} Hitung percepatan $a_n(time)$ menggunakan .
+% 	\State \hspace{0.5cm} Hitung kecepatan baru dengan $v_n(time)=v_n(time-\Delta t) + a_n(time) \Delta t$.
+% 	\State \hspace{0.5cm} Hitung posisi baru dengan $x_n(time)=x_n(time-\Delta t) + v_n(time) \Delta t$.
+% 	\State \hspace{0.5cm} \textbf{If}( $\Delta v \leq 10^{-5} \&\& a_n(time)\leq 10^{-5})$ \textbf{then}  
+%     \State \hspace{0.5cm} \hspace{0.5cm} \text{OUTPUT }Cetak hasil data $a_n, v_n, x_n$.
+% 	\State \hspace{0.5cm} \hspace{0.5cm} \textbf{return}.
+% 	\State \hspace{0.5cm} \textbf{End If}.
+% 	\EndWhile
+% 	\State \text{End}
+%  \EndProcedure
+%  \end{algorithmic}
+%  \caption{Prosedur simulasi dinamika lalu lintas menggunakan FVDM.}\label{Algo:FVDM}
+% \end{algorithm}
