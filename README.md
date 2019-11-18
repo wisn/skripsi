@@ -34,3 +34,6 @@ I will tidy it up later.
   - Fix CCG evaluation. Use type rising as well.
   - Add Category Theory on the literature study.
   - Add some stuff. I actually forgot lmao.
+- \[19/11/2019\]
+  - Adding some stuff.
+  - Remove unnecessary stuff.
