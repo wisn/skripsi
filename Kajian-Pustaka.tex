@@ -40,11 +40,11 @@ Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka k
 
 \begin{figure}\centering\small
   \begin{align*}
-    \text{Pamungkas} &\vdash \text{NP}: \so{pamungkas}\\
-    \text{Setyo} &\vdash \text{NP}: \so{setyo}\\
-    \text{dan} &\vdash \text{CONJ}: \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
-    \text{menyukai} &\vdash \text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)\\
-    \text{rendang} &\vdash \text{NP}: \so{rendang}
+    \text{Pamungkas} &\ \vdash\ \text{NP}:\ \so{pamungkas}\\
+    \text{Setyo} &\ \vdash\ \text{NP}:\ \so{setyo}\\
+    \text{dan} &\ \vdash\ \text{CONJ}:\ \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+    \text{menyukai} &\ \vdash\ \text{(S{$\backslash$}NP)/NP}:\ \lambda x.\lambda y.\ suka(y, x)\\
+    \text{rendang} &\ \vdash\ \text{NP}:\ \so{rendang}
   \end{align*}
   \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
   \label{ccg:mapping:1}
@@ -216,7 +216,7 @@ Hal ini dikarenakan \textit{supertag} menyimpan informasi lain selain tanda gram
 Sebagai contoh, CCG \textit{supertag} memiliki bentuk dengan format:
 
 \begin{equation*}
-<\text{categorial\ grammar\ tag}>:\ <\text{semantic\ representation}>
+<\text{categorial\ grammar\ tag}>\ :\ <\text{semantic\ representation}>
 \end{equation*}
 
 Kita dapat menggunakan notasi $\vdash$ untuk memetakan token kata ke bentuk CCG
@@ -225,7 +225,7 @@ Anggap kita memiliki kata kerja \say{menyukai} yang akan dipetakan ke
 $\text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)$, kita dapatkan:
 
 \begin{equation*}
-  \text{menyukai} \vdash (S{\backslash}NP)/NP: \lambda x.\lambda y.\ suka(y, x)
+  \text{menyukai}\ \vdash\ (S{\backslash}NP)/NP\ :\ \lambda x.\lambda y.\ suka(y, x)
 \end{equation*}
 
 Adapun sebuah \textit{tool} yang melakukan proses \textit{supertagging} ini dinamakan

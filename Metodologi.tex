@@ -7,7 +7,7 @@
 
 \chapter{Metodologi dan Desain Sistem}
 
-\section{Pembuatan \textit{Dataset}}
+\section{Pembuatan Dataset}
 
 \textit{Dataset} untuk melakukan \textit{train} CCG sayangnya belum tersedia.
 Karenanya, kita akan membuatkan \textit{dataset} secara semi otomatis dengan memanfaatkan POS
@@ -38,7 +38,7 @@ Gambar \ref{flowchart:dataset:1}.
 	\label{flowchart:dataset:1}
 \end{figure}
 
-\subsection{\textit{Input} Teks Bahasa Indonesia}
+\subsection{Input Teks Bahasa Indonesia}
 
 Pada bagian \textit{input} dalam pembuatan \textit{dataset}, kita dapat mengambil teks bahasa Indonesia
 dari Indonesian Treebank\footnotemark[1]\ dan/atau dari beberapa contoh artikel yang terdapat di
@@ -78,7 +78,7 @@ Selanjutnya, contoh teks yang akan digunakan agar konsisten yaitu
 \footnotetext[1]{github.com/famrashel/idn-treebank/blob/master/Indonesian\_Treebank.bracket}
 \footnotetext[2]{id.wikipedia.org}
 
-\subsection{POS \textit{Tagging}}
+\subsection{POS Tagging}
 
 Berdasarkan teks bahasa Indonesia yang telah diambil, kita manfaatkan \textit{tool} POS \textit{tagger}
 bahasa Indonesia untuk mendapatkan \textit{lexical category} atomik untuk masing-masing token.
@@ -112,7 +112,7 @@ Indonesia kita dapatkan hasil sesuai dengan Gambar \ref{postag:1}.
 	\label{postag:1}
 \end{figure}
 
-\subsection{Transformasi POS \textit{Tag}}
+\subsection{Transformasi POS Tag}
 
 Pada bagian proses transformasi POS \textit{tag} ke bentuk CCG \textit{supertag}-nya,
 kita buatkan aturan-aturan transformasinya.
@@ -135,4 +135,59 @@ Namun, kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} unt
 Hal ini agar \textit{dataset} yang dibuatkan secara semi-otomatis ini dapat memiliki kualitas yang
 baik.
 
-\footnotetext[3]{septinalarasati.com/morphind/}
+\footnotetext[3]{septinalarasati.com/morphind}
+
+\subsection{Output CCG Supertag}
+
+Keluaran dari bagian pembuatan \textit{dataset} ini adalah sebuah berkas berisi CCG \textit{supertag}
+lengkap dan beberapa berkas CCG \textit{supertag} yang lemanya dikelompokkan berasarkan alfabet.
+Adapun format \textit{dataset} yang disimpan dalam berkas tersebut dapat dilihat pada Gambar
+\ref{dataset:format}.
+Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua baris yaitu
+(1) daftar token yang dipisahkan oleh spasi, dan
+(2) daftar \textit{supertag} yang dibungkus kurung siku (contoh: $\text{[\textit{supertag}]}$) dan
+dipisahkan oleh spasi sejajar dengan tokennya.
+Sebagai contoh, dengan kalimat yang sama dengan sebelum-sebelumnya, dapat dilihat di Gambar
+\ref{dataset:example}.
+Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \textit{supertag}-nya.
+
+\begin{figure}\centering
+	\bgroup
+	\tabbedShortstack{
+		$\text{token}_1$ & $\text{token}_2$ & $\text{token}_3$ & $\dots$ & $\text{token}_n$\\
+		$\text{supertag}_1$ &
+			$\text{supertag}_2$ & $\text{supertag}_3$ & $\dots$ & $\text{supertag}_n$
+	}
+	\egroup
+	\caption{Format \textit{dataset} yang disimpan di dalam berkas.}
+	\label{dataset:format}
+\end{figure}
+
+\begin{figure}\centering\tiny
+	\bgroup
+	\tabbedShortstack{
+		Pamungkas & dan & Setyo & menyukai & rendang & .\\
+		$\text{[NP\ :\ \so{pamungkas}]}$ &
+			$\text{[CONJ\ :\ $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$]}$ &
+			$\text{[NP\ :\ \so{Setyo}]}$ &
+			$\text{[(S{$\backslash$}NP)/NP\ :\ $\lambda x.\lambda y.\ suka(y, x)$]}$ &
+			$\text{[NP\ :\ \so{rendang}]}$ &
+			$\text{[Z]}$
+	}
+	\egroup
+	\caption{Contoh isi dari berkas \textit{dataset}.}
+	\label{dataset:example}
+\end{figure}
+
+\section{Melatih Model Supertagger}
+
+Model yang akan digunakan oleh \textit{supertagger} ini adalah Maximum Entropy (MaxEnt).
+Model ini dipilih karena ketersediaan \textit{dataset} bahasa Indonesia yang masih sangat kurang.
+Selain itu, model MaxEnt digunakan di sebuah riset yang dilakukan oleh Stephen Clark dalam
+pembuatan \textit{supertagger}-nya.
+Bahkan, performansi \textit{supertagger} yang dikembangkan sangat baik.
+Riset tersebut pada intinya membuktikan bahwasannya MaxEnt dapat digunakan di \textit{supertagger}
+juga meskipun pada peruntukannya MaxEnt dibuat untuk POS \textit{tagger}.
+Tentunya terdapat beberapa penyesuaian yang harus dilakukan.
+Salah satunya adalah formula probabiltas yang digunakan.
+Formula yang telah disesuaikan tersebut dapat dilihat di persamaan \ref{maxent:equation:2}.
