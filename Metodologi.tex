@@ -139,43 +139,82 @@ baik.
 
 \subsection{Output CCG Supertag}
 
-Keluaran dari bagian pembuatan \textit{dataset} ini adalah sebuah berkas berisi CCG \textit{supertag}
-lengkap dan beberapa berkas CCG \textit{supertag} yang lemanya dikelompokkan berasarkan alfabet.
-Adapun format \textit{dataset} yang disimpan dalam berkas tersebut dapat dilihat pada Gambar
+Keluaran dari bagian pembuatan \textit{dataset} ini adalah sebuah berkas JSON
+(JavaScript Object Notation) berisi CCG \textit{supertag} lengkap dan beberapa berkas JSON dari CCG
+\textit{supertag} yang lemanya dikelompokkan berasarkan alfabet.
+Adapun format JSON dari \textit{dataset} yang disimpan dalam berkas tersebut dapat dilihat pada Gambar
 \ref{dataset:format}.
-Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua baris yaitu
-(1) daftar token yang dipisahkan oleh spasi, dan
-(2) daftar \textit{supertag} yang dibungkus kurung siku (contoh: $\text{[\textit{supertag}]}$) dan
-dipisahkan oleh spasi sejajar dengan tokennya.
+Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua objek yaitu
+(1) \say{tokens} berupa daftar token, dan
+(2) \say{supertags} berupa daftar \textit{supertag} untuk token ke-$(i, j)$ dimana $1 \leq i \leq n$
+dan $1 \leq j \leq m$ dalam sistem \textit{$1$-indexed array}.
 Sebagai contoh, dengan kalimat yang sama dengan sebelum-sebelumnya, dapat dilihat di Gambar
 \ref{dataset:example}.
 Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \textit{supertag}-nya.
 
 \begin{figure}\centering
 	\bgroup
-	\tabbedShortstack{
-		$\text{token}_1$ & $\text{token}_2$ & $\text{token}_3$ & $\dots$ & $\text{token}_n$\\
-		$\text{supertag}_1$ &
-			$\text{supertag}_2$ & $\text{supertag}_3$ & $\dots$ & $\text{supertag}_n$
+	\catcode`!=\active \def!{\upshape}
+	\tabbedShortstack[l]{
+		!{[} & & &\\
+			& !{\{} & &\\
+			& & !{\say{tokens}:} &
+				!{[\say{$token_{1,1}$}, \say{$token_{1,2}$}, $\dots$, \say{$token_{1,m}$}],}\\
+			& & !{\say{supertags}:} &
+				!{[\say{$supertag_{1,1}$}, \say{$supertag_{1,2}$}, $\dots$, \say{$supertag_{1,m}$}]}\\
+			& !{\}}, & &\\
+			& !{\{} & &\\
+			& & !{\say{tokens}:} &
+				!{[\say{$token_{2,1}$}, \say{$token_{2,2}$}, $\dots$, \say{$token_{2,m}$}],}\\
+			& & !{\say{supertags}:} &
+				!{[\say{$supertag_{2,1}$}, \say{$supertag_{2,2}$}, $\dots$, \say{$supertag_{2,m}$}]}\\
+			& !{\}}, & &\\
+			& & &\\
+			& & &\\
+			& $\vdots$ & &\\
+			& & &\\
+			& & &\\
+			& !{\{} & &\\
+			& & !{\say{tokens}:} &
+				!{[\say{$token_{n,1}$}, \say{$token_{n,2}$}, $\dots$, \say{$token_{n,m}$}],}\\
+			& & !{\say{supertags}:} &
+				!{[\say{$supertag_{n,1}$}, \say{$supertag_{n,2}$}, $\dots$, \say{$supertag_{n,m}$}]}\\
+			& !{\}} & &\\
+		!{]} & & &
 	}
 	\egroup
-	\caption{Format \textit{dataset} yang disimpan di dalam berkas.}
+	\caption{Format JSON \textit{dataset} yang disimpan di dalam berkas.}
 	\label{dataset:format}
 \end{figure}
 
-\begin{figure}\centering\tiny
+\begin{figure}\centering
 	\bgroup
-	\tabbedShortstack{
-		Pamungkas & dan & Setyo & menyukai & rendang & .\\
-		$\text{[NP\ :\ \so{pamungkas}]}$ &
-			$\text{[CONJ\ :\ $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$]}$ &
-			$\text{[NP\ :\ \so{Setyo}]}$ &
-			$\text{[(S{$\backslash$}NP)/NP\ :\ $\lambda x.\lambda y.\ suka(y, x)$]}$ &
-			$\text{[NP\ :\ \so{rendang}]}$ &
-			$\text{[Z]}$
+	\catcode`!=\active \def!{\upshape}
+	\catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+	\tabbedShortstack[l]{
+		!{[} & & &\\
+			& !{\{} & &\\
+			& & !{\say{tokens}: [} &\\
+			& & !{\ \ \ \ \say{Pamungkas},} &\\
+			& & !{\ \ \ \ \say{dan},} &\\
+			& & !{\ \ \ \ \say{Setyo},} &\\
+			& & !{\ \ \ \ \say{menyukai},} &\\
+			& & !{\ \ \ \ \say{rendang},} &\\
+			& & !{\ \ \ \ \say{.}} &\\
+			& & !{],} &\\
+			& & !{\say{supertags}: [} &\\
+			& & !{\ \ \ \ \say{$\text{NP: \so{pamungkas}}$},} &\\
+			& & !{\ \ \ \ \say{$\text{CONJ: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$}$},} &\\
+			& & !{\ \ \ \ \say{$\text{NP: \so{setyo}}$},} &\\
+			& & !{\ \ \ \ \say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},} &\\
+			& & !{\ \ \ \ \say{$\text{NP: \so{rendang}}$},} &\\
+			& & !{\ \ \ \ \say{$\text{Z}$}} &\\
+			& & !{]} &\\
+			& !{\}} & &\\
+		!{]} & & &
 	}
 	\egroup
-	\caption{Contoh isi dari berkas \textit{dataset}.}
+	\caption{Contoh isi dari berkas \textit{dataset} dalam format JSON.}
 	\label{dataset:example}
 \end{figure}
 
