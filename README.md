@@ -37,3 +37,5 @@ I will tidy it up later.
 - \[19/11/2019\]
   - Adding some stuff.
   - Remove unnecessary stuff.
+- \[20/11/2019\]
+  - Add some stuff in the Section 3.

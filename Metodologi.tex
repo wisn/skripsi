@@ -95,17 +95,14 @@ Indonesia kita dapatkan hasil sesuai dengan Gambar \ref{postag:1}.
 \begin{figure}\centering
   \bgroup
   \catcode`!=\active \def!{\upshape}
-  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
-  \catcode`^=\active \def^#1{\footnotesize{#1}}
-  \catcode`*=\active \def*#1{\scriptsize{#1}}
   \tabbedShortstack{
-    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+    !Pamungkas & & !dan & & !Setyo & & !menyukai & & !rendang &\\
     \TABcline{1,3,5,7,9}
-    !^{$\text{NNP}$} & &
-      !^{$\text{CC}$} & &
-      !^{$\text{NNP}$} & &
-      !^{$\text{VB}$} & &
-      !^{$\text{X}$} &
+    !{$\text{NNP}$} & &
+      !{$\text{CC}$} & &
+      !{$\text{NNP}$} & &
+      !{$\text{VB}$} & &
+      !{$\text{X}$} &
   }
 	\egroup
 	\caption{Kalimat contoh dengan POS \textit{tag}-nya.}
@@ -218,7 +215,9 @@ Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \t
 	\label{dataset:example}
 \end{figure}
 
-\section{Melatih Model Supertagger}
+\section{Mempersiapkan CCG Supertagger}
+
+\subsection{Melatih Model MaxEnt}
 
 Model yang akan digunakan oleh \textit{supertagger} ini adalah Maximum Entropy (MaxEnt).
 Model ini dipilih karena ketersediaan \textit{dataset} bahasa Indonesia yang masih sangat kurang.
@@ -230,3 +229,164 @@ juga meskipun pada peruntukannya MaxEnt dibuat untuk POS \textit{tagger}.
 Tentunya terdapat beberapa penyesuaian yang harus dilakukan.
 Salah satunya adalah formula probabiltas yang digunakan.
 Formula yang telah disesuaikan tersebut dapat dilihat di persamaan \ref{maxent:equation:2}.
+
+Model yang telah dilatih akan disimpan di dalam sebuah berkas sebagai \textit{snapshot} agar apabila
+proses \textit{train} mengalami kegagalan kita tidak perlu mengulangi proses \textit{train} dari
+awal lagi.
+Dalam hal ini, untuk setiap $10$ \textit{dataset} yang telah diproses, proses penyimpanan
+\textit{snapshot} akan dilakukan.
+Adapun format \textit{snapshot} menggunakan JSON yang menyimpan informasi berupa jumlah kalimat
+terproses dan sebuah tabel yang menyimpan kalkulasi pada saat \textit{snapshot} disimpan.
+Setelah proses \textit{train} selesai, \textit{snapshot} akan diperbarui kemudian digunakan
+untuk membuat sebuah berkas baru berupa JSON yang menyimpan \textit{trained model} tersebut
+sehingga \textit{supertagger} yang dibangun dapat memuat model tersebut tanpa perlu melakukan
+\textit{train} kembali.
+
+\begin{figure}\centering
+	\bgroup
+	\catcode`!=\active \def!{\upshape}
+	\tabbedShortstack[l]{
+		!{$\{$} &\\
+			& !{\say{starting\_point}: $70$,}\\
+			& !{\say{rows}:
+				\{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_n$}: $N$\},}\\
+			& !{\say{cols}:
+				 \{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_m$}: $M$\},}\\
+			& !{\say{values}: [}\\
+			& !{\ \ \ \ [$value_{1,1}$, $value_{1,2}$, $\dots$, $value_{1,m}$],}\\
+			& !{\ \ \ \ [$value_{2,1}$, $value_{2,2}$, $\dots$, $value_{2,m}$],}\\
+			& \\
+			& \\
+			& \ \ \ \ $\vdots$\\
+			& \\
+			& \\
+			& !{\ \ \ \ [$value_{n,1}$, $value_{n,2}$, $\dots$, $value_{n,m}$]}\\
+			& !{]}\\
+		!{$\}$} &
+	}
+	\egroup
+	\caption{Format JSON untuk menyimpan \textit{snapshot}.}
+	\label{snapshot:format}
+\end{figure}
+
+Pada Gambar \ref{snapshot:format}, \textit{field} \say{$starting\_point$} menyimpan informasi berupa
+bilangan cacah untuk memberikan tanda pada elemen ke-$i$ sebaiknya proses \textit{train} dimulai.
+Dalam hal ini, berdasarkan contoh, sebaiknya dimulai dari elemen ke-$70$.
+Selanjutnya, \textit{field} \say{$rows$} dan \say{$cols$} masing-masing menyatakan daftar baris dan
+kolom beserta nomor \textit{index}-nya untuk digunakan oleh \textit{field} \say{$values$} nantinya.
+\textit{Field} \say{$values$} merupakan representasi dari tabel yang memiliki $N$ baris serta $M$
+kolom.
+Adapun \say{$value$} pada elemen ke-$(i, j)$ menyimpan informasi berupa objek untuk model MaxEnt
+setelah proses \textit{train} pada \say{$starting\_point$} saat itu.
+Objek yang dimaksud berupa \say{konteks} yaitu berisikan daftar $k$ token sebelum dan sesudah token
+ke-$(i, j)$ juga daftar $l$ \textit{supertag} sebelum dan sesudah \textit{supertag} ke-$(i, j)$.
+Bahkan, \say{$value$} dapat pula meyimpan \textit{prefix} dan \textit{suffix} dari token ke-
+$(i, j)$ tersebut.
+
+\subsection{Membangun Library Haskell}
+
+Implementasi \textit{supertagger} bahasa Indonesia ini akan ditulis dalam bahasa pemrograman Haskell.
+Haskell dipilih karena kemampuannya dalam mengolah data teks terutama kegiatan \textit{parsing} berkat
+desain bahasa serta dukungan \textit{library} yang telah tersedia.
+Secara desain bahasa, Haskell sangat dekat dengan \textit{category theory} sehingga diharapkan
+\textit{supertag} yang disimpan di dalam program nantinya dapat berupa \textit{algebraic data type}
+yang semirip mungkin dengan \textit{category theory}.
+Hal ini menjadi pertimbangan karena tujuan akhir dari riset-riset yang berhubungan dengan CCG adalah
+untuk membangun CCG \textit{parser}.
+
+Pembangunan \textit{library} ini sangat penting karena nantinya \textit{library} ini dapat dimanfaatkan
+untuk membangun program \textit{command line interface} (CLI), \textit{web application}, dan sebagainya.
+Dalam hal ini, \textit{supertagger} yang dibangun dalam tugas akhir ini akan memiliki dukungan RESTful
+API agar tidak ada batasan dalam bahasa pemrograman yang harus digunakan untuk memanfaatkan
+\textit{supertagger} ini.
+Sangat mungkin pula nantinya terdapat program yang memanfaatkan \textit{library} Haskell ini secara
+langsung di programnya.
+Demikian itu, menyediakan \textit{library} untuk suatu bahasa pemrograman (dalam hal ini, Haskell)
+dirasa perlu.
+
+\subsection{Menguji Model MaxEnt}
+
+Pengujian model MaxEnt setelah proses \textit{train} dilakukan dengan cara mencocokkan \textit{supertag}
+yang dihasilkan oleh \textit{supertagger} dengan \textit{supertag} yang telah diberikan secara manual
+terhadap suatu kalimat yang diberikan.
+Dengan demikian, setidaknya akan ada dua \textit{dataset} yaitu \textit{data train} dan
+\textit{data test}.
+\textit{Data train} dibuat secara semi-otomatis sesuai dengan bagian \say{Pembuatan Dataset}.
+Selanjutnya, \textit{data test} dibuat secara manual yang mana berjumlah $20\%$ hingga $30\%$ dari
+jumlah kalimat pada \textit{data train}.
+Sebagai catatan, untuk kata atau token yang tidak ada di \textit{data train} tetapi ada di
+\textit{data test} (\textit{unseen words}) akan diberikan \textit{supertag} berupa
+\textit{category} $\text{N}$.
+
+\section{Membangun CCG Supertagger Versi CLI}
+
+Sebagai langkah awal, program CLI akan dibangun lebih dahulu sebelum versi \textit{web application}-nya
+rilis.
+Hal ini agar validasi dapat dilakukan yaitu untuk memeriksa apakah keluaran dari \textit{supertagger}
+sudah sesuai.
+Adapun \textit{flowchart} dari program CLI \textit{supertagger} ini terdapat pada Gambar
+\ref{flowchart:supertagger:1}.
+
+\begin{figure}[h!]\centering
+	\begin{tikzpicture}[node distance=2cm]
+		\node (start) [cloud] {Start};
+		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
+		\node (pro1) [process, below of=in, yshift=0.5cm] {\textit{Tokenize}};
+		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
+		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
+		\node (pro3) [process, below of=dec, yshift=-1cm] {Menghitung probabilitas terhadap token};
+		\node (pro4) [process, below of=pro3, yshift=0.5cm] {Memilih \textit{supertag} yang sesuai};
+		\node (out) [io, below of=pro4, yshift=0.5cm] {\textit{Output} CCG \textit{supertag}};
+		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
+		\draw [arrow] (start) -- (in);
+		\draw [arrow] (in) -- (pro1);
+		\draw [arrow] (pro1) -- (pro2);
+		\draw [arrow] (pro2) -- (dec);
+		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
+		\draw [arrow] (pro3) -- (pro4);
+		\draw [arrow] (pro4) -- +(-4,0) |- (dec);
+		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
+		\draw [arrow] (out) -- (stop);
+	\end{tikzpicture}
+	\caption{Alur kerja pembuatan \textit{dataset} untuk CCG \textit{supertag}.}
+	\label{flowchart:supertagger:1}
+\end{figure}
+
+\subsection{Tokenize}
+
+Pertama-tama, \textit{toknize} akan memisahkan antar kalimat yang dipisahkan oleh karakter titik
+(\say{.} tanpa tanda kutip) yang diikuti oleh spasi. Selanjutnya, untuk setiap kalimat,
+\textit{tokenize} akan memisahkan beberapa bagian yang terindikasi sebagai token.
+Token umumnya berupa kata yang dipisahkan oleh spasi.
+Namun, token juga dapat berupa karakter khusus seperti karakter tanda koma (\say{,} tanpa tanda kutip).
+Dengan demikian, \textit{supertagger} dapat dengan mudah melakukan kalkulasi probabilitas untuk
+masing-masing token.
+Proses \textit{tokenize} pada awalnya terlihat mudah.
+Sayangnya, proses ini cukup \textit{tricky} karena ada beberapa hal tidak umum yang seringkali muncul.
+Sebagai contoh, \say{Rp5.000,00} memiliki dua token yaitu \say{Rp} sebagai \textit{currency} dan
+\say{5.000,00} sebagai nominalnya.
+
+\subsection{Menghitung Probabilitas}
+
+Probabilitas untuk sebuah token ke-$(i, j)$ dapat dihitung dengan menggunakan \textit{beam search}.
+Persamaan yang digunakan adalah persamaan \ref{maxent:equation:4}.
+Persamaan tersebut memiliki sebuah \textit{category sequence} $C$ serta kalimat $S$ sebagai syarat
+dari probabilitas tersebut.
+
+\begin{equation}\label{maxent:equation:4}
+	p(C|S) = \prod_i p(c_i, h_i)
+\end{equation}
+
+\noindent
+dimana $c_i$ adalah \textit{category} ke-$i$ dalam \textit{sequence} tersebut dan $h_i$ berupa konteks
+dari token ke-$i$.
+\textit{Beam search} digunakan untuk mendapatkan $N$ \textit{sequence} teratas saat proses
+\textit{tagging} dilakukan.
+Dalamn hal ini, $N = 10$ digunakan.
+
+\subsection{Memilih Supertag}
+
+Setelah proses penghitungan probabilitas selesai dilakukan, proses pemilihan \textit{supertag} dilakukan
+berdasarkan $N$ \textit{sequence} teratas yang disimpan.
+Berhubung MaxEnt yang digunakan adalah \textit{conditional maximum entorpy}, maka selanjutnya akan
+dilakukan proses pemilihan \textit{supertag} berdasarkan kondisi-kondisi yang terpenuhi.
