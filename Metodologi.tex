@@ -145,7 +145,7 @@ Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua objek yait
 (1) \say{tokens} berupa daftar token, dan
 (2) \say{supertags} berupa daftar \textit{supertag} untuk token ke-$(i, j)$ dimana $1 \leq i \leq n$
 dan $1 \leq j \leq m$ dalam sistem \textit{$1$-indexed array}.
-Sebagai contoh, dengan kalimat yang sama dengan sebelum-sebelumnya, dapat dilihat di Gambar
+Sebagai contoh, kalimat \say{Pamungkas menyukai rendang} representasinya dapat dilihat pada Gambar
 \ref{dataset:example}.
 Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \textit{supertag}-nya.
 
@@ -184,29 +184,52 @@ Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \t
 	\label{dataset:format}
 \end{figure}
 
-\begin{figure}\centering
+% \begin{figure}\centering
+% 	\bgroup
+% 	\catcode`!=\active \def!{\upshape}
+% 	\catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+% 	\tabbedShortstack[l]{
+% 		!{[} & & &\\
+% 			& !{\{} & &\\
+% 			& & !{\say{tokens}: [} &\\
+% 			& & !{\ \ \ \ \say{Pamungkas},} &\\
+% 			& & !{\ \ \ \ \say{dan},} &\\
+% 			& & !{\ \ \ \ \say{Setyo},} &\\
+% 			& & !{\ \ \ \ \say{menyukai},} &\\
+% 			& & !{\ \ \ \ \say{rendang},} &\\
+% 			& & !{\ \ \ \ \say{.}} &\\
+% 			& & !{],} &\\
+% 			& & !{\say{supertags}: [} &\\
+% 			& & !{\ \ \ \ \say{$\text{NP: \so{pamungkas}}$},} &\\
+% 			& & !{\ \ \ \ \say{$\text{CONJ: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$}$},} &\\
+% 			& & !{\ \ \ \ \say{$\text{NP: \so{setyo}}$},} &\\
+% 			& & !{\ \ \ \ \say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},} &\\
+% 			& & !{\ \ \ \ \say{$\text{NP: \so{rendang}}$},} &\\
+% 			& & !{\ \ \ \ \say{$\text{Z}$}} &\\
+% 			& & !{]} &\\
+% 			& !{\}} & &\\
+% 		!{]} & & &
+% 	}
+% 	\egroup
+% 	\caption{Contoh isi dari berkas \textit{dataset} dalam format JSON.}
+% 	\label{dataset:example}
+% \end{figure}
+
+\begin{figure}\centering\scriptsize
 	\bgroup
 	\catcode`!=\active \def!{\upshape}
-	\catcode`?=\active \def?#1{\makebox[0pt]{#1}}
 	\tabbedShortstack[l]{
 		!{[} & & &\\
 			& !{\{} & &\\
-			& & !{\say{tokens}: [} &\\
-			& & !{\ \ \ \ \say{Pamungkas},} &\\
-			& & !{\ \ \ \ \say{dan},} &\\
-			& & !{\ \ \ \ \say{Setyo},} &\\
-			& & !{\ \ \ \ \say{menyukai},} &\\
-			& & !{\ \ \ \ \say{rendang},} &\\
-			& & !{\ \ \ \ \say{.}} &\\
-			& & !{],} &\\
-			& & !{\say{supertags}: [} &\\
-			& & !{\ \ \ \ \say{$\text{NP: \so{pamungkas}}$},} &\\
-			& & !{\ \ \ \ \say{$\text{CONJ: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$}$},} &\\
-			& & !{\ \ \ \ \say{$\text{NP: \so{setyo}}$},} &\\
-			& & !{\ \ \ \ \say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},} &\\
-			& & !{\ \ \ \ \say{$\text{NP: \so{rendang}}$},} &\\
-			& & !{\ \ \ \ \say{$\text{Z}$}} &\\
-			& & !{]} &\\
+			& & !{\say{tokens}:} &
+				!{[\say{Pamungkas}, \say{menyukai}, \say{rendang}, \say{.}],}\\
+			& & !{\say{supertags}:} &
+				!{[
+					\say{$\text{NP: \so{pamungkas}}$},
+					\say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},
+					\say{$\text{NP: \so{rendang}}$},
+					\say{$\text{Z}$}
+				]}\\
 			& !{\}} & &\\
 		!{]} & & &
 	}
@@ -348,7 +371,7 @@ Adapun \textit{flowchart} dari program CLI \textit{supertagger} ini terdapat pad
 		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
 		\draw [arrow] (out) -- (stop);
 	\end{tikzpicture}
-	\caption{Alur kerja pembuatan \textit{dataset} untuk CCG \textit{supertag}.}
+	\caption{Alur kerja proses \textit{tagging}.}
 	\label{flowchart:supertagger:1}
 \end{figure}
 

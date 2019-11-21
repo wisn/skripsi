@@ -28,7 +28,8 @@ mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
 
 \section{Combinatory Categorial Grammar}
 Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
-diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru.
+diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
+\cite{Steedman96avery}.
 Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
 Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
 (dalam \textit{lambda calculus}, \textit{lambda function}).
@@ -206,7 +207,11 @@ sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir i
 
 \section{Supertagging}
 \textit{Supertagging} merupakan proses yang memetakan suatu token kata ke bentuk
-\textit{supertag}-nya. CCG \textit{supertagging} artinya proses pemetaan dari suatu token
+\textit{supertag}-nya.
+\textit{Supertagging} awalnya diajukan untuk LTAG (\textit{Lexicalized Tree-Adjoining Grammars})
+yang memiliki konsep \textit{compliate locally, simplify globally} (CLSG)
+\cite{DBLP:journals/corr/Rama14b}.
+CCG \textit{supertagging} artinya proses pemetaan dari suatu token
 kata ke dalam bentuk CCG \textit{supertag} atau dapat juga disebut sebagai CCG \textit{lexicon}.
 \textit{Supertag} mirip dengan POS \textit{tag}.
 Perbedaannya, \textit{supertag} memiliki bentuk formalisme yang lebih kompleks dari POS
@@ -236,7 +241,8 @@ token kata tersebut \say{dilabelkan} dengan \textit{supertag}-nya.
 
 \section{Maximum Entropy Model}
 \textit{Maximum Entropy} (MaxEnt) merupakan model statistik yang dapat digunakan untuk
-melakukan \textit{train} korpus teranotasi dengan Part-Of-Speech (POS) \textit{tag}.
+melakukan \textit{train} korpus teranotasi dengan Part-Of-Speech (POS) \textit{tag}
+\cite{Ratnaparkhi96amaximum}.
 Salah satu aplikasi MaxEnt adalah POS \textit{tagger} yang mana memiliki hasil akurasi
 yang lebih baik ketimbang \textit{state-of-the-art}.
 Adapun model probabilitasnya didefinisikan dalam $\mathcal{H}\times\mathcal{T}$,

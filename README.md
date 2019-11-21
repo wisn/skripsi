@@ -39,3 +39,5 @@ I will tidy it up later.
   - Remove unnecessary stuff.
 - \[20/11/2019\]
   - Add some stuff in the Section 3.
+- \[21/11/2019\]
+  - Add some references.
