@@ -41,3 +41,5 @@ I will tidy it up later.
   - Add some stuff in the Section 3.
 - \[21/11/2019\]
   - Add some references.
+- \[06/12/2019\]
+  - Fixing some stuff.

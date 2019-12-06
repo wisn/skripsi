@@ -5,7 +5,23 @@
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, minimum height=2em]
 
-\chapter{Metodologi dan Desain Sistem}
+\chapter{Perancangan Sistem}
+
+Sebelum dapat membangun CCG \textit{supertagger}, sebuah \textit{dataset} diperlukan untuk melatih model
+\textit{classifier} MaxEnt.
+Berhubung \textit{dataset} CCG \textit{supertag} untuk bahasa Indonesia belum tersedia, tidak ada pilihan
+lain selain membuat \textit{dataset}-nya terlebih dahulu.
+Salah satu cara untuk membuat \textit{dataset} adalah dengan memanfaatkan POS \textit{tag} dari suatu
+lema yang kemudian diberikan \textit{supertag}-nya secara manual.
+Setelah \textit{dataset} memiliki \textit{supertag} yang cukup, barulah proses \textit{train} MaxEnt
+dapat dilakukan.
+Model yang telah dilatih akan disimpan ke dalam format JSON khusus agar ke depannya dapat digunakan
+tanpa perlu melakukan \textit{train} lagi.
+Setelah itu, diperlukan program yang dapat memanfaatkan model yang telah dilatih untuk membuktikan
+bahwasannya model yang telah dibangun dapat menghasilkan \textit{supertag} yang sesuai.
+Adapun langkah terakhirnya adalah dengan menyediakan dukungan \textit{web application} berbasis
+RESTful API agar siapapun dapat memanfaatkan \textit{supertagger} ini tanpa perlu terhalang oleh
+batasan bahasa pemrograman yang digunakan.
 
 \section{Pembuatan Dataset}
 
@@ -125,12 +141,17 @@ Langkah terakhirnya adalah membuatkan \textit{semantic representation}-nya berda
 $\lambda x.\lambda y.\ \text{suka}(y, x)$.
 
 Selain menggunakan \textit{stemmer}, kita dapat menggunakan \textit{morphological analyzer}.
-Untuk bahasa Indonesia, kita dapat menggunakan \textit{tool} bernama MorphInd\footnotemark[3].
 \textit{Morphological analyzer} salah satu kegunaannya yaitu dapat menghasilkan \textit{root words}
 sehingga dapat kita manfaatkan untuk membuat fungsi lambda.
-Namun, kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} untuk bahasa Indonesia.
+Untuk bahasa Indonesia, kita dapat menggunakan \textit{tool} bernama MorphInd\footnotemark[3].
+Selain MorphInd, alternatif \textit{tool} yang dapat digunakan adalah IndMA
+(Indonesian morphological analyzer).
+Namun, MorphInd dipilih karena dapat memberikan keluaran berupa morfem tersegmentasi
+\cite{larasati2011indonesian}.
+Kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} untuk bahasa Indonesia.
 Hal ini agar \textit{dataset} yang dibuatkan secara semi-otomatis ini dapat memiliki kualitas yang
 baik.
+
 
 \footnotetext[3]{septinalarasati.com/morphind}
 
