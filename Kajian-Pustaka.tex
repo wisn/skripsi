@@ -3,7 +3,7 @@
 \section{Categorial Grammar}
 Categorial Grammar (CG) merupakan sebuah istilah yang mencakup beberapa formalisme terkait yang diajukan
 untuk sintaks dan semantik dari bahasa alami serta untuk bahasa logis dan matematis \cite{Steedman92catg}.
-Karakteristik yang paling terlihat dari CG adalah bentuk esktrim dari leksikalismenya di mana beban utama
+Karakteristik yang paling terlihat dari CG adalah bentuk ekstrim dari leksikalismenya di mana beban utama
 (atau bahkan seluruh beban) sintaksisnya ditanggung oleh leksikon.
 Konstituen tata bahasa dalam \textit{categorial grammar} dan khususnya semua leksikal diasosiasikan
 dengan suatu \textit{type} atau \say{\textit{category}} (dalam \textit{category theory}) yang
@@ -11,6 +11,48 @@ mendefinisikan potensi mereka untuk dikombinasikan dengan konstituen lain untuk 
 majemuk.
 \textit{Category} tersebut adalah salah satu dari sejumlah kecil \textit{category} dasar (seperti NP)
 atau \textit{functor} (dalam \textit{category theory}).
+Dalam hal ini, \textit{category} dapat diartikan sebagai \textit{syntactic type} dari suatu kata.
+
+Secara formal, \textit{syntactic type} didefinisikan sebagai himpunan bagian dari suatu
+\textit{semigroup} $M$ yang tunduk pada tiga operasi yaitu \ref{catg:syn:1},
+\ref{catg:syn:2}, dan \ref{catg:syn:3} dimana $A$, $B$, dan $C$ merupakan himpunan bagian dari $M$
+\cite{Lambek1988}. Adapun $A \cdot B$ dibaca $A$ \textit{times} $B$, $C/B$ dibaca $C$ \textit{over}
+$B$, dan $A\backslash{}C$ dibaca $A$ \textit{under} $C$. Selanjutnya, dapat dilihat bahwasannya
+untuk semua $A, B, C \subseteq M$ sehingga kita dapatkan \ref{catg:syn:4} dan \ref{catg:syn:5}.
+Terakhir, persamaan \ref{catg:syn:6} dapat diabaikan apabila dihadapkan dengan
+\textit{multiplicative system} yang tidak asosiatif. Sementara itu, apabila \textit{semigroup}-nya
+merupakan sebuah \textit{monoid} dengan identitas $1$ maka kita dapatkan \ref{catg:syn:7} dimana
+$I = \{1\}$.
+
+\begin{align}
+  \begin{split}\label{catg:syn:1}
+    A \cdot B & = \{x \cdot y \in M \mid x \in A \land y \in B\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:2}
+    C/B & = \{x \in M \mid \forall_{y \in B} x \cdot y \in C\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:3}
+    A\backslash{}C & = \{y \in M \mid \forall_{x \in A} x \cdot y \in C\}
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:4}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; A \subseteq C/B
+  \end{split}\\
+  \begin{split}\label{catg:syn:5}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; B \subseteq A\backslash{}C
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:6}
+    (A \cdot B) \cdot C = A \cdot (B \cdot C)
+  \end{split}\\
+  \begin{split}\label{catg:syn:7}
+    I \cdot A = A = A \cdot I
+  \end{split}
+\end{align}
 
 Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \textit{directional}-nya.
 Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
