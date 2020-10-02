@@ -1,4 +1,4 @@
-# Skripsi
+# Skripsi NYA TOLONG DI KERJAIN MAS WISNU!!!!!
 
 This is my final project repository as a college student from Telkom University.
 I have an interest in natural language processing so I decided to write something.
