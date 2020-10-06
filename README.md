@@ -9,7 +9,7 @@ As for the English version, it will be coming up later on the different reposito
 
 **Status**: **Draft**
 
-The preview is available on [main.pdf](main.pdf).
+The preview is available on [tex/main.pdf](tex/main.pdf).
 
 **Notes**:
 The project structure is messy, I know.
@@ -17,6 +17,8 @@ I will tidy it up later.
 
 ## Change Log
 
+- \[06/10/2020\]
+  - Adding initial IDCCGbank creation scripts.
 - \[08/07/2020\]
   - Adding syntactic type operations on categorial grammar section.
 - \[06/12/2019\]
