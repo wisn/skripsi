@@ -1,0 +1,86 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 2020-10-13
+### Added
+- removeNonProjectives() method.
+- requirements.txt file.
+- CHANGELOG file.
+
+### Removed
+- Change Log section on the README.md file.
+
+### Removed
+- Unused id_pud-ud_parsed.conllu dataset.
+
+## 2020-10-06
+### Added
+- Initial IDCCGbank creation scripts.
+
+## 2020-07-08
+### Added
+- Syntactic type operations on categorial grammar section.
+
+## 2019-12-06
+### Fixed
+- Writing on the TeX file.
+
+## 2019-11-21
+### Added
+- New references.
+
+## 2019-11-20
+### Added
+- Writing on the Section 3 of the TeX file.
+
+## 2019-11-19
+### Added
+- Writing on the TeX file.
+
+### Removed
+- Writing on the TeX file.
+
+## 2019-11-11
+### Added
+- Category Theory on the literature study.
+- Writing on the TeX file.
+
+### Fixed
+- CCG evaluation. Uses type rising as well.
+
+## 2019-11-09
+### Changed
+- Literature study for the Combinatory Categorial Grammar.
+
+## 2019-11-05
+### Added
+- Literature study on the Lambda Calculus.
+
+## 2019-11-01
+### Added
+- Second chapter on the TeX file.
+- Literature study on the Categorial Grammar.
+
+### Changed
+- The first chapter and abstract.
+
+## 2019-10-31
+### Added
+- Writing on the first chapter of the TeX file.
+
+## 2019-10-28
+### Added
+- "Latar Belakang", "Perumusan Masalah", and "Tujuan" section.
+- Some new references.
+
+## 2019-10-24
+### Added
+- NIP.
+- Comment on the unnecessary things.
+
+## 2019-10-23
+### Added
+- Cover, validity sheet, and abstract section.

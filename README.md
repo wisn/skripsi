@@ -15,35 +15,19 @@ The preview is available on [tex/main.pdf](tex/main.pdf).
 The project structure is messy, I know.
 I will tidy it up later.
 
-## Change Log
+## Prerequisites
 
-- \[06/10/2020\]
-  - Adding initial IDCCGbank creation scripts.
-- \[08/07/2020\]
-  - Adding syntactic type operations on categorial grammar section.
-- \[06/12/2019\]
-  - Fixing some stuff.
-- \[21/11/2019\]
-  - Add some references.
-- \[20/11/2019\]
-  - Add some stuff in the Section 3.
-- \[19/11/2019\]
-  - Adding some stuff.
-  - Remove unnecessary stuff.
-- \[11/11/2019\]
-  - Fix CCG evaluation. Use type rising as well.
-  - Add Category Theory on the literature study.
-  - Add some stuff. I actually forgot lmao.
-- \[09/11/2019\]
-  - Update literature study for Combinatory Categorial Grammar.
-- \[05/11/2019\]
-  - Init literature study on Lambda Calculus.
-- \[01/11/2019\]
-  - Updating the first chapter and abstract.
-  - Initialized second chapter.
-  - Finalize literature study on Categorial Grammar.
-- \[31/10/2019\] Finishing the first chapter.
-- \[28/10/2019\] Adding "Latar Belakang", "Perumusan Masalah", and "Tujuan" section.
-  Also, adding the first reference.
-- \[24/10/2019\] Adding NIP and comment unnecessary things.
-- \[23/10/2019\] Adding cover, validity sheet, and abstract.
+- Python ~= 3.6
+- Pip ~= 9.0
+
+This work uses `conllu` and `ufal.udpipe` Python package.
+To install the required packages, use this command below.
+
+```
+$ pip install -r requirements.txt
+```
+
+## License
+
+Any codes on this repository were licensed under the [GNU GPLv3](LICENSE)
+license.

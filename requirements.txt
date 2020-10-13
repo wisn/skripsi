@@ -1,0 +1,2 @@
+conllu ~= 4.2
+ufal.udpipe ~= 1.2
