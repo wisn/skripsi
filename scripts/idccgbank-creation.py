@@ -2,14 +2,17 @@
 
 import os.path
 import sys
+
+import conllu
 # pylint: disable=no-name-in-module
 from ufal.udpipe import Model, Pipeline, ProcessingError
-import conllu
+from typing import NamedTuple
 
 cd = os.path.dirname(os.path.realpath(__file__))
 udModelPath = cd + "/../models/indonesian-gsd-ud-2.5-191206.udpipe"
 udInputPath = cd + "/../datasets/id_pud-ud-test-revised-1-0.conllu"
 udParsedPath = cd + "/../datasets/id_pud-ud-revised-1-0.parsed.conllu"
+ccgbankFormattedPath = cd + "/../datasets/idccgbank.auto"
 
 class IDPUDParser:
     def __init__(self, udModelPath: str, udInputPath: str, udParsedPath: str):
@@ -66,6 +69,9 @@ class CONLLU:
         self.tokenList = []
         self.tokenTree = None
 
+        self.errMsg = None
+        self.formatted = False
+
     def __str__(self):
         ret = "CONLLU {"
         ret += "\n  inputPath = %s" % self.inputPath
@@ -77,17 +83,23 @@ class CONLLU:
             ret += "\n  tokenTree = None"
         else:
             ret += "\n  tokenTree = [TokenTree<%s>]" % str(len(self.tokenTree))
+        ret += "\n  errMsg = %s" % self.errMsg
+        ret += "\n  formatted = %s" % self.formatted
         ret += "\n}"
         return ret
 
     def parse(self):
         if not os.path.isfile(self.inputPath):
+            self.formatted = False
             self.errMsg = "Can't load file from '%s'\n" % self.inputPath
             return
 
         idPud = open(self.inputPath, "r").read()
         self.tokenList = conllu.parse(idPud)
         self.tokenTree = conllu.parse_tree(idPud)
+
+        if len(self.tokenList) > 0 and len(self.tokenTree) > 0:
+            self.formatted = True
 
     def removeNonProjectives(self):
         nonProjectives = []
@@ -119,6 +131,71 @@ class CONLLU:
             del self.tokenList[i]
             del self.tokenTree[i]
 
+class CCGT(NamedTuple):
+    ccgCat: str
+    head: int
+    dtrs: int
+
+class CCGL(NamedTuple):
+    ccgCat: str
+    posTag: str
+    word: str
+
+class CCGNode:
+    def __init__(self, value):
+        self.value = value
+
+        self.left = None
+        self.right = None
+
+    def __str__(self):
+        val = self.value
+        if type(val) == CCGT:
+            return "<T %s %s %s>" % val
+        elif type(val) == CCGL:
+            return " ".join([
+                "<L",
+                "%s" % val.ccgCat,
+                "%s" % val.posTag,
+                "%s" % val.posTag,
+                "%s" % val.word,
+                "%s>" % val.ccgCat,
+            ])
+        return "<ill-formated CCG node>"
+
+class CCGTree:
+    def __init__(self):
+        self.root = None
+
+    def __str__(self):
+        return "(%s)" % self._strTraverse(self.root)
+
+    def _strTraverse(self, node):
+        ret = "(%s" % str(node)
+        if node.left != None:
+            ret += " %s" % self._strTraverse(node.left)
+        if node.right != None:
+            ret += " %s" % self._strTraverse(node.right)
+        return "%s)" % ret
+
+class IDCCGbank:
+    def __init__(self, ccgbankFormattedPath: str):
+        self.ccgbankFormattedPath = ccgbankFormattedPath
+
+        self.built = False
+        self.errMsg = None
+
+    def build_from(self, idConllu: CONLLU):
+        ccgbank = []
+
+        # WIP: ID PUD to ID CCG format conversion
+
+        outFile = open(self.ccgbankFormattedPath, "w")
+        outFile.write("\n".join(ccgbank))
+        outFile.close()
+
+        self.built = True
+
 def run():
     args = sys.argv
     if len(args) == 1 or args[1] == "help":
@@ -127,6 +204,7 @@ def run():
         print("Available commands:")
         print("  help               show this message")
         print("  parse-pud          run_udpipe parse ID PUD")
+        print("  build-ccgbank      building IDCCGbank from formatted ID PUD")
         return
 
     if args[1] == "parse-pud":
@@ -146,6 +224,19 @@ def run():
         idConllu = CONLLU(udParsedPath)
         idConllu.parse()
         idConllu.removeNonProjectives()
+
+        if not idConllu.formatted:
+            sys.stderr.write(idConllu.errMsg)
+            sys.exit(1)
+
+        idCcgbank = IDCCGbank(ccgbankFormattedPath)
+        idCcgbank.build_from(idConllu)
+
+        if not idCcgbank.built:
+            sys.stderr.write(idCcgbank.errMsg)
+            sys.exit(1)
+
+        print("IDCCGbank successfully built.")
     else:
         print("Unknown command. See \"help\" for more.")
 
