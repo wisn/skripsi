@@ -7,227 +7,250 @@
 
 \chapter{Perancangan Sistem}
 
-Sebelum dapat membangun CCG \textit{supertagger}, sebuah \textit{dataset} diperlukan untuk melatih model
-\textit{classifier} MaxEnt.
-Berhubung \textit{dataset} CCG \textit{supertag} untuk bahasa Indonesia belum tersedia, tidak ada pilihan
-lain selain membuat \textit{dataset}-nya terlebih dahulu.
-Salah satu cara untuk membuat \textit{dataset} adalah dengan memanfaatkan POS \textit{tag} dari suatu
-lema yang kemudian diberikan \textit{supertag}-nya secara manual.
-Setelah \textit{dataset} memiliki \textit{supertag} yang cukup, barulah proses \textit{train} MaxEnt
-dapat dilakukan.
-Model yang telah dilatih akan disimpan ke dalam format JSON khusus agar ke depannya dapat digunakan
-tanpa perlu melakukan \textit{train} lagi.
-Setelah itu, diperlukan program yang dapat memanfaatkan model yang telah dilatih untuk membuktikan
-bahwasannya model yang telah dibangun dapat menghasilkan \textit{supertag} yang sesuai.
-Adapun langkah terakhirnya adalah dengan menyediakan dukungan \textit{web application} berbasis
-RESTful API agar siapapun dapat memanfaatkan \textit{supertagger} ini tanpa perlu terhalang oleh
-batasan bahasa pemrograman yang digunakan.
+% Sebelum dapat membangun CCG \textit{supertagger}, sebuah \textit{dataset} diperlukan untuk melatih model
+% \textit{classifier} MaxEnt.
+% Berhubung \textit{dataset} CCG \textit{supertag} untuk bahasa Indonesia belum tersedia, tidak ada pilihan
+% lain selain membuat \textit{dataset}-nya terlebih dahulu.
+% Salah satu cara untuk membuat \textit{dataset} adalah dengan memanfaatkan POS \textit{tag} dari suatu
+% lema yang kemudian diberikan \textit{supertag}-nya secara manual.
+% Setelah \textit{dataset} memiliki \textit{supertag} yang cukup, barulah proses \textit{train} MaxEnt
+% dapat dilakukan.
+% Model yang telah dilatih akan disimpan ke dalam format JSON khusus agar ke depannya dapat digunakan
+% tanpa perlu melakukan \textit{train} lagi.
+% Setelah itu, diperlukan program yang dapat memanfaatkan model yang telah dilatih untuk membuktikan
+% bahwasannya model yang telah dibangun dapat menghasilkan \textit{supertag} yang sesuai.
+% Adapun langkah terakhirnya adalah dengan menyediakan dukungan \textit{web application} berbasis
+% RESTful API agar siapapun dapat memanfaatkan \textit{supertagger} ini tanpa perlu terhalang oleh
+% batasan bahasa pemrograman yang digunakan.
 
-\section{Pembuatan Dataset}
+% \section{Pembuatan Dataset}
 
-\textit{Dataset} untuk melakukan \textit{train} CCG sayangnya belum tersedia.
-Karenanya, kita akan membuatkan \textit{dataset} secara semi otomatis dengan memanfaatkan POS
-\textit{tagger} untuk bahasa Indonesia.
-Secara formal, \textit{flowchart} untuk proses pembuatan \textit{dataset} dapat dilihat pada
-Gambar \ref{flowchart:dataset:1}.
+% \textit{Dataset} untuk melakukan \textit{train} CCG sayangnya belum tersedia.
+% Karenanya, kita akan membuatkan \textit{dataset} secara semi otomatis dengan memanfaatkan POS
+% \textit{tagger} untuk bahasa Indonesia.
+% Secara formal, \textit{flowchart} untuk proses pembuatan \textit{dataset} dapat dilihat pada
+% Gambar \ref{flowchart:dataset:1}.
 
-\begin{figure}[h!]\centering
-	\begin{tikzpicture}[node distance=2cm]
-		\node (start) [cloud] {Start};
-		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
-		\node (pro1) [process, below of=in, yshift=0.5cm] {POS \textit{tagging}};
-		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
-		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
-		\node (pro3) [process, below of=dec, yshift=-1cm] {Transformasi POS \textit{tag}};
-		\node (out) [io, below of=pro3, yshift=0.5cm] {\textit{Output} CCG \textit{supertag}};
-		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
-		\draw [arrow] (start) -- (in);
-		\draw [arrow] (in) -- (pro1);
-		\draw [arrow] (pro1) -- (pro2);
-		\draw [arrow] (pro2) -- (dec);
-		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
-		\draw [arrow] (pro3) -- +(-3,0) |- (dec);
-		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
-		\draw [arrow] (out) -- (stop);
-	\end{tikzpicture}
-	\caption{Alur kerja pembuatan \textit{dataset} untuk CCG \textit{supertag}.}
-	\label{flowchart:dataset:1}
-\end{figure}
+% \begin{figure}[h!]\centering
+% 	\begin{tikzpicture}[node distance=2cm]
+% 		\node (start) [cloud] {Start};
+% 		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
+% 		\node (pro1) [process, below of=in, yshift=0.5cm] {POS \textit{tagging}};
+% 		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
+% 		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
+% 		\node (pro3) [process, below of=dec, yshift=-1cm] {Transformasi POS \textit{tag}};
+% 		\node (out) [io, below of=pro3, yshift=0.5cm] {\textit{Output} CCG \textit{supertag}};
+% 		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
+% 		\draw [arrow] (start) -- (in);
+% 		\draw [arrow] (in) -- (pro1);
+% 		\draw [arrow] (pro1) -- (pro2);
+% 		\draw [arrow] (pro2) -- (dec);
+% 		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
+% 		\draw [arrow] (pro3) -- +(-3,0) |- (dec);
+% 		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
+% 		\draw [arrow] (out) -- (stop);
+% 	\end{tikzpicture}
+% 	\caption{Alur kerja pembuatan \textit{dataset} untuk CCG \textit{supertag}.}
+% 	\label{flowchart:dataset:1}
+% \end{figure}
 
-\subsection{Input Teks Bahasa Indonesia}
+% \subsection{Input Teks Bahasa Indonesia}
 
-Pada bagian \textit{input} dalam pembuatan \textit{dataset}, kita dapat mengambil teks bahasa Indonesia
-dari Indonesian Treebank\footnotemark[1]\ dan/atau dari beberapa contoh artikel yang terdapat di
-\textit{website} Wikipedia Indonesia\footnotemark[2].
-Indonesian Treebank terdapat setidaknya 1000 kalimat yang dirasa cukup untuk melakukan
-\textit{training} menggunakan model MaxEnt.
-Apa yang perlu dilakukan setelah mengambil \textit{input} adalah membersihkan bentuk \textit{tree}-nya
-untuk kemudian diambilkan kalimat yang sebenarnya.
-Caranya cukup sederhana yaitu dengan mengambil \textit{leaf} dari \textit{tree} tersebut kemudian
-disatukan di suatu pengubah dengan tipe data \textit{string}.
+% Pada bagian \textit{input} dalam pembuatan \textit{dataset}, kita dapat mengambil teks bahasa Indonesia
+% dari Indonesian Treebank\footnotemark[1]\ dan/atau dari beberapa contoh artikel yang terdapat di
+% \textit{website} Wikipedia Indonesia\footnotemark[2].
+% Indonesian Treebank terdapat setidaknya 1000 kalimat yang dirasa cukup untuk melakukan
+% \textit{training} menggunakan model MaxEnt.
+% Apa yang perlu dilakukan setelah mengambil \textit{input} adalah membersihkan bentuk \textit{tree}-nya
+% untuk kemudian diambilkan kalimat yang sebenarnya.
+% Caranya cukup sederhana yaitu dengan mengambil \textit{leaf} dari \textit{tree} tersebut kemudian
+% disatukan di suatu pengubah dengan tipe data \textit{string}.
 
-Sebagai contoh, salah satu \textit{tree} yang terdapat di Indonesian Treebank dapat dilihat pada
-Gambar \ref{treebank:tree:1}.
-Apa yang dimaksud dengan \textit{leaf} pada \textit{tree} tersebut adalah $(Kera)$, $(untuk)$,
-$(*)$, $(amankan)$, $(pesta\ olahraga)$.
-Terkhusus untuk \textit{leaf} dengan bentuk spesial, seperti $(*)$, kita hilangkan sehingga teks
-yang diperoleh dari \textit{tree} tersebut adalah \say{Kera untuk amankan pesta olahraga}.
-Selanjutnya, contoh teks yang akan digunakan agar konsisten yaitu
-\say{Pamungkas dan Setyo menyukai rendang}.
-
-
-\begin{figure}\centering\small
-	\begin{align*}
-		&(NP\\
-		&\ \ (NN\ (Kera))\\
-		&\ \ (SBAR\\
-		&\ \ \ \ (SC\ (untuk))\\
-		&\ \ \ \ (S\ (NP-SBJ\ (*))\\
-		&\ \ \ \ \ \ (VP\\
-		&\ \ \ \ \ \ \ \ (VB\ (amankan))\\
-		&\ \ \ \ \ \ \ \ (NP\ (NN\ (pesta\ olahraga)))))))
-	\end{align*}
-	\caption{Salah satu contoh \textit{tree} dalam Indonesian Treebank.}
-	\label{treebank:tree:1}
-\end{figure}
-
-\footnotetext[1]{github.com/famrashel/idn-treebank/blob/master/Indonesian\_Treebank.bracket}
-\footnotetext[2]{id.wikipedia.org}
-
-\subsection{POS Tagging}
-
-Berdasarkan teks bahasa Indonesia yang telah diambil, kita manfaatkan \textit{tool} POS \textit{tagger}
-bahasa Indonesia untuk mendapatkan \textit{lexical category} atomik untuk masing-masing token.
-Dengan memanfaatkan POS \textit{tag} kita dapat membuat \textit{dataset} untuk CCG \textit{supertag}
-lebih mudah dibandingkan dengan memberikan \textit{tag} CCG secara manual.
-Ide dasarnya yaitu kita akan mentransformasikan POS \textit{tag} yang didapatkan menjadi CCG
-\textit{supertag} berdasarkan aturan-aturan khusus yang telah ditentukan.
-Sebagai contoh, kita dapat membuat aturan seperti mentransformasikan $\text{VB}$ menjadi
-$\text{(S$\backslash$NP)/NP}$.
-Dengan menggunakan contoh kalimat yang sama seperti di bagian sebelumnya,
-yaitu \say{Pamungkas dan Setyo menyukai rendang}, setelah menggunakan POS \textit{tagger} bahasa
-Indonesia kita dapatkan hasil sesuai dengan Gambar \ref{postag:1}.
-
-\begin{figure}\centering
-  \bgroup
-  \catcode`!=\active \def!{\upshape}
-  \tabbedShortstack{
-    !Pamungkas & & !dan & & !Setyo & & !menyukai & & !rendang &\\
-    \TABcline{1,3,5,7,9}
-    !{$\text{NNP}$} & &
-      !{$\text{CC}$} & &
-      !{$\text{NNP}$} & &
-      !{$\text{VB}$} & &
-      !{$\text{X}$} &
-  }
-	\egroup
-	\caption{Kalimat contoh dengan POS \textit{tag}-nya.}
-	\label{postag:1}
-\end{figure}
-
-\subsection{Transformasi POS Tag}
-
-Pada bagian proses transformasi POS \textit{tag} ke bentuk CCG \textit{supertag}-nya,
-kita buatkan aturan-aturan transformasinya.
-Aturan transformasi tersebut merupakan pemetaan berbasis aturan.
-Sebagai contoh, kata \say{menyukai} memiliki POS \textit{tag} $\text{VB}$.
-Anggap saja dalam aturan transformasi terdapat pemetaan $\text{VB} \vdash \text{(S$\backslash$NP)/NP}$.
-Sehingga, kita dapatkan CCG \textit{supertag} untuk \say{menyukai} yaitu $\text{(S$\backslash$NP)/NP}$.
-Kendati demikian, masih ada bagian yang belum kita dapatkan yaitu \textit{semantic representation}-nya.
-Kita dapat menggunakan \textit{stemmer} bahasa Indonesia agar mendapatkan \textit{root words}
-dari kata \say{menyukai} yaitu \say{suka}.
-Langkah terakhirnya adalah membuatkan \textit{semantic representation}-nya berdasarkan
-\textit{root words} yang telah diperoleh sehingga kita dapatkan fungsi lambdanya yaitu
-$\lambda x.\lambda y.\ \text{suka}(y, x)$.
-
-Selain menggunakan \textit{stemmer}, kita dapat menggunakan \textit{morphological analyzer}.
-\textit{Morphological analyzer} salah satu kegunaannya yaitu dapat menghasilkan \textit{root words}
-sehingga dapat kita manfaatkan untuk membuat fungsi lambda.
-Untuk bahasa Indonesia, kita dapat menggunakan \textit{tool} bernama MorphInd\footnotemark[3].
-Selain MorphInd, alternatif \textit{tool} yang dapat digunakan adalah IndMA
-(Indonesian morphological analyzer).
-Namun, MorphInd dipilih karena dapat memberikan keluaran berupa morfem tersegmentasi
-\cite{larasati2011indonesian}.
-Kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} untuk bahasa Indonesia.
-Hal ini agar \textit{dataset} yang dibuatkan secara semi-otomatis ini dapat memiliki kualitas yang
-baik.
+% Sebagai contoh, salah satu \textit{tree} yang terdapat di Indonesian Treebank dapat dilihat pada
+% Gambar \ref{treebank:tree:1}.
+% Apa yang dimaksud dengan \textit{leaf} pada \textit{tree} tersebut adalah $(Kera)$, $(untuk)$,
+% $(*)$, $(amankan)$, $(pesta\ olahraga)$.
+% Terkhusus untuk \textit{leaf} dengan bentuk spesial, seperti $(*)$, kita hilangkan sehingga teks
+% yang diperoleh dari \textit{tree} tersebut adalah \say{Kera untuk amankan pesta olahraga}.
+% Selanjutnya, contoh teks yang akan digunakan agar konsisten yaitu
+% \say{Pamungkas dan Setyo menyukai rendang}.
 
 
-\footnotetext[3]{septinalarasati.com/morphind}
+% \begin{figure}\centering\small
+% 	\begin{align*}
+% 		&(NP\\
+% 		&\ \ (NN\ (Kera))\\
+% 		&\ \ (SBAR\\
+% 		&\ \ \ \ (SC\ (untuk))\\
+% 		&\ \ \ \ (S\ (NP-SBJ\ (*))\\
+% 		&\ \ \ \ \ \ (VP\\
+% 		&\ \ \ \ \ \ \ \ (VB\ (amankan))\\
+% 		&\ \ \ \ \ \ \ \ (NP\ (NN\ (pesta\ olahraga)))))))
+% 	\end{align*}
+% 	\caption{Salah satu contoh \textit{tree} dalam Indonesian Treebank.}
+% 	\label{treebank:tree:1}
+% \end{figure}
 
-\subsection{Output CCG Supertag}
+% \footnotetext[1]{github.com/famrashel/idn-treebank/blob/master/Indonesian\_Treebank.bracket}
+% \footnotetext[2]{id.wikipedia.org}
 
-Keluaran dari bagian pembuatan \textit{dataset} ini adalah sebuah berkas JSON
-(JavaScript Object Notation) berisi CCG \textit{supertag} lengkap dan beberapa berkas JSON dari CCG
-\textit{supertag} yang lemanya dikelompokkan berasarkan alfabet.
-Adapun format JSON dari \textit{dataset} yang disimpan dalam berkas tersebut dapat dilihat pada Gambar
-\ref{dataset:format}.
-Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua objek yaitu
-(1) \say{tokens} berupa daftar token, dan
-(2) \say{supertags} berupa daftar \textit{supertag} untuk token ke-$(i, j)$ dimana $1 \leq i \leq n$
-dan $1 \leq j \leq m$ dalam sistem \textit{$1$-indexed array}.
-Sebagai contoh, kalimat \say{Pamungkas menyukai rendang} representasinya dapat dilihat pada Gambar
-\ref{dataset:example}.
-Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \textit{supertag}-nya.
+% \subsection{POS Tagging}
 
-\begin{figure}\centering
-	\bgroup
-	\catcode`!=\active \def!{\upshape}
-	\tabbedShortstack[l]{
-		!{[} & & &\\
-			& !{\{} & &\\
-			& & !{\say{tokens}:} &
-				!{[\say{$token_{1,1}$}, \say{$token_{1,2}$}, $\dots$, \say{$token_{1,m}$}],}\\
-			& & !{\say{supertags}:} &
-				!{[\say{$supertag_{1,1}$}, \say{$supertag_{1,2}$}, $\dots$, \say{$supertag_{1,m}$}]}\\
-			& !{\}}, & &\\
-			& !{\{} & &\\
-			& & !{\say{tokens}:} &
-				!{[\say{$token_{2,1}$}, \say{$token_{2,2}$}, $\dots$, \say{$token_{2,m}$}],}\\
-			& & !{\say{supertags}:} &
-				!{[\say{$supertag_{2,1}$}, \say{$supertag_{2,2}$}, $\dots$, \say{$supertag_{2,m}$}]}\\
-			& !{\}}, & &\\
-			& & &\\
-			& & &\\
-			& $\vdots$ & &\\
-			& & &\\
-			& & &\\
-			& !{\{} & &\\
-			& & !{\say{tokens}:} &
-				!{[\say{$token_{n,1}$}, \say{$token_{n,2}$}, $\dots$, \say{$token_{n,m}$}],}\\
-			& & !{\say{supertags}:} &
-				!{[\say{$supertag_{n,1}$}, \say{$supertag_{n,2}$}, $\dots$, \say{$supertag_{n,m}$}]}\\
-			& !{\}} & &\\
-		!{]} & & &
-	}
-	\egroup
-	\caption{Format JSON \textit{dataset} yang disimpan di dalam berkas.}
-	\label{dataset:format}
-\end{figure}
+% Berdasarkan teks bahasa Indonesia yang telah diambil, kita manfaatkan \textit{tool} POS \textit{tagger}
+% bahasa Indonesia untuk mendapatkan \textit{lexical category} atomik untuk masing-masing token.
+% Dengan memanfaatkan POS \textit{tag} kita dapat membuat \textit{dataset} untuk CCG \textit{supertag}
+% lebih mudah dibandingkan dengan memberikan \textit{tag} CCG secara manual.
+% Ide dasarnya yaitu kita akan mentransformasikan POS \textit{tag} yang didapatkan menjadi CCG
+% \textit{supertag} berdasarkan aturan-aturan khusus yang telah ditentukan.
+% Sebagai contoh, kita dapat membuat aturan seperti mentransformasikan $\text{VB}$ menjadi
+% $\text{(S$\backslash$NP)/NP}$.
+% Dengan menggunakan contoh kalimat yang sama seperti di bagian sebelumnya,
+% yaitu \say{Pamungkas dan Setyo menyukai rendang}, setelah menggunakan POS \textit{tagger} bahasa
+% Indonesia kita dapatkan hasil sesuai dengan Gambar \ref{postag:1}.
+
+% \begin{figure}\centering
+%   \bgroup
+%   \catcode`!=\active \def!{\upshape}
+%   \tabbedShortstack{
+%     !Pamungkas & & !dan & & !Setyo & & !menyukai & & !rendang &\\
+%     \TABcline{1,3,5,7,9}
+%     !{$\text{NNP}$} & &
+%       !{$\text{CC}$} & &
+%       !{$\text{NNP}$} & &
+%       !{$\text{VB}$} & &
+%       !{$\text{X}$} &
+%   }
+% 	\egroup
+% 	\caption{Kalimat contoh dengan POS \textit{tag}-nya.}
+% 	\label{postag:1}
+% \end{figure}
+
+% \subsection{Transformasi POS Tag}
+
+% Pada bagian proses transformasi POS \textit{tag} ke bentuk CCG \textit{supertag}-nya,
+% kita buatkan aturan-aturan transformasinya.
+% Aturan transformasi tersebut merupakan pemetaan berbasis aturan.
+% Sebagai contoh, kata \say{menyukai} memiliki POS \textit{tag} $\text{VB}$.
+% Anggap saja dalam aturan transformasi terdapat pemetaan $\text{VB} \vdash \text{(S$\backslash$NP)/NP}$.
+% Sehingga, kita dapatkan CCG \textit{supertag} untuk \say{menyukai} yaitu $\text{(S$\backslash$NP)/NP}$.
+% Kendati demikian, masih ada bagian yang belum kita dapatkan yaitu \textit{semantic representation}-nya.
+% Kita dapat menggunakan \textit{stemmer} bahasa Indonesia agar mendapatkan \textit{root words}
+% dari kata \say{menyukai} yaitu \say{suka}.
+% Langkah terakhirnya adalah membuatkan \textit{semantic representation}-nya berdasarkan
+% \textit{root words} yang telah diperoleh sehingga kita dapatkan fungsi lambdanya yaitu
+% $\lambda x.\lambda y.\ \text{suka}(y, x)$.
+
+% Selain menggunakan \textit{stemmer}, kita dapat menggunakan \textit{morphological analyzer}.
+% \textit{Morphological analyzer} salah satu kegunaannya yaitu dapat menghasilkan \textit{root words}
+% sehingga dapat kita manfaatkan untuk membuat fungsi lambda.
+% Untuk bahasa Indonesia, kita dapat menggunakan \textit{tool} bernama MorphInd\footnotemark[3].
+% Selain MorphInd, alternatif \textit{tool} yang dapat digunakan adalah IndMA
+% (Indonesian morphological analyzer).
+% Namun, MorphInd dipilih karena dapat memberikan keluaran berupa morfem tersegmentasi
+% \cite{larasati2011indonesian}.
+% Kita dapat menggunakan MorphInd sebagai pelengkap POS \textit{tagger} untuk bahasa Indonesia.
+% Hal ini agar \textit{dataset} yang dibuatkan secara semi-otomatis ini dapat memiliki kualitas yang
+% baik.
+
+
+% \footnotetext[3]{septinalarasati.com/morphind}
+
+% \subsection{Output CCG Supertag}
+
+% Keluaran dari bagian pembuatan \textit{dataset} ini adalah sebuah berkas JSON
+% (JavaScript Object Notation) berisi CCG \textit{supertag} lengkap dan beberapa berkas JSON dari CCG
+% \textit{supertag} yang lemanya dikelompokkan berasarkan alfabet.
+% Adapun format JSON dari \textit{dataset} yang disimpan dalam berkas tersebut dapat dilihat pada Gambar
+% \ref{dataset:format}.
+% Untuk setiap kalimat dalam berkas tersebut direpresentasikan oleh dua objek yaitu
+% (1) \say{tokens} berupa daftar token, dan
+% (2) \say{supertags} berupa daftar \textit{supertag} untuk token ke-$(i, j)$ dimana $1 \leq i \leq n$
+% dan $1 \leq j \leq m$ dalam sistem \textit{$1$-indexed array}.
+% Sebagai contoh, kalimat \say{Pamungkas menyukai rendang} representasinya dapat dilihat pada Gambar
+% \ref{dataset:example}.
+% Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \textit{supertag}-nya.
 
 % \begin{figure}\centering
 % 	\bgroup
 % 	\catcode`!=\active \def!{\upshape}
-% 	\catcode`?=\active \def?#1{\makebox[0pt]{#1}}
 % 	\tabbedShortstack[l]{
 % 		!{[} & & &\\
 % 			& !{\{} & &\\
-% 			& & !{\say{tokens}: [} &\\
-% 			& & !{\ \ \ \ \say{Pamungkas},} &\\
-% 			& & !{\ \ \ \ \say{dan},} &\\
-% 			& & !{\ \ \ \ \say{Setyo},} &\\
-% 			& & !{\ \ \ \ \say{menyukai},} &\\
-% 			& & !{\ \ \ \ \say{rendang},} &\\
-% 			& & !{\ \ \ \ \say{.}} &\\
-% 			& & !{],} &\\
-% 			& & !{\say{supertags}: [} &\\
-% 			& & !{\ \ \ \ \say{$\text{NP: \so{pamungkas}}$},} &\\
-% 			& & !{\ \ \ \ \say{$\text{CONJ: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$}$},} &\\
-% 			& & !{\ \ \ \ \say{$\text{NP: \so{setyo}}$},} &\\
-% 			& & !{\ \ \ \ \say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},} &\\
-% 			& & !{\ \ \ \ \say{$\text{NP: \so{rendang}}$},} &\\
-% 			& & !{\ \ \ \ \say{$\text{Z}$}} &\\
-% 			& & !{]} &\\
+% 			& & !{\say{tokens}:} &
+% 				!{[\say{$token_{1,1}$}, \say{$token_{1,2}$}, $\dots$, \say{$token_{1,m}$}],}\\
+% 			& & !{\say{supertags}:} &
+% 				!{[\say{$supertag_{1,1}$}, \say{$supertag_{1,2}$}, $\dots$, \say{$supertag_{1,m}$}]}\\
+% 			& !{\}}, & &\\
+% 			& !{\{} & &\\
+% 			& & !{\say{tokens}:} &
+% 				!{[\say{$token_{2,1}$}, \say{$token_{2,2}$}, $\dots$, \say{$token_{2,m}$}],}\\
+% 			& & !{\say{supertags}:} &
+% 				!{[\say{$supertag_{2,1}$}, \say{$supertag_{2,2}$}, $\dots$, \say{$supertag_{2,m}$}]}\\
+% 			& !{\}}, & &\\
+% 			& & &\\
+% 			& & &\\
+% 			& $\vdots$ & &\\
+% 			& & &\\
+% 			& & &\\
+% 			& !{\{} & &\\
+% 			& & !{\say{tokens}:} &
+% 				!{[\say{$token_{n,1}$}, \say{$token_{n,2}$}, $\dots$, \say{$token_{n,m}$}],}\\
+% 			& & !{\say{supertags}:} &
+% 				!{[\say{$supertag_{n,1}$}, \say{$supertag_{n,2}$}, $\dots$, \say{$supertag_{n,m}$}]}\\
+% 			& !{\}} & &\\
+% 		!{]} & & &
+% 	}
+% 	\egroup
+% 	\caption{Format JSON \textit{dataset} yang disimpan di dalam berkas.}
+% 	\label{dataset:format}
+% \end{figure}
+
+% % \begin{figure}\centering
+% % 	\bgroup
+% % 	\catcode`!=\active \def!{\upshape}
+% % 	\catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+% % 	\tabbedShortstack[l]{
+% % 		!{[} & & &\\
+% % 			& !{\{} & &\\
+% % 			& & !{\say{tokens}: [} &\\
+% % 			& & !{\ \ \ \ \say{Pamungkas},} &\\
+% % 			& & !{\ \ \ \ \say{dan},} &\\
+% % 			& & !{\ \ \ \ \say{Setyo},} &\\
+% % 			& & !{\ \ \ \ \say{menyukai},} &\\
+% % 			& & !{\ \ \ \ \say{rendang},} &\\
+% % 			& & !{\ \ \ \ \say{.}} &\\
+% % 			& & !{],} &\\
+% % 			& & !{\say{supertags}: [} &\\
+% % 			& & !{\ \ \ \ \say{$\text{NP: \so{pamungkas}}$},} &\\
+% % 			& & !{\ \ \ \ \say{$\text{CONJ: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$}$},} &\\
+% % 			& & !{\ \ \ \ \say{$\text{NP: \so{setyo}}$},} &\\
+% % 			& & !{\ \ \ \ \say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},} &\\
+% % 			& & !{\ \ \ \ \say{$\text{NP: \so{rendang}}$},} &\\
+% % 			& & !{\ \ \ \ \say{$\text{Z}$}} &\\
+% % 			& & !{]} &\\
+% % 			& !{\}} & &\\
+% % 		!{]} & & &
+% % 	}
+% % 	\egroup
+% % 	\caption{Contoh isi dari berkas \textit{dataset} dalam format JSON.}
+% % 	\label{dataset:example}
+% % \end{figure}
+
+% \begin{figure}\centering\scriptsize
+% 	\bgroup
+% 	\catcode`!=\active \def!{\upshape}
+% 	\tabbedShortstack[l]{
+% 		!{[} & & &\\
+% 			& !{\{} & &\\
+% 			& & !{\say{tokens}:} &
+% 				!{[\say{Pamungkas}, \say{menyukai}, \say{rendang}, \say{.}],}\\
+% 			& & !{\say{supertags}:} &
+% 				!{[
+% 					\say{$\text{NP: \so{pamungkas}}$},
+% 					\say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},
+% 					\say{$\text{NP: \so{rendang}}$},
+% 					\say{$\text{Z}$}
+% 				]}\\
 % 			& !{\}} & &\\
 % 		!{]} & & &
 % 	}
@@ -236,201 +259,180 @@ Demikian itu, kita dapat mengambil \textit{dataset} secara lengkap dengan CCG \t
 % 	\label{dataset:example}
 % \end{figure}
 
-\begin{figure}\centering\scriptsize
-	\bgroup
-	\catcode`!=\active \def!{\upshape}
-	\tabbedShortstack[l]{
-		!{[} & & &\\
-			& !{\{} & &\\
-			& & !{\say{tokens}:} &
-				!{[\say{Pamungkas}, \say{menyukai}, \say{rendang}, \say{.}],}\\
-			& & !{\say{supertags}:} &
-				!{[
-					\say{$\text{NP: \so{pamungkas}}$},
-					\say{$\text{(S$\backslash$NP)/NP: $\lambda x.\lambda y.\ suka(y, x)$}$},
-					\say{$\text{NP: \so{rendang}}$},
-					\say{$\text{Z}$}
-				]}\\
-			& !{\}} & &\\
-		!{]} & & &
-	}
-	\egroup
-	\caption{Contoh isi dari berkas \textit{dataset} dalam format JSON.}
-	\label{dataset:example}
-\end{figure}
+% \section{Mempersiapkan CCG Supertagger}
 
-\section{Mempersiapkan CCG Supertagger}
+% \subsection{Melatih Model MaxEnt}
 
-\subsection{Melatih Model MaxEnt}
+% Model yang akan digunakan oleh \textit{supertagger} ini adalah Maximum Entropy (MaxEnt).
+% Model ini dipilih karena ketersediaan \textit{dataset} bahasa Indonesia yang masih sangat kurang.
+% Selain itu, model MaxEnt digunakan di sebuah riset yang dilakukan oleh Stephen Clark dalam
+% pembuatan \textit{supertagger}-nya.
+% Bahkan, performansi \textit{supertagger} yang dikembangkan sangat baik.
+% Riset tersebut pada intinya membuktikan bahwasannya MaxEnt dapat digunakan di \textit{supertagger}
+% juga meskipun pada peruntukannya MaxEnt dibuat untuk POS \textit{tagger}.
+% Tentunya terdapat beberapa penyesuaian yang harus dilakukan.
+% Salah satunya adalah formula probabiltas yang digunakan.
+% Formula yang telah disesuaikan tersebut dapat dilihat di persamaan \ref{maxent:equation:2}.
 
-Model yang akan digunakan oleh \textit{supertagger} ini adalah Maximum Entropy (MaxEnt).
-Model ini dipilih karena ketersediaan \textit{dataset} bahasa Indonesia yang masih sangat kurang.
-Selain itu, model MaxEnt digunakan di sebuah riset yang dilakukan oleh Stephen Clark dalam
-pembuatan \textit{supertagger}-nya.
-Bahkan, performansi \textit{supertagger} yang dikembangkan sangat baik.
-Riset tersebut pada intinya membuktikan bahwasannya MaxEnt dapat digunakan di \textit{supertagger}
-juga meskipun pada peruntukannya MaxEnt dibuat untuk POS \textit{tagger}.
-Tentunya terdapat beberapa penyesuaian yang harus dilakukan.
-Salah satunya adalah formula probabiltas yang digunakan.
-Formula yang telah disesuaikan tersebut dapat dilihat di persamaan \ref{maxent:equation:2}.
+% Model yang telah dilatih akan disimpan di dalam sebuah berkas sebagai \textit{snapshot} agar apabila
+% proses \textit{train} mengalami kegagalan kita tidak perlu mengulangi proses \textit{train} dari
+% awal lagi.
+% Dalam hal ini, untuk setiap $10$ \textit{dataset} yang telah diproses, proses penyimpanan
+% \textit{snapshot} akan dilakukan.
+% Adapun format \textit{snapshot} menggunakan JSON yang menyimpan informasi berupa jumlah kalimat
+% terproses dan sebuah tabel yang menyimpan kalkulasi pada saat \textit{snapshot} disimpan.
+% Setelah proses \textit{train} selesai, \textit{snapshot} akan diperbarui kemudian digunakan
+% untuk membuat sebuah berkas baru berupa JSON yang menyimpan \textit{trained model} tersebut
+% sehingga \textit{supertagger} yang dibangun dapat memuat model tersebut tanpa perlu melakukan
+% \textit{train} kembali.
 
-Model yang telah dilatih akan disimpan di dalam sebuah berkas sebagai \textit{snapshot} agar apabila
-proses \textit{train} mengalami kegagalan kita tidak perlu mengulangi proses \textit{train} dari
-awal lagi.
-Dalam hal ini, untuk setiap $10$ \textit{dataset} yang telah diproses, proses penyimpanan
-\textit{snapshot} akan dilakukan.
-Adapun format \textit{snapshot} menggunakan JSON yang menyimpan informasi berupa jumlah kalimat
-terproses dan sebuah tabel yang menyimpan kalkulasi pada saat \textit{snapshot} disimpan.
-Setelah proses \textit{train} selesai, \textit{snapshot} akan diperbarui kemudian digunakan
-untuk membuat sebuah berkas baru berupa JSON yang menyimpan \textit{trained model} tersebut
-sehingga \textit{supertagger} yang dibangun dapat memuat model tersebut tanpa perlu melakukan
-\textit{train} kembali.
+% \begin{figure}\centering
+% 	\bgroup
+% 	\catcode`!=\active \def!{\upshape}
+% 	\tabbedShortstack[l]{
+% 		!{$\{$} &\\
+% 			& !{\say{starting\_point}: $70$,}\\
+% 			& !{\say{rows}:
+% 				\{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_n$}: $N$\},}\\
+% 			& !{\say{cols}:
+% 				 \{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_m$}: $M$\},}\\
+% 			& !{\say{values}: [}\\
+% 			& !{\ \ \ \ [$value_{1,1}$, $value_{1,2}$, $\dots$, $value_{1,m}$],}\\
+% 			& !{\ \ \ \ [$value_{2,1}$, $value_{2,2}$, $\dots$, $value_{2,m}$],}\\
+% 			& \\
+% 			& \\
+% 			& \ \ \ \ $\vdots$\\
+% 			& \\
+% 			& \\
+% 			& !{\ \ \ \ [$value_{n,1}$, $value_{n,2}$, $\dots$, $value_{n,m}$]}\\
+% 			& !{]}\\
+% 		!{$\}$} &
+% 	}
+% 	\egroup
+% 	\caption{Format JSON untuk menyimpan \textit{snapshot}.}
+% 	\label{snapshot:format}
+% \end{figure}
 
-\begin{figure}\centering
-	\bgroup
-	\catcode`!=\active \def!{\upshape}
-	\tabbedShortstack[l]{
-		!{$\{$} &\\
-			& !{\say{starting\_point}: $70$,}\\
-			& !{\say{rows}:
-				\{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_n$}: $N$\},}\\
-			& !{\say{cols}:
-				 \{\say{$token_1$}: $1$, \say{$token_2$}: $2$, $\dots$, \say{$token_m$}: $M$\},}\\
-			& !{\say{values}: [}\\
-			& !{\ \ \ \ [$value_{1,1}$, $value_{1,2}$, $\dots$, $value_{1,m}$],}\\
-			& !{\ \ \ \ [$value_{2,1}$, $value_{2,2}$, $\dots$, $value_{2,m}$],}\\
-			& \\
-			& \\
-			& \ \ \ \ $\vdots$\\
-			& \\
-			& \\
-			& !{\ \ \ \ [$value_{n,1}$, $value_{n,2}$, $\dots$, $value_{n,m}$]}\\
-			& !{]}\\
-		!{$\}$} &
-	}
-	\egroup
-	\caption{Format JSON untuk menyimpan \textit{snapshot}.}
-	\label{snapshot:format}
-\end{figure}
+% Pada Gambar \ref{snapshot:format}, \textit{field} \say{$starting\_point$} menyimpan informasi berupa
+% bilangan cacah untuk memberikan tanda pada elemen ke-$i$ sebaiknya proses \textit{train} dimulai.
+% Dalam hal ini, berdasarkan contoh, sebaiknya dimulai dari elemen ke-$70$.
+% Selanjutnya, \textit{field} \say{$rows$} dan \say{$cols$} masing-masing menyatakan daftar baris dan
+% kolom beserta nomor \textit{index}-nya untuk digunakan oleh \textit{field} \say{$values$} nantinya.
+% \textit{Field} \say{$values$} merupakan representasi dari tabel yang memiliki $N$ baris serta $M$
+% kolom.
+% Adapun \say{$value$} pada elemen ke-$(i, j)$ menyimpan informasi berupa objek untuk model MaxEnt
+% setelah proses \textit{train} pada \say{$starting\_point$} saat itu.
+% Objek yang dimaksud berupa \say{konteks} yaitu berisikan daftar $k$ token sebelum dan sesudah token
+% ke-$(i, j)$ juga daftar $l$ \textit{supertag} sebelum dan sesudah \textit{supertag} ke-$(i, j)$.
+% Bahkan, \say{$value$} dapat pula meyimpan \textit{prefix} dan \textit{suffix} dari token ke-
+% $(i, j)$ tersebut.
 
-Pada Gambar \ref{snapshot:format}, \textit{field} \say{$starting\_point$} menyimpan informasi berupa
-bilangan cacah untuk memberikan tanda pada elemen ke-$i$ sebaiknya proses \textit{train} dimulai.
-Dalam hal ini, berdasarkan contoh, sebaiknya dimulai dari elemen ke-$70$.
-Selanjutnya, \textit{field} \say{$rows$} dan \say{$cols$} masing-masing menyatakan daftar baris dan
-kolom beserta nomor \textit{index}-nya untuk digunakan oleh \textit{field} \say{$values$} nantinya.
-\textit{Field} \say{$values$} merupakan representasi dari tabel yang memiliki $N$ baris serta $M$
-kolom.
-Adapun \say{$value$} pada elemen ke-$(i, j)$ menyimpan informasi berupa objek untuk model MaxEnt
-setelah proses \textit{train} pada \say{$starting\_point$} saat itu.
-Objek yang dimaksud berupa \say{konteks} yaitu berisikan daftar $k$ token sebelum dan sesudah token
-ke-$(i, j)$ juga daftar $l$ \textit{supertag} sebelum dan sesudah \textit{supertag} ke-$(i, j)$.
-Bahkan, \say{$value$} dapat pula meyimpan \textit{prefix} dan \textit{suffix} dari token ke-
-$(i, j)$ tersebut.
+% \subsection{Membangun Library Haskell}
 
-\subsection{Membangun Library Haskell}
+% Implementasi \textit{supertagger} bahasa Indonesia ini akan ditulis dalam bahasa pemrograman Haskell.
+% Haskell dipilih karena kemampuannya dalam mengolah data teks terutama kegiatan \textit{parsing} berkat
+% desain bahasa serta dukungan \textit{library} yang telah tersedia.
+% Secara desain bahasa, Haskell sangat dekat dengan \textit{category theory} sehingga diharapkan
+% \textit{supertag} yang disimpan di dalam program nantinya dapat berupa \textit{algebraic data type}
+% yang semirip mungkin dengan \textit{category theory}.
+% Hal ini menjadi pertimbangan karena tujuan akhir dari riset-riset yang berhubungan dengan CCG adalah
+% untuk membangun CCG \textit{parser}.
 
-Implementasi \textit{supertagger} bahasa Indonesia ini akan ditulis dalam bahasa pemrograman Haskell.
-Haskell dipilih karena kemampuannya dalam mengolah data teks terutama kegiatan \textit{parsing} berkat
-desain bahasa serta dukungan \textit{library} yang telah tersedia.
-Secara desain bahasa, Haskell sangat dekat dengan \textit{category theory} sehingga diharapkan
-\textit{supertag} yang disimpan di dalam program nantinya dapat berupa \textit{algebraic data type}
-yang semirip mungkin dengan \textit{category theory}.
-Hal ini menjadi pertimbangan karena tujuan akhir dari riset-riset yang berhubungan dengan CCG adalah
-untuk membangun CCG \textit{parser}.
+% Pembangunan \textit{library} ini sangat penting karena nantinya \textit{library} ini dapat dimanfaatkan
+% untuk membangun program \textit{command line interface} (CLI), \textit{web application}, dan sebagainya.
+% Dalam hal ini, \textit{supertagger} yang dibangun dalam tugas akhir ini akan memiliki dukungan RESTful
+% API agar tidak ada batasan dalam bahasa pemrograman yang harus digunakan untuk memanfaatkan
+% \textit{supertagger} ini.
+% Sangat mungkin pula nantinya terdapat program yang memanfaatkan \textit{library} Haskell ini secara
+% langsung di programnya.
+% Demikian itu, menyediakan \textit{library} untuk suatu bahasa pemrograman (dalam hal ini, Haskell)
+% dirasa perlu.
 
-Pembangunan \textit{library} ini sangat penting karena nantinya \textit{library} ini dapat dimanfaatkan
-untuk membangun program \textit{command line interface} (CLI), \textit{web application}, dan sebagainya.
-Dalam hal ini, \textit{supertagger} yang dibangun dalam tugas akhir ini akan memiliki dukungan RESTful
-API agar tidak ada batasan dalam bahasa pemrograman yang harus digunakan untuk memanfaatkan
-\textit{supertagger} ini.
-Sangat mungkin pula nantinya terdapat program yang memanfaatkan \textit{library} Haskell ini secara
-langsung di programnya.
-Demikian itu, menyediakan \textit{library} untuk suatu bahasa pemrograman (dalam hal ini, Haskell)
-dirasa perlu.
+% \subsection{Menguji Model MaxEnt}
 
-\subsection{Menguji Model MaxEnt}
+% Pengujian model MaxEnt setelah proses \textit{train} dilakukan dengan cara mencocokkan \textit{supertag}
+% yang dihasilkan oleh \textit{supertagger} dengan \textit{supertag} yang telah diberikan secara manual
+% terhadap suatu kalimat yang diberikan.
+% Dengan demikian, setidaknya akan ada dua \textit{dataset} yaitu \textit{data train} dan
+% \textit{data test}.
+% \textit{Data train} dibuat secara semi-otomatis sesuai dengan bagian \say{Pembuatan Dataset}.
+% Selanjutnya, \textit{data test} dibuat secara manual yang mana berjumlah $20\%$ hingga $30\%$ dari
+% jumlah kalimat pada \textit{data train}.
+% Sebagai catatan, untuk kata atau token yang tidak ada di \textit{data train} tetapi ada di
+% \textit{data test} (\textit{unseen words}) akan diberikan \textit{supertag} berupa
+% \textit{category} $\text{N}$.
 
-Pengujian model MaxEnt setelah proses \textit{train} dilakukan dengan cara mencocokkan \textit{supertag}
-yang dihasilkan oleh \textit{supertagger} dengan \textit{supertag} yang telah diberikan secara manual
-terhadap suatu kalimat yang diberikan.
-Dengan demikian, setidaknya akan ada dua \textit{dataset} yaitu \textit{data train} dan
-\textit{data test}.
-\textit{Data train} dibuat secara semi-otomatis sesuai dengan bagian \say{Pembuatan Dataset}.
-Selanjutnya, \textit{data test} dibuat secara manual yang mana berjumlah $20\%$ hingga $30\%$ dari
-jumlah kalimat pada \textit{data train}.
-Sebagai catatan, untuk kata atau token yang tidak ada di \textit{data train} tetapi ada di
-\textit{data test} (\textit{unseen words}) akan diberikan \textit{supertag} berupa
-\textit{category} $\text{N}$.
+% \section{Membangun CCG Supertagger Versi CLI}
 
-\section{Membangun CCG Supertagger Versi CLI}
+% Sebagai langkah awal, program CLI akan dibangun lebih dahulu sebelum versi \textit{web application}-nya
+% rilis.
+% Hal ini agar validasi dapat dilakukan yaitu untuk memeriksa apakah keluaran dari \textit{supertagger}
+% sudah sesuai.
+% Adapun \textit{flowchart} dari program CLI \textit{supertagger} ini terdapat pada Gambar
+% \ref{flowchart:supertagger:1}.
 
-Sebagai langkah awal, program CLI akan dibangun lebih dahulu sebelum versi \textit{web application}-nya
-rilis.
-Hal ini agar validasi dapat dilakukan yaitu untuk memeriksa apakah keluaran dari \textit{supertagger}
-sudah sesuai.
-Adapun \textit{flowchart} dari program CLI \textit{supertagger} ini terdapat pada Gambar
-\ref{flowchart:supertagger:1}.
+% \begin{figure}[h!]\centering
+% 	\begin{tikzpicture}[node distance=2cm]
+% 		\node (start) [cloud] {Start};
+% 		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
+% 		\node (pro1) [process, below of=in, yshift=0.5cm] {\textit{Tokenize}};
+% 		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
+% 		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
+% 		\node (pro3) [process, below of=dec, yshift=-1cm] {Menghitung probabilitas terhadap token};
+% 		\node (pro4) [process, below of=pro3, yshift=0.5cm] {Memilih \textit{supertag} yang sesuai};
+% 		\node (out) [io, below of=pro4, yshift=0.5cm] {\textit{Output} CCG \textit{supertag}};
+% 		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
+% 		\draw [arrow] (start) -- (in);
+% 		\draw [arrow] (in) -- (pro1);
+% 		\draw [arrow] (pro1) -- (pro2);
+% 		\draw [arrow] (pro2) -- (dec);
+% 		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
+% 		\draw [arrow] (pro3) -- (pro4);
+% 		\draw [arrow] (pro4) -- +(-4,0) |- (dec);
+% 		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
+% 		\draw [arrow] (out) -- (stop);
+% 	\end{tikzpicture}
+% 	\caption{Alur kerja proses \textit{tagging}.}
+% 	\label{flowchart:supertagger:1}
+% \end{figure}
 
-\begin{figure}[h!]\centering
-	\begin{tikzpicture}[node distance=2cm]
-		\node (start) [cloud] {Start};
-		\node (in) [io, below of=start, yshift=0.5cm] {\textit{Input} teks bahasa Indonesia};
-		\node (pro1) [process, below of=in, yshift=0.5cm] {\textit{Tokenize}};
-		\node (pro2) [process, below of=pro1, yshift=0.5cm] {Jadikan \textit{queue}};
-		\node (dec) [decision, below of=pro2, yshift=-1cm] {\textit{Queue} kosong?};
-		\node (pro3) [process, below of=dec, yshift=-1cm] {Menghitung probabilitas terhadap token};
-		\node (pro4) [process, below of=pro3, yshift=0.5cm] {Memilih \textit{supertag} yang sesuai};
-		\node (out) [io, below of=pro4, yshift=0.5cm] {\textit{Output} CCG \textit{supertag}};
-		\node (stop) [cloud, below of=out, yshift=0.5cm] {Stop};
-		\draw [arrow] (start) -- (in);
-		\draw [arrow] (in) -- (pro1);
-		\draw [arrow] (pro1) -- (pro2);
-		\draw [arrow] (pro2) -- (dec);
-		\draw [arrow] (dec) -- node[anchor=east]{Tidak} (pro3);
-		\draw [arrow] (pro3) -- (pro4);
-		\draw [arrow] (pro4) -- +(-4,0) |- (dec);
-		\draw [arrow] (dec) -- node[anchor=south]{Ya} +(4,0) |- (out);
-		\draw [arrow] (out) -- (stop);
-	\end{tikzpicture}
-	\caption{Alur kerja proses \textit{tagging}.}
-	\label{flowchart:supertagger:1}
-\end{figure}
+% \subsection{Tokenize}
 
-\subsection{Tokenize}
+% Pertama-tama, \textit{toknize} akan memisahkan antar kalimat yang dipisahkan oleh karakter titik
+% (\say{.} tanpa tanda kutip) yang diikuti oleh spasi. Selanjutnya, untuk setiap kalimat,
+% \textit{tokenize} akan memisahkan beberapa bagian yang terindikasi sebagai token.
+% Token umumnya berupa kata yang dipisahkan oleh spasi.
+% Namun, token juga dapat berupa karakter khusus seperti karakter tanda koma (\say{,} tanpa tanda kutip).
+% Dengan demikian, \textit{supertagger} dapat dengan mudah melakukan kalkulasi probabilitas untuk
+% masing-masing token.
+% Proses \textit{tokenize} pada awalnya terlihat mudah.
+% Sayangnya, proses ini cukup \textit{tricky} karena ada beberapa hal tidak umum yang seringkali muncul.
+% Sebagai contoh, \say{Rp5.000,00} memiliki dua token yaitu \say{Rp} sebagai \textit{currency} dan
+% \say{5.000,00} sebagai nominalnya.
 
-Pertama-tama, \textit{toknize} akan memisahkan antar kalimat yang dipisahkan oleh karakter titik
-(\say{.} tanpa tanda kutip) yang diikuti oleh spasi. Selanjutnya, untuk setiap kalimat,
-\textit{tokenize} akan memisahkan beberapa bagian yang terindikasi sebagai token.
-Token umumnya berupa kata yang dipisahkan oleh spasi.
-Namun, token juga dapat berupa karakter khusus seperti karakter tanda koma (\say{,} tanpa tanda kutip).
-Dengan demikian, \textit{supertagger} dapat dengan mudah melakukan kalkulasi probabilitas untuk
-masing-masing token.
-Proses \textit{tokenize} pada awalnya terlihat mudah.
-Sayangnya, proses ini cukup \textit{tricky} karena ada beberapa hal tidak umum yang seringkali muncul.
-Sebagai contoh, \say{Rp5.000,00} memiliki dua token yaitu \say{Rp} sebagai \textit{currency} dan
-\say{5.000,00} sebagai nominalnya.
+% \subsection{Menghitung Probabilitas}
 
-\subsection{Menghitung Probabilitas}
+% Probabilitas untuk sebuah token ke-$(i, j)$ dapat dihitung dengan menggunakan \textit{beam search}.
+% Persamaan yang digunakan adalah persamaan \ref{maxent:equation:4}.
+% Persamaan tersebut memiliki sebuah \textit{category sequence} $C$ serta kalimat $S$ sebagai syarat
+% dari probabilitas tersebut.
 
-Probabilitas untuk sebuah token ke-$(i, j)$ dapat dihitung dengan menggunakan \textit{beam search}.
-Persamaan yang digunakan adalah persamaan \ref{maxent:equation:4}.
-Persamaan tersebut memiliki sebuah \textit{category sequence} $C$ serta kalimat $S$ sebagai syarat
-dari probabilitas tersebut.
+% \begin{equation}\label{maxent:equation:4}
+% 	p(C|S) = \prod_i p(c_i, h_i)
+% \end{equation}
 
-\begin{equation}\label{maxent:equation:4}
-	p(C|S) = \prod_i p(c_i, h_i)
-\end{equation}
+% \noindent
+% dimana $c_i$ adalah \textit{category} ke-$i$ dalam \textit{sequence} tersebut dan $h_i$ berupa konteks
+% dari token ke-$i$.
+% \textit{Beam search} digunakan untuk mendapatkan $N$ \textit{sequence} teratas saat proses
+% \textit{tagging} dilakukan.
+% Dalamn hal ini, $N = 10$ digunakan.
 
-\noindent
-dimana $c_i$ adalah \textit{category} ke-$i$ dalam \textit{sequence} tersebut dan $h_i$ berupa konteks
-dari token ke-$i$.
-\textit{Beam search} digunakan untuk mendapatkan $N$ \textit{sequence} teratas saat proses
-\textit{tagging} dilakukan.
-Dalamn hal ini, $N = 10$ digunakan.
+% \subsection{Memilih Supertag}
 
-\subsection{Memilih Supertag}
+% Setelah proses penghitungan probabilitas selesai dilakukan, proses pemilihan \textit{supertag} dilakukan
+% berdasarkan $N$ \textit{sequence} teratas yang disimpan.
+% Berhubung MaxEnt yang digunakan adalah \textit{conditional maximum entorpy}, maka selanjutnya akan
+% dilakukan proses pemilihan \textit{supertag} berdasarkan kondisi-kondisi yang terpenuhi.
 
-Setelah proses penghitungan probabilitas selesai dilakukan, proses pemilihan \textit{supertag} dilakukan
-berdasarkan $N$ \textit{sequence} teratas yang disimpan.
-Berhubung MaxEnt yang digunakan adalah \textit{conditional maximum entorpy}, maka selanjutnya akan
-dilakukan proses pemilihan \textit{supertag} berdasarkan kondisi-kondisi yang terpenuhi.
+TBA.

@@ -202,20 +202,6 @@ pemetaannya.
   suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
 \end{equation}
 
-\section{Category Theory}
-\textit{Category Theory} (CT) merupakan formalisme yang dapat digunakan untuk memformalkan
-struktur matematis \cite{intro-cat-kurz}.
-CT mempelajari \textit{category} yang merupakan sebuah representasi dari suatu
-abstraksi konsep matematis.
-Suatu \textit{category} memiliki kumpulan \textit{object} dan \textit{morphism}.
-Untuk mempermudah pemahaman mengenai CT, kita akan gunakan
-\textit{category of set} (kategori dari himpunan) sebagai contoh.
-Dalam \textit{category of set}, \textit{object}-nya adalah himpunan dan
-\textit{morphism}-nya (terkadang disebut dengan \textit{arrow}) adalah fungsi
-(\textit{function}, sebuah pemetaan).
-Kemudian, pemetaan dari suatu \textit{category} $C$ ke \textit{category} $D$
-yang dipetakan oleh $F$ ($F: C \rightarrow D$) disebut sebagai \textit{functor}.
-
 
 \section{Lambda Calculus}
 \textit{Lambda calculus} ({$\lambda$}\textit{-calculus}) merupakan sebuah formalisme yang dikembangkan
@@ -247,85 +233,6 @@ yang dijelaskan sebelumnya, setidaknya memahami {$\lambda$}\textit{-calculus} se
 sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir ini.
 
 
-\section{Supertagging}
-\textit{Supertagging} merupakan proses yang memetakan suatu token kata ke bentuk
-\textit{supertag}-nya.
-\textit{Supertagging} awalnya diajukan untuk LTAG (\textit{Lexicalized Tree-Adjoining Grammars})
-yang memiliki konsep \textit{compliate locally, simplify globally} (CLSG)
-\cite{DBLP:journals/corr/Rama14b}.
-CCG \textit{supertagging} artinya proses pemetaan dari suatu token
-kata ke dalam bentuk CCG \textit{supertag} atau dapat juga disebut sebagai CCG \textit{lexicon}.
-\textit{Supertag} mirip dengan POS \textit{tag}.
-Perbedaannya, \textit{supertag} memiliki bentuk formalisme yang lebih kompleks dari POS
-\textit{tag}.
-Hal ini dikarenakan \textit{supertag} menyimpan informasi lain selain tanda gramatikalnya
-($\text{NP}$, $\text{NN}$, $\text{VB}$, dan sebagainya).
-Sebagai contoh, CCG \textit{supertag} memiliki bentuk dengan format:
+\section{CCGweb}
+TBA.
 
-\begin{equation*}
-<\text{categorial\ grammar\ tag}>\ :\ <\text{semantic\ representation}>
-\end{equation*}
-
-Kita dapat menggunakan notasi $\vdash$ untuk memetakan token kata ke bentuk CCG
-\textit{supertag}-nya.
-Anggap kita memiliki kata kerja \say{menyukai} yang akan dipetakan ke
-$\text{(S{$\backslash$}NP)/NP}: \lambda x.\lambda y.\ suka(y, x)$, kita dapatkan:
-
-\begin{equation*}
-  \text{menyukai}\ \vdash\ (S{\backslash}NP)/NP\ :\ \lambda x.\lambda y.\ suka(y, x)
-\end{equation*}
-
-Adapun sebuah \textit{tool} yang melakukan proses \textit{supertagging} ini dinamakan
-\textit{supertagger}.
-\textit{Supertagger} sederhananya mengambil daftar token kata yang kemudian untuk setiap
-token kata tersebut \say{dilabelkan} dengan \textit{supertag}-nya.
-
-
-\section{Maximum Entropy Model}
-\textit{Maximum Entropy} (MaxEnt) merupakan model statistik yang dapat digunakan untuk
-melakukan \textit{train} korpus teranotasi dengan Part-Of-Speech (POS) \textit{tag}
-\cite{Ratnaparkhi96amaximum}.
-Salah satu aplikasi MaxEnt adalah POS \textit{tagger} yang mana memiliki hasil akurasi
-yang lebih baik ketimbang \textit{state-of-the-art}.
-Adapun model probabilitasnya didefinisikan dalam $\mathcal{H}\times\mathcal{T}$,
-dimana $\mathcal{H}$ adalah himpunan dari kemungkinan kata dan konteks \textit{tag},
-atau \say{\textit{history}} (riwayat), dan $\mathcal{T}$ adalah himpunan dari
-\textit{tag} yang diizinkan.
-Model probabilitas dari suatu \textit{history} $h$ bersama dengan \textit{tag} $t$
-didefinisikan dalam persamaan \ref{maxent:equation:1}.
-
-\begin{equation}\label{maxent:equation:1}
-  p(h, t) = \pi\mu\prod_{j = 1}^{k} a_{j}^{f_{j}(h, t)}
-\end{equation}
-
-\noindent
-dimana $\pi$ merupakan konstan normalisasi,
-$\{\mu, a_1, \dots, a_k\}$ merupakan parameter model positif,
-dan $\{f_1, \dots, f_k\}$ merupakan apa yang kita sebut sebagai
-\say{\textit{feature}},
-dimana $f_j(h, t) \in \{0, 1\}$.
-
-Meskipun MaxEnt dipernalkan untuk POS \textit{tagging},
-MaxEnt dapat pula digunakan untuk \textit{supertagging}.
-Stephen Clark 2002 mempublikasikan literatur \textit{supertagging} untuk CCG yang
-mana MaxEnt merupakan model yang digunakan.
-Adapun persamaan modelnya dapat dilihat di persamaan \ref{maxent:equation:2}.
-
-\begin{equation}\label{maxent:equation:2}
-  p(c|h) = \frac{1}{Z(h)} e^{\Sigma_i \lambda_if_i(c, h)}
-\end{equation}
-
-\noindent
-dimana $c$ merupakan \textit{category}, $h$ merupakan \textit{context},
-fungsi $f_i(c, h)$ merupakan \say{\textit{feature}} dari suatu
-\textit{category} dan \textit{context}, dan $Z(h)$ merupakan konstan normalisasinya.
-Adapun contoh \say{\textit{feature}} yang dimaksud dapat dilihat di persamaan
-\ref{maxent:equation:3}.
-
-\begin{equation}\label{maxent:equation:3}
-  f_j(c, h) =
-  \begin{cases}
-    1 &, \text{if } merupakan\_kata\_yang(h) = true\ \&\ c = \text{NP/N}\\
-    0 &, \text{selainnya}
-  \end{cases}
-\end{equation}

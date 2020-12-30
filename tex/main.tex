@@ -29,7 +29,7 @@
 \usepackage{bookmark}
 \usepackage{dirtytalk}
 % \usepackage{ccg-latex}
-% \usepackage{booktabs}
+\usepackage{booktabs, threeparttable}
 
 % CCG
 \usepackage[TABcline]{tabstackengine}
@@ -97,14 +97,12 @@
 
 % Judul dalam bahasa Indonesia
 \title{
-  Membangun sebuah Combinatory Categorial Grammar (CCG) Supertagger
-  Berbasis Maximum Entropy untuk Bahasa Indonesia
+  CCGtown: Alat Anotasi Combinatory Categorial Grammar (CCG) Semi-otomatis Berbasis Web
 }\let\Title\@title
 
 % Judul dalam bahasa Inggris
 \newcommand{\EngTitle}{
-  Building a Combinatory Categorial Grammar (CCG) Supertagger
-  Based on the Maximum Entropy for Bahasa Indonesia
+  CCGtown: A Web-based Semi-automatic Combinatory Categorial Grammar (CCG) Annotation Tool
 }
 
 % Nama Penulis
@@ -125,7 +123,7 @@
 \newcommand{\Gelar}{Sains Komputasi}
 
 % Tahun TA
-\date{2019}\let\Date\@date
+\date{2020}\let\Date\@date
 
 % Kelas TA
 \newcommand{\Kelas}{NLP}
@@ -143,23 +141,23 @@
 \newcommand{\NIPPembimbingSatu}{06840042}
 
 % Nama Pembimbing Dua
-\newcommand{\PembimbingDua}{Dr. Calon Pembimbing 2, M.Kom}
+\newcommand{\PembimbingDua}{Said Al Faraby, S.T., M.Sc.}
 
 % NIP Pembimbing Dua
-\newcommand{\NIPPembimbingDua}{123456}
+\newcommand{\NIPPembimbingDua}{15890019}
 
 % Nama Kaprodi
 \newcommand{\Kaprodi}{Niken Dwi Wahyu Cahyani, S.T., M.Kom. PhD}
 
 % NIP Kaprodi
-\newcommand{\NIPKaprodi}{xxxxxxx}
+\newcommand{\NIPKaprodi}{00750052}
 
 
 \newif\ifPembimbingHanyaSatu
 
 %%%% WARNING kode berikut ini diaktifkan Jika pembimbing hanya satu %%%%
 
-\PembimbingHanyaSatutrue
+% \PembimbingHanyaSatutrue
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
