@@ -5,6 +5,16 @@
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, minimum height=2em]
 
+\usetikzlibrary{positioning}
+\usetikzlibrary{shadows}
+
+\tikzstyle{every entity} = [top color=white, bottom color=blue!30, draw=blue!50!black!100, drop shadow]
+\tikzstyle{every weak entity} = [drop shadow={shadow xshift=.7ex, shadow yshift=-.7ex}]
+\tikzstyle{every attribute} = [top color=white, bottom color=yellow!20, draw=yellow, node distance=1cm, drop shadow]
+\tikzstyle{every relationship} = [top color=white, bottom color=red!20, draw=red!50!black!100, drop shadow]
+\tikzstyle{every isa} = [top color=white, bottom color=green!20, draw=green!50!black!100, drop shadow]
+
+
 \chapter{Perancangan Sistem}
 
 % Sebelum dapat membangun CCG \textit{supertagger}, sebuah \textit{dataset} diperlukan untuk melatih model
@@ -435,4 +445,83 @@
 % Berhubung MaxEnt yang digunakan adalah \textit{conditional maximum entorpy}, maka selanjutnya akan
 % dilakukan proses pemilihan \textit{supertag} berdasarkan kondisi-kondisi yang terpenuhi.
 
+CCGtown dibangun dengan menggunakan bahasa pemrograman Python dan JavaScript.
+Adapun \textit{framework} yang digunakan adalah Django.
+Versi awal CCGtown merupakan sebuah \textit{proof-of-concept} dari
+\textit{open source graphical annotation tool} berbasis web yang dilengkapi dengan fitur
+penganotasian semi-otomatis.
+Bahasa pemrograman Python digunakan karena sebagian besar \textit{library} untuk CCG
+sudah tersedia di PyPi \footnote{\url{https://pypi.org/}}.
+Salah satu \textit{library} penting yang digunakan sebagai dasar dari fitur penganotasian
+semi-otomatis adalah NTLK \footnote{\url{http://www.nltk.org/}}.
+Selanjutnya, Django digunakan untuk mempercepat proses pengembangan aplikasi.
+Adapun JavaScript digunakan untuk menjadikan CCGtown aplikasi berbasis web yang interaktif.
+
+Alur kerja CCGtown pada umumnya adalah (1) pengguna melakukan registrasi, (2) pengguna
+melakukan \textit{login} ke sistem, (3) pengguna membuat proyek baru, (4) pengguna
+menambahkan kalimat yang ingin dianotasi, (5) pengguna melakukan anotasi kemudian melakukan
+\textit{generate} CCG \textit{derivation} dan/atau melakukan modifikasi
+\textit{derivation}-nya apabila diperlukan, dan (6) pengguna melakukan \textit{export}
+setelah selesai melakukan anotasi. Alur kerja tersebut mempengaruhi desain sistem dari
+CCGtown.
+
+\section{Desain Database}
+CCGtown menggunakan PostgreSQL sebagai
+DBMS\footnote{Database Management System}-nya.
+Hal ini karena PostgreSQL memiliki kemampuan untuk menyimpan struktur data
+JSON\footnote{JavaScript Object Notation} sehingga memudahkan CCGtown untuk menyimpan
+format JSON dari CCG \textit{derivation} yang telah dimanipulasi oleh pengguna melalui
+fitur \textit{editable CCG derivation}.
+PostgreSQL juga memiliki banyak fitur lain termasuk di antaranya dukungan
+dari \textit{non-relational database model} (seperti \textit{multi-model graph})
+sehingga apabila di waktu yang akan datang CCGtown memerlukan perubahan signifkan
+terhadap desain \textit{database}-nya tidak perlu mengganti DBMS yang digunakan.
+Fitur lain seperti \textit{function} dan \textit{procedure} juga akan sangat membantu
+pengembangan CCGtown di waktu yang akan datang.
+
+CCGtown versi awal sejatinya hanya membutuhkan tiga tabel saja yaitu tabel
+\textit{accounts} untuk menyimpan pengguna yang terdaftar, tabel
+\textit{projects} untuk menyimpan proyek-proyek yang sudah dibuat, dan tabel
+\textit{sentences} untuk menyimpan kalimat-kalimat yang akan dianotasikan.
+Tiga tabel tersebut sudah cukup untuk membangun \textit{proof-of-concept} dari
+alat anotasi CCG yang akan dibangun. Adapun
+ERD\footnote{Entity Relationship Diagram}-nya dapat dilihat pada Gambar\ref{erd-1}.
+
+\begin{figure}\centering\small
+  \scalebox{.87}{
+  \begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
+    \node[entity] (acc) {Accounts};
+    \node[attribute] (acc-uuid) [above=of acc] {\key{UUID}} edge (acc);
+    \node[attribute] (acc-email) [above right=of acc] {Email} edge (acc);
+    \node[attribute] (acc-password) [right=of acc] {Password} edge (acc);
+
+    \node[relationship] (creates) [left=of acc] {Creates} edge (acc);
+
+    \node[entity] (prj) [below=of creates] {Projects} edge (creates);
+    \node[attribute] (prj-uuid) [above left=of prj] {\key{UUID}} edge (prj);
+    \node[attribute] (prj-author) [left=of prj] {Author ID} edge (prj);
+    \node[attribute] (prj-name) [below left=of prj] {Name} edge (prj);
+    \node[attribute] (prj-status) [below=of prj] {Status} edge (prj);
+    \node[attribute] (prj-rules) [below right=of prj] {Rules} edge (prj);
+
+    \node[relationship] (adds) [right=0.5cm and 2cm of prj] {Adds} edge (prj);
+
+    \node[entity] (snt) [below=of adds] {Sentences} edge (adds);
+    \node[attribute] (snt-uuid) [below left=of snt] {\key{UUID}} edge (snt);
+    \node[attribute] (snt-project) [below=of snt] {Project ID} edge (snt);
+    \node[attribute] (snt-words) [below right=of snt] {Words} edge (snt);
+    \node[attribute] (snt-cats) [right=of snt] {Categories} edge (snt);
+    \node[attribute] (snt-deriv) [above right=of snt] {Derivations} edge (snt);
+  \end{tikzpicture}
+  }
+  \caption{Conceptual Entity Relationship Diagram (ERD) CCGtown}
+  \label{erd-1}
+\end{figure}
+
+
+\section{Desain Sistem}
+TBA.
+
+
+\section{Pertimbangan UI/UX}
 TBA.

@@ -68,7 +68,8 @@ $\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$
 Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
 mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
 
-\section{Combinatory Categorial Grammar}
+
+\section{Combinatory Categorial Grammar}\label{kajian-ccg}
 Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
 diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
 \cite{Steedman96avery}.
@@ -234,5 +235,22 @@ sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir i
 
 
 \section{CCGweb}
-TBA.
+CCGweb\footnote{\url{https://github.com/texttheater/ccgweb}} merupakan
+\textit{open source graphical annotation tool} pertama untuk CCG \cite{evang-etal-2019-ccgweb}.
+Aplikasinya berbasis web dan dibangun dengan menggunakan bahasa pemrograman
+Python, PHP, dan JavaScript.
+Fitur yang paling menarik dari \textit{graphical annotation tool} adalah What You See Is What
+You Get (WYSIWYG) yang mana berupa kemampuan untuk me-\textit{render} CCG \textit{derivation}
+sesuai dengan apa yang kita lihat.
+Maksudnya, CCG \textit{derivation} akan ditampilkan horizontal sesuai dengan panjang kalimatnya
+kemudian hasil \textit{derivation}-nya ditampilkan vertikal seperti contoh pada
+Bagian \ref{kajian-ccg}.
 
+Untuk dapat menggunakan CCGweb, kita perlu melakukan instalasi terlebih dahulu.
+Selanjutnya barulah kita dapat menambahkan kalimat-kalimat yang ingin dianotasi.
+Satu instalasi CCGweb hanya dapat digunakan untuk satu proyek anotasi sehingga
+apabila kita memiliki lebih dari satu proyek maka kita perlu melakukan instalasi
+CCGweb yang baru.
+Demikian itu, CCGtown\footnote{\url{https://github.com/wisn/ccgtown}} hadir dengan
+fitur \textit{multi-project} dan tanpa perlu melakukan instalasi di komputer lokal
+karena aplikasinya \textit{hosted} sehingga dapat diakses kapan pun.
