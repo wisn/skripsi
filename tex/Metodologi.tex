@@ -491,13 +491,15 @@ ERD\footnote{Entity Relationship Diagram}-nya dapat dilihat pada Gambar\ref{erd-
   \scalebox{.87}{
   \begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
     \node[entity] (acc) {Accounts};
-    \node[attribute] (acc-uuid) [above=of acc] {\key{UUID}} edge (acc);
-    \node[attribute] (acc-email) [above right=of acc] {Email} edge (acc);
-    \node[attribute] (acc-password) [right=of acc] {Password} edge (acc);
+    \node[attribute] (acc-id) [above=of acc] {\key{ID}} edge (acc);
+    \node[attribute] (acc-uuid) [above right=of acc] {\key{UUID}} edge (acc);
+    \node[attribute] (acc-email) [right=of acc] {Email} edge (acc);
+    \node[attribute] (acc-password) [below right=of acc] {Password} edge (acc);
 
     \node[relationship] (creates) [left=of acc] {Creates} edge (acc);
 
     \node[entity] (prj) [below=of creates] {Projects} edge (creates);
+    \node[attribute] (prj-id) [above right=of prj] {\key{ID}} edge (prj);
     \node[attribute] (prj-uuid) [above left=of prj] {\key{UUID}} edge (prj);
     \node[attribute] (prj-author) [left=of prj] {Author ID} edge (prj);
     \node[attribute] (prj-name) [below left=of prj] {Name} edge (prj);
@@ -507,6 +509,7 @@ ERD\footnote{Entity Relationship Diagram}-nya dapat dilihat pada Gambar\ref{erd-
     \node[relationship] (adds) [right=0.5cm and 2cm of prj] {Adds} edge (prj);
 
     \node[entity] (snt) [below=of adds] {Sentences} edge (adds);
+    \node[attribute] (snt-id) [left=of snt] {\key{ID}} edge (snt);
     \node[attribute] (snt-uuid) [below left=of snt] {\key{UUID}} edge (snt);
     \node[attribute] (snt-project) [below=of snt] {Project ID} edge (snt);
     \node[attribute] (snt-words) [below right=of snt] {Words} edge (snt);
@@ -517,6 +520,40 @@ ERD\footnote{Entity Relationship Diagram}-nya dapat dilihat pada Gambar\ref{erd-
   \caption{Conceptual Entity Relationship Diagram (ERD) CCGtown}
   \label{erd-1}
 \end{figure}
+
+Masing-masing tabel memiliki dua \textit{key} yaitu $ID$ dan
+$UUID$\footnote{Universally Unique IDentifier}.
+$ID$ merupakan \textit{primary key} \textit{integer} dengan \textit{auto increment}
+yang berfungsi sebagai \textit{identifier} untuk melakukan operasi
+\textit{update} maupun \textit{delete}.
+Adapun $UUID$ merupakan \textit{indexed column} yang berfungsi sebagai
+\textit{indentifier} publik (dapat dilihat oleh pengguna melalui URL)
+yang mana digunakan untuk operasi \textit{read}.
+$ID$ tidak digunakan sebagai \textit{identifier} publik karena pengguna dapat
+melakukan \textit{brute-force} untuk mencari proyek ataupun kalimat berdasarkan
+$ID$ yang bukan miliknya.
+Demikian itu alasan ditambahkannya atribut $UUID$.
+Alasan kenapa CCGtown tetap menyimpan kolom $ID$ adalah karena $ID$ nantinya akan
+digunakan untuk membuat \textit{pagination}.
+
+Pada tabel $accounts$, selain $ID$ dan $UUID$ juga memiliki atribut $email$ dan
+$password$. Masing-masing atribut tersebut menggunakan tipe data \textit{string}
+atau VARCHAR di PostgreSQL.
+Tabel $accounts$ memiliki hubungan \textit{one-to-many} terhadap tabel $projects$.
+Adapun atribut tabel $projects$ adalah $author\_id$, $name$, $status$, dan $rules$.
+Atribut $author\_id$ merupakan \textit{foreign key} (\textit{indexed}) yang
+mengarah kepada tabel $accounts$ dan tipe data yang digunakan sama dengan
+atribut $ID$ yang terdapat di tabel $accounts$.
+Atribut $name$ menggunakan tipe data \textit{string} (VARCHAR).
+Atribut $status$ menggunakan tipe data \textit{integer} yang berperan sebagai
+\textit{enum} ($0$ = \textit{just created}, $1$ = \textit{in progress},
+$2$ = \textit{finished}, dan $3$ = \textit{dropped}).
+Tabel $projects$ memiliki hubungan \textit{one-to-many} terhadap tabel $sentences$.
+Adapun atribut tabel $sentences$ adalah $project\_id$, $words$, $categories$, dan
+$derivations$. Atribut $project\_id$ merupakan \textit{foreign key}
+(\textit{indexed}) yang mengarah kepada tabel $projects$ dan tipe data yang digunakan
+sama dengan atribut $ID$ yang terdapat di tabel $projects$.
+Sisanya, atribut $words$, $categories$, dan $derivations$ menggunakan tipe data JSON.
 
 
 \section{Desain Sistem}
