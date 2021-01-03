@@ -1,20 +1,3 @@
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
-\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
-\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, minimum width=3cm, draw=black, fill=orange!30]
-\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, minimum height=2em]
-
-\usetikzlibrary{positioning}
-\usetikzlibrary{shadows}
-
-\tikzstyle{every entity} = [top color=white, bottom color=blue!30, draw=blue!50!black!100, drop shadow]
-\tikzstyle{every weak entity} = [drop shadow={shadow xshift=.7ex, shadow yshift=-.7ex}]
-\tikzstyle{every attribute} = [top color=white, bottom color=yellow!20, draw=yellow, node distance=1cm, drop shadow]
-\tikzstyle{every relationship} = [top color=white, bottom color=red!20, draw=red!50!black!100, drop shadow]
-\tikzstyle{every isa} = [top color=white, bottom color=green!20, draw=green!50!black!100, drop shadow]
-
-
 \chapter{Perancangan Sistem}
 
 % Sebelum dapat membangun CCG \textit{supertagger}, sebuah \textit{dataset} diperlukan untuk melatih model
@@ -463,7 +446,8 @@ menambahkan kalimat yang ingin dianotasi, (5) pengguna melakukan anotasi kemudia
 \textit{generate} CCG \textit{derivation} dan/atau melakukan modifikasi
 \textit{derivation}-nya apabila diperlukan, dan (6) pengguna melakukan \textit{export}
 setelah selesai melakukan anotasi. Alur kerja tersebut mempengaruhi desain sistem dari
-CCGtown.
+CCGtown. Salah satunya adalah desain dari \textit{database} yang akan digunakan.
+
 
 \section{Desain Database}
 CCGtown menggunakan PostgreSQL sebagai
@@ -488,7 +472,7 @@ alat anotasi CCG yang akan dibangun. Adapun
 ERD\footnote{Entity Relationship Diagram}-nya dapat dilihat pada Gambar\ref{erd-1}.
 
 \begin{figure}\centering\small
-  \scalebox{.87}{
+  \scalebox{.75}{
   \begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
     \node[entity] (acc) {Accounts};
     \node[attribute] (acc-id) [above=of acc] {\key{ID}} edge (acc);
@@ -557,7 +541,128 @@ Sisanya, atribut $words$, $categories$, dan $derivations$ menggunakan tipe data 
 
 
 \section{Desain Sistem}
-TBA.
+CCGtown sejatinya memiliki desain sistem yang cukup sederhana.
+Fungsionalitas yang akan didukung untuk versi awal adalah (1) \textit{register} dan
+\textit{login}, (2) manajemen proyek (CRUD\footnote{Create, Read, Update, Delete}
+), (3) dan manajemen kalimat (CRUD).
+Pada manajemen kalimat, CCGtown menggunakan JavaScript untuk membuat pembuatan
+maupun perubahan CCG \textit{derivation} menjadi lebih interaktif.
+Selain tiga fungsionalitas tersebut, CCGtown juga menambahkan fungsionalitas tambahan
+seperti \textit{auto-assign category} yang dilakukan di sisi \textit{frontend}.
+Kemudian, CCGtown juga menambahkan fungsionalitas tambahan di sisi \textit{backend}
+yaitu CCG \textit{derivation generator} dengan memanfaatkan \textit{library} NLTK
+dan kemampuan untuk melakukan \textit{export} CCG \textit{derivation} yang disimpan
+di \textit{database}.
+
+Pengguna harus terdaftar terlebih dahulu sebelum dapat melaukan anotasi sehingga
+langkah awal yang harus dibangun adalah fungsionalitas \textit{register}.
+Alur proses pendaftaran pengguna dapat dilihat pada Gambar \ref{flowchart:register}.
+Berhubung fokus saat ini adalah \textit{proof-of-concept}, informasi yang dibutuhkan
+untuk mendaftar hanyalah \textit{email} dan \textit{password}. Adapun
+\textit{password confirmation} digunakan untuk memvalidasi \textit{password}
+sehingga dapat mengurangi risiko pengguna melupakan
+\textit{password}-nya yang baru saja di-\textit{input}.
+Saat pengguna melakukan pendaftaran, sistem akan memeriksa apakah \textit{email} yang
+didaftar sudah terdapat di \textit{database}.
+Apabila sudah terdaftar, pengguna akan dialihkan ke halaman \textit{register} kembali
+dan mendapatkan \textit{flash message} dengan keterangan "email sudah terdaftar".
+Sebaliknya, sistem akan melakukan \textit{input} data tersebut ke dalam \textit{database}
+lalu mengalihkan pengguna ke halaman \textit{login}.
+Ketika dialihkan ke halaman \textit{login}, pengguna akan melihat \textit{flash message}
+dengan keterangan "pengguna berhasil didaftarkan".
+Pada tahap ini pengguna sudah dapat melakukan \textit{login} ke dalam sistem CCGtown.
+
+\begin{figure}\centering\small
+  \scalebox{.75}{
+	\begin{tikzpicture}[node distance=2cm]
+    \node (start) [cloud] {Start};
+    \node (input) [io, below of=start, yshift=0.5cm] {\textit{Input email, password,} dan \textit{password confirmation}};
+    \node (check) [process, below of=input, yshift=0.5cm] {Mencari pengguna berdasarkan \textit{email}};
+    \node (is-registered) [decision, below of=check, yshift=-1.25cm] {\textit{Email} sudah terdaftar?};
+    \node (registered) [process, right of=is-registered, yshift=0cm, xshift=4.5cm] {\textit{Redirect} ke halaman \textit{register}};
+    \node (registering) [process, below of=is-registered, yshift=-1.75cm] {\textit{Input} informasi pengguna ke \textit{database}};
+    \node (redirect) [process, below of=registering, yshift=0.5cm] {\textit{Redirect} ke halaman \textit{login}};
+    \node (stop) [cloud, below of=redirect, yshift=0.5cm] {Stop};
+
+    \draw [arrow] (start) -- (input);
+    \draw [arrow] (input) -- (check);
+    \draw [arrow] (check) -- (is-registered);
+    \draw [arrow] (is-registered) -- node[anchor=south]{Ya} (registered);
+    \draw [arrow] (registered) -- +(3,0) |- (input);
+    \draw [arrow] (is-registered) -- node[anchor=east]{Tidak} (registering);
+    \draw [arrow] (registering) -- (redirect);
+    \draw [arrow] (redirect) -- (stop);
+  \end{tikzpicture}
+  }
+	\caption{Alur proses pendaftaran pengguna.}
+  \label{flowchart:register}
+\end{figure}
+
+Pada proses "\textit{input} informasi pengguna ke \textit{database}" CCGtown melakukan
+\textit{password hashing} dengan menggunakan Bcrypt.
+Informasi sensitif seperti \textit{password} sebaiknya tidak disimpan sebagai
+\textit{plain text}. Demikian itu CCGtown menggunakan \textit{password hashing}.
+Apabila hal buruk terjadi seperti misalnya \textit{data breach} (kebocoran data),
+\textit{password} pengguna tidak dapat langsung digunakan.
+Peretas perlu mencari cara untuk memecahkan \textit{password} tersebut.
+Bcrypt merupakan skema \textit{password hashing} berbasis Blowfish \textit{block cipher}
+yang didesain untuk lebih \textit{resistant} terhadap serangan \textit{brute-force}
+\cite{bcrypt}.
+Serangan \textit{brute-force} merupakan upaya peretas untuk menebak \textit{password}
+dengan cara membuat \textit{wordlist} yang kemudian dicocokkan dengan \textit{hash}
+yang terbentuk satu-demi-satu.
+Meskipun terjadi \textit{data breach}, peretas perlu usaha ekstra untuk dapat menebak
+\textit{password} dari satu pengguna.
+Hal ini mengurangi kerugian yang akan dialami oleh CCGtown apabila \textit{data breach}
+benar-benar terjadi.
+
+Selanjutnya, setelah melakukan registrasi, pengguna dapat melakukan \textit{login} ke
+sistem CCGtown.
+Proses yang dilakukan pada umumnya sama dengan aplikasi web yang memiliki
+kemampuan \textit{register} dan \textit{login}. Alur proses \textit{login} dapat dilihat
+pada Gambar \ref{flowchart:login}.
+Setelah pengguna melakukan \textit{input} \textit{email} dan \textit{password}-nya,
+CCGtown akan melakukan pencarian di \textit{database} apakah \textit{email} yang
+diberikan terdaftar. Apabila tidak terdaftar, pengguna akan dialihkan ke halaman
+\textit{login} dan diberikan \textit{flash message} "\textit{Email} dan/atau
+\textit{password} tidak cocok". Pesan ini diberikan agar peretas tidak dapat mencari
+tahu \textit{email} mana saja yang sudah terdaftar. Selanjutnya, apabila akun
+dengan \textit{email} tersebut ada, maka langkah selanjutnya adalah mencocokkan
+\textit{password} yang diberikan oleh pengguna dan \textit{password} yang telah
+disimpan di \textit{database}. Kemudian, sistem melakukan Bcrypt \textit{sync}.
+Apabila tidak berhasil, pengguna akan dialihkan ke halaman \textit{login}
+dan diberikan \textit{flash message} "\textit{Email} dan/atau \textit{password}
+tidak cocok". Sebaliknya, pengguna akan dialihkan ke halaman Projects yang berisi
+daftar proyek yang telah dibuat sebelumnya.
+
+\begin{figure}\centering\small
+  \scalebox{.75}{
+	\begin{tikzpicture}[node distance=2cm]
+    \node (start) [cloud] {Start};
+    \node (input) [io, below of=start, yshift=0.5cm] {\textit{Input email} dan \textit{password}};
+    \node (check) [process, below of=input, yshift=0.5cm] {Mencari pengguna berdasarkan \textit{email}};
+    \node (is-registered) [decision, below of=check, yshift=-1.25cm] {\textit{Email} sudah terdaftar?};
+    \node (not-registered) [process, left of=is-registered, yshift=0cm, xshift=-4.5cm] {\textit{Redirect} ke halaman \textit{login}};
+    \node (logging-in) [process, below of=is-registered, yshift=-1.75cm] {Mencocokkan \textit{password} dengan Bcrypt \textit{sync}};
+    \node (is-matched) [decision, below of=logging-in, yshift=-1.25cm] {\textit{Password} cocok?};
+    \node (redirect) [process, below of=is-matched, yshift=-1.75cm] {\textit{Redirect} ke halaman Projects};
+    \node (stop) [cloud, below of=redirect, yshift=0.5cm] {Stop};
+
+    \draw [arrow] (start) -- (input);
+    \draw [arrow] (input) -- (check);
+    \draw [arrow] (check) -- (is-registered);
+    \draw [arrow] (is-registered) -- node[anchor=south]{Tidak} (not-registered);
+    \draw [arrow] (not-registered.north) -- +(0,0) |- (input);
+    \draw [arrow] (is-registered) -- node[anchor=east]{Ya} (logging-in);
+    \draw [arrow] (logging-in) -- (is-matched);
+    \draw [arrow] (is-matched.west) -| +(-4.6,0) -- node[anchor=east]{Tidak} (not-registered.south);
+    \draw [arrow] (is-matched) -- node[anchor=east]{Ya} (redirect);
+    \draw [arrow] (redirect) -- (stop);
+  \end{tikzpicture}
+  }
+	\caption{Alur proses \textit{login} ke sistem CCG.}
+  \label{flowchart:login}
+\end{figure}
 
 
 \section{Pertimbangan UI/UX}
