@@ -306,6 +306,8 @@ melalui \textit{parent} dari \textit{leaf} tersebut hingga ke \textit{root} menc
 \textit{derivation}-nya. Banyaknya baris yang dibutuhkan oleh CCG \textit{derivation} dapat
 dilihat dari \textit{height} yang dimiliki oleh $Tree$ tersebut. Kemudian, hasil dari CCG
 \textit{derivation} (umumnya berupa $S$) merupakan elemen terakhir $derivations$.
+Adapun hasil \textit{render} di sisi \textit{frontend}-nya dapat dilihat pada Gambar
+\ref{ui:deriv-generated}.
 
 \begin{lstlisting}[
   language=json,
@@ -338,6 +340,173 @@ dilihat dari \textit{height} yang dimiliki oleh $Tree$ tersebut. Kemudian, hasil
 ]
 \end{lstlisting}
 
+Selain memiliki kemampuan untuk melakukan \textit{generate} CCG \textit{derivation},
+CCGtown juga memiliki kemampuan untuk melakukan \textit{auto-assign} CCG \textit{category}.
+Token kata yang sudah dianotasi oleh pengguna akan disimpan ke dalam suatu \textit{dictionary}.
+Untuk setiap kata yang belum dianotasi, CCGtown akan memeriksa apakah token kata tersebut
+sebelumnya sudah dianotasi. Apabila sudah, CCGtown akan memberikan anotasi secara otomatis.
+Suatu token kata mungkin memiliki lebih dari satu anotasi. CCGtown hanya akan mengambil satu
+anotasi saja. Akibatnya, pengguna sebaiknya tetap melakukan peninjauan.
+Kendati demikian, setidaknya kegiatan anotasi yang repetitif dapat berkurang sehingga memudahkan
+dan mempercepat proses anotasi.
+
 
 \section{Pertimbangan UI/UX}
-TBA.
+Secara keseluruhan, CCGtown memiliki halaman rumah (\textit{homepage}), halaman \textit{register},
+halaman \textit{login}, halaman Projects, dan halaman Editor.
+Halaman \textit{register} dan halaman \textit{login} pada dasarnya sama.
+Perbedaannya hanya terdapat di jumlah \textit{field} yang diminta serta \textit{copy writting}
+yang sedikit berbeda. Desain UI\footnote{User Interface} serta UX\footnote{User Experience}
+CCGtown dibuat dengan fokus untuk mempermudah penggunaan \textit{annotation tool} ini.
+CCGtown tidak menggunakan banyak warna. Hal ini untuk mengurangi kelelahan pada mata pengguna.
+CCGtown menggunakan bahasa Inggris di antarmukanya karena target pengguna CCGtown adalah
+pengguna baik dari Indonesia yang mengerti bahasa Inggris maupun pengguna dari manca negara.
+
+CCGtown menggunakan UIKit\footnote{\url{https://getuikit.com/}} sebagai \textit{framework}
+untuk melakukan implementasi desain web-nya. UIKit dipilih karena komponen-komponen yang
+dibutuhkan CCGtown sudah tersedia sehingga CCGtown hanya perlu melakukan sedikit penyesuaian
+seperti penambahan warna, pengaturan jarak (\textit{margin} dan \textit{padding}), dan sejenisnya.
+UIKit juga sudah menyediakan kumpulan \textit{icons} yang dapat langsung digunakan.
+Hal ini mengakibatkan proses pengembangan desain web CCGtown dapat diselesaikan dalam waktu yang
+relatif cukup singkat.
+
+Warna utama (\textit{primary color}) CCGtown adalah warna ungu.
+Berdasarkan psikologi warna, warna ungu adalah warna fantasi dan magis.
+CCGtown dapat men-\textit{generate} CCG \textit{derivation} dan melakukan \textit{auto-assign}
+CCG \textit{category} sehingga memiliki sifat yang seakan-akan mengandung magi (sihir).
+Selain itu, ungu menumbuhkan kreativitas dengan membangkitkan indra kita sambil mempromosikan
+ketenangan yang diperlukan untuk melakukan pengamatan yang intuitif dan berwawasan.
+Warna ungu banyak digunakan oleh \textit{homepage} seperti yang terlihat pada Gambar
+\ref{ui:homepage}. Halaman rumah CCGtown didesain sederhana dan langsung kepada intinya.
+Halaman rumah CCGtown menampilkan beberapa fitur yang dapat menjadi alasan bagi pengguna
+untuk menggunakan CCGtown. Selain itu, halaman rumah CCGtown juga menampilkan demonstrasi
+singkat dengan gambar animasi proses penganotasian di CCGtown. Demonstrasi singkat
+diberikan untuk memberikan gambaran kepada calon pengguna tentang betapa mudahnya
+menggunakan CCGtown untuk menganotasi CCG.
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{homepage}
+  \caption{Antarmuka \textit{homepage} CCGtown.}
+  \label{ui:homepage}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{register}
+  \caption{Antarmuka halaman \textit{register} CCGtown.}
+  \label{ui:register}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{login}
+  \caption{Antarmuka halaman \textit{login} CCGtown.}
+  \label{ui:login}
+\end{figure}
+
+Pada Gambar \ref{ui:register} dan Gambar \ref{ui:login}, terlihat bahwasannya halaman
+\textit{register} dan halaman \textit{login} pada dasarnya sama. Pada halaman
+\textit{register}, informasi yang dibutuhkan hanyalah \textit{email address} dan
+\textit{password} (dengan tambahan \textit{password confirmation} untuk validasi).
+Hal ini agar pengguna dapat dengan mudah mendaftar tanpa perlu mengisi banyak \textit{field}
+terlebih dahulu sebelum dapat menggunakan CCGtown. Selain itu, informasi lain dari
+pengguna saat ini belum dibutuhkan. Apabila terjadi perubahan mengenai data pengguna,
+pengguna dapat memperbarui datanya di kemudian hari melaui halaman lain seperti halaman profil
+yang mungkin saja akan ditambahkan di CCGtown versi berikutnya.
+
+CCGtown menggunakan \textit{flash message} berupa \textit{toast} untuk setiap pesan
+\textit{feedback} yang diberikan oleh sisi \textit{backend}. Sebagai contoh, pada Gambar
+\ref{ui:flash-message} di bagian pojok kanan bawah merupakan pesan \textit{feedback}
+yang memberikan informasi bahwasannya kombinasi \textit{email} dan/atau \textit{password}
+tidak cocok sehingga pengguna tidak dapat \textit{login}. Notifikasi \textit{toast} tersebut
+dapat langsung ditutup oleh pengguna atau akan hilang dengan sendirinya dalam waktu sekitar
+lima detik. Penggunaan \textit{toast} yang muncul dari bawah dengan warna ungu tersebut
+dapat mengalihkan perhatian pengguna sehingga pengguna menyadari pesan yang disampaikan oleh
+\textit{backend} CCGtown.
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{flash-message}
+  \caption{Antarmuka halaman \textit{login} CCGtown dengan \textit{toast}.}
+  \label{ui:flash-message}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{projects-empty}
+  \caption{Antarmuka halaman Projects saat dalam \textit{empty state}.}
+  \label{ui:projects-empty}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{projects}
+  \caption{Antarmuka halaman Projects CCGtown.}
+  \label{ui:projects}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{editor-empty}
+  \caption{Antarmuka halaman Editor saat dalam \textit{empty state}.}
+  \label{ui:editor-empty}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{editor-annotating}
+  \caption{Antarmuka halaman Editor saat melakukan penganotasian.}
+  \label{ui:editor-annotating}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{ccg-derv-generated}
+  \caption{Antarmuka CCG \textit{derivation} yang telah di-\textit{generate}.}
+  \label{ui:deriv-generated}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{ccg-derv-progress}
+  \caption{Antarmuka \textit{editable} CCG \textit{derivation} CCGtown.}
+  \label{ui:deriv-progress}
+\end{figure}
+
+\begin{figure}\centering
+  \includegraphics[width=\textwidth]{ccg-derv-configure}
+  \caption{Antarmuka konfigurasi dari \textit{editable} CCG \textit{derivation} CCGtown.}
+  \label{ui:deriv-configure}
+\end{figure}
+
+Selanjutnya, dengan asumsi pengguna baru saja mendaftar kemudian melakukan \textit{login},
+pengguna akan dialihkan ke halaman Projects. Halaman Projects tersebut berada di dalam
+\textit{empty state} karena pengguna belum membuat satupun proyek. Seperti yang dapat
+dilihat pada Gambar \ref{ui:projects-empty}, pengguna dapat melihat instruksi apa yang
+harus ia lakukan yang mana dalam hal ini adalah membuat proyek baru.
+Sebaliknya, apabila pengguna telah membuat proyek maka tampilan yang dilihat akan
+seperti pada Gambar \ref{ui:projects}. Pengguna dapat membuka halaman Editor dengan
+cara melakukan klik di nama proyek maupun di ikon \textit{edit}. Selain itu,
+pengguna juga dapat langsung melakukan \textit{export to JSON} melakukan klik di ikon
+\textit{download}. Apabila pengguna merasa tidak lagi memerlukan suatu proyek, maka
+pengguna dapat menghapusnya dengan melakukan klik di ikon \textit{trash}.
+
+Setelah membuat proyek baru, pengguna akan melihat halaman Editor dalam
+\textit{empty state} seperti yang dapat dilihat pada Gambar \ref{ui:editor-empty}.
+Pada bagian kanan halaman Editor, terdapat beberapa \textit{section} yaitu
+Project Detail yang dapat digunakan untuk mengubah nama proyek dan status proyek,
+Automation Rules yang akan digunakan oleh NLTK untuk melakukan \textit{generate}
+CCG \textit{derivation}, serta CCG Lexicons yang menampilkan statistik dari jenis
+sintaksis CCG yang telah dianotasikan dan berapa kali ia dianotasikan.
+Untuk dapat menambahkan kalimat baru, pengguna hanya perlu melakukan klik di
+tombol "Add Sentences". Setelah itu, pengguna dapat langsung melakukan penganotasian
+seperti yang terlihat pada Gambar \ref{ui:editor-annotating}. Apabila pengguna telah
+memberikan anotasi ke semua token kata yang ada di kalimat tersebut, pengguna dapat
+melakukan \textit{generate} CCG \textit{derivation}. Hasil dari \textit{generate} CCG
+\textit{derivation} tersebut dapat dilihat pada Gambar \ref{ui:deriv-generated}.
+
+Pengguna juga dapat langsung mengubah CCG \textit{derivation} suatu kalimat secara
+langsung. Contohnya dapat dilihat pada Gambar \ref{ui:deriv-progress}.
+Pengguna dapat memberikan anotasi ke token kata di \textit{modal} (\textit{editable}
+CCG \textit{derivation}) tersebut. Pengguna dapat menambahkan beberapa baris kosong
+sekaligus yang kemudian akan diisi oleh CCG \textit{derivation} dari kalimat tersebut.
+Warna abu-abu menunjukkan bahwa konfigurasi dari CCG \textit{derivation} di baris tersebut
+masih kosong. Kemudian, warna ungu menunjukkan bahwa pada bagian tersebut (baik anotasi
+maupun operator) tidak diisi. Perbedaan ini diberikan untuk memberikan pengguna
+\textit{awareness} mengenai mana saja bagian yang harus diisi atau dilengkapi.
+Adapun konfigurasi \textit{derivation}-nya terlihat pada Gambar \ref{ui:deriv-configure}.
+Dengan kemampuan ini pengguna dapat melakukan \textit{generate} kemudian apabila ada
+\textit{derivation} yang dirasa kurang cocok maka pengguna dapat langsung melakukan
+perubahan dengan mudah dan interaktif.
+
