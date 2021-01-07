@@ -1,0 +1,99 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.51cm]{geometry}
+%\usepackage{multicol}
+\usepackage{mathptmx}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage[compact]{titlesec} 
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[bahasa]{babel}
+%\bibliographystyle{agsm}
+
+\addto{\captionsbahasa}{\renewcommand{\abstractname}{ABSTRACT}}
+\addto\captionsbahasa{\renewcommand{\refname}{Daftar Pustaka}}
+\renewcommand\thesection{ \arabic{section}.}
+\renewcommand\thesubsection{\thesection\arabic{subsection}}
+
+
+\usepackage{sectsty}
+\sectionfont{\fontsize{12}{15}\selectfont}
+\subsectionfont{\fontsize{11}{15}\normalfont}
+\subsubsectionfont{\fontsize{11}{15}\normalfont}
+\setlength{\columnsep}{7mm}
+\pagenumbering{gobble}
+\usepackage{indentfirst}
+%
+\addto\captionsbahasa{\renewcommand{\tablename}{\textbf{Tabel}}}
+\addto\captionsbahasa{\renewcommand{\figurename}{\textbf{Gambar}}}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=simple, labelsep=period}
+\captionsetup[table]{labelformat=simple, labelsep=period}
+
+\renewenvironment{abstract}{%
+  \centering\small
+  \textbf\abstractname
+  \list{}{\leftmargin0cm \rightmargin\leftmargin}
+  \item\relax
+}{%
+  \endlist \par\bigskip
+}
+
+%  \titleformat{\section}
+%  {\normalfont\footnotesize\selectfont}{\thesection}{1em}{}
+% \titleformat{\subsection}
+% {\normalfont\tiny\selectfont}{\thesubsection}{1em}{}
+% \titleformat{\subsubsection}
+% {\normalfont\footnotesize\selectfont}{\thesubsubsection}{1em}{}
+
+
+
+
+
+
+
+%%%% MULAI EDIT-EDIT METADATA DIBAWAH INI %%%
+
+\makeatletter
+
+\title{ Judul TA Singkat dan Spesifik, Tetapi Cukup Jelas Memberi Gambaran Mengenai TA yang Diusulkan }\let\Title\@title
+
+\newcommand{\EngTitle}{The Title of Final Project Should be Short and Specific, but It Describes Well the Goals}
+
+\author{Author Name}\let\Author\@author
+\newcommand{\NIM}{123456789}
+
+\newcommand{\Prodi}{Teknologi Informasi}
+
+\newcommand{\Tanggal}{1}
+\newcommand{\Bulan}{Januari}
+\newcommand{\Tahun}{2018}
+\newcommand{\PembimbingSatu}{Dr. xxx.}
+\newcommand{\NIPPembimbingSatu}{16000011}
+\newcommand{\PembimbingDua}{Mr. yyyy.}
+\newcommand{\NIPPembimbingDua}{15880028}
+\newcommand{\Kaprodi}{Dr. xxx.}
+\newcommand{\NIPKaprodi}{91930541}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\date{ \today}\let\Date\@date
+\makeatother
+\linespread{2}
+
+\begin{document}
+   % \linespread{2}
+    \include{Cover} %tidak perlu diubah
+    \newpage
+    \linespread{1.5}
+    \include{Pengesahan} %tidak perlu diubah
+    \newpage
+    \include{Pernyataan}%tidak perlu diubah
+    \newpage
+    \include{Paper}% silakan ubah pada file paper.tex
+
+\end{document}
