@@ -1,0 +1,256 @@
+\chapter{Kajian Pustaka}
+
+\section{Categorial Grammar}
+Categorial Grammar (CG) merupakan sebuah istilah yang mencakup beberapa formalisme terkait yang diajukan
+untuk sintaks dan semantik dari bahasa alami serta untuk bahasa logis dan matematis \cite{Steedman92catg}.
+Karakteristik yang paling terlihat dari CG adalah bentuk ekstrim dari leksikalismenya di mana beban utama
+(atau bahkan seluruh beban) sintaksisnya ditanggung oleh leksikon.
+Konstituen tata bahasa dalam \textit{categorial grammar} dan khususnya semua leksikal diasosiasikan
+dengan suatu \textit{type} atau \say{\textit{category}} (dalam \textit{category theory}) yang
+mendefinisikan potensi mereka untuk dikombinasikan dengan konstituen lain untuk menghasilkan konstituen
+majemuk.
+\textit{Category} tersebut adalah salah satu dari sejumlah kecil \textit{category} dasar (seperti NP)
+atau \textit{functor} (dalam \textit{category theory}).
+Dalam hal ini, \textit{category} dapat diartikan sebagai \textit{syntactic type} dari suatu kata.
+
+Secara formal, \textit{syntactic type} didefinisikan sebagai himpunan bagian dari suatu
+\textit{semigroup} $M$ yang tunduk pada tiga operasi yaitu \ref{catg:syn:1},
+\ref{catg:syn:2}, dan \ref{catg:syn:3} dimana $A$, $B$, dan $C$ merupakan himpunan bagian dari $M$
+\cite{Lambek1988}. Adapun $A \cdot B$ dibaca $A$ \textit{times} $B$, $C/B$ dibaca $C$ \textit{over}
+$B$, dan $A\backslash{}C$ dibaca $A$ \textit{under} $C$. Selanjutnya, dapat dilihat bahwasannya
+untuk semua $A, B, C \subseteq M$ sehingga kita dapatkan \ref{catg:syn:4} dan \ref{catg:syn:5}.
+Terakhir, persamaan \ref{catg:syn:6} dapat diabaikan apabila dihadapkan dengan
+\textit{multiplicative system} yang tidak asosiatif. Sementara itu, apabila \textit{semigroup}-nya
+merupakan sebuah \textit{monoid} dengan identitas $1$ maka kita dapatkan \ref{catg:syn:7} dimana
+$I = \{1\}$.
+
+\begin{align}
+  \begin{split}\label{catg:syn:1}
+    A \cdot B & = \{x \cdot y \in M \mid x \in A \land y \in B\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:2}
+    C/B & = \{x \in M \mid \forall_{y \in B} x \cdot y \in C\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:3}
+    A\backslash{}C & = \{y \in M \mid \forall_{x \in A} x \cdot y \in C\}
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:4}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; A \subseteq C/B
+  \end{split}\\
+  \begin{split}\label{catg:syn:5}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; B \subseteq A\backslash{}C
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:6}
+    (A \cdot B) \cdot C = A \cdot (B \cdot C)
+  \end{split}\\
+  \begin{split}\label{catg:syn:7}
+    I \cdot A = A = A \cdot I
+  \end{split}
+\end{align}
+
+Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \textit{directional}-nya.
+Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
+Lambek, dan kemudian dimodifikasi dalam kelompok teori yang dibedakan sebagai tata bahasa
+\say{\textit{combinatory}} \textit{categorial grammar} (CCG).
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ merupakan suatu \textit{functor} yang
+memiliki dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
+Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
+Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+$\text{X}/\text{Y}$ ada di bagian kanan atau dengan kata lain $\text{Y}$.
+Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+$\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$.
+Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
+mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
+
+
+\section{Combinatory Categorial Grammar}\label{kajian-ccg}
+Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
+diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
+\cite{Steedman96avery}.
+Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
+Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
+(dalam \textit{lambda calculus}, \textit{lambda function}).
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
+$\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
+Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
+Sebagai contoh, anggap saja kita memiliki kamus pemetaan seperti pada Gambar \ref{ccg:mapping:1}.
+Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka kita dapatkan:
+
+\begin{figure}\centering\small
+  \begin{align*}
+    \text{Pamungkas} &\ \vdash\ \text{NP}:\ \so{pamungkas}\\
+    \text{Setyo} &\ \vdash\ \text{NP}:\ \so{setyo}\\
+    \text{dan} &\ \vdash\ \text{CONJ}:\ \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+    \text{menyukai} &\ \vdash\ \text{(S{$\backslash$}NP)/NP}:\ \lambda x.\lambda y.\ suka(y, x)\\
+    \text{rendang} &\ \vdash\ \text{NP}:\ \so{rendang}
+  \end{align*}
+  \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
+  \label{ccg:mapping:1}
+\end{figure}
+
+\begin{center}
+  \bgroup
+  \catcode`!=\active \def!{\upshape}
+  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+  \catcode`^=\active \def^#1{\footnotesize{#1}}
+  \catcode`*=\active \def*#1{\scriptsize{#1}}
+  \tabbedShortstack{
+    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+    \TABcline{1,3,5,7,9}
+    !^{$\text{NP}$} & &
+      !^{$\text{CONJ}$} & &
+      !^{$\text{NP}$} & &
+      !^{$\text{(S$\backslash$NP)/NP}$} & &
+      !^{$\text{NP}$} &\\
+    !{*: \so{pamungkas}} & &
+      !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
+      !{*: \so{setyo}} & &
+      !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
+      !{*: \so{rendang}} &
+  }
+  \egroup
+\end{center}
+
+Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
+yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
+operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
+dan \textit{type rising}.
+Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
+\textit{forward application} di akhir.
+Sehingga, kita dapatkan:
+
+\begin{center}
+  \bgroup
+  \catcode`!=\active \def!{\upshape}
+  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+  \catcode`^=\active \def^#1{\footnotesize{#1}}
+  \catcode`*=\active \def*#1{\scriptsize{#1}}
+  \tabbedLongunderstack{
+    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+    \TABcline{1,3,5,7,9}
+    !^{$\text{NP}$} & &
+      !^{$\text{CONJ}$} & &
+      !^{$\text{NP}$} & &
+      !^{$\text{(S$\backslash$NP)/NP}$} & &
+      !^{$\text{NP}$} &\\
+    !{*: \so{pamungkas}} & &
+      !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
+      !{*: \so{setyo}} & &
+      !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
+      !{*: \so{rendang}} &\\
+    \TABrule & \TABrule &
+      \TABrule & \TABrule &
+      \TABrule\CCGCOOR & &
+      \TABrule & \TABrule &
+      \TABrule\CCGFA &\\
+    & &
+      !?{^{$\text{NP}$}}
+      \ \ \ \ \ \ \ \ \ 
+      & & & &
+      \ \ \ \ \ \ \ 
+      !?{^{$\text{S$\backslash$NP}$}}
+      & & &\\
+    & &
+      ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
+      \ \ \ \ \ \ \ \ \ 
+      & & & &
+      \ \ \ \ \ \ \ 
+      ?{*: $\lambda y.\ suka(y, \so{rendang})$}
+      & & &\\
+    \TABrule & \TABrule &
+      \TABrule & \TABrule &
+      \TABrule\CCGTR & &
+      & & &\\
+    & &
+      !?{^{$\text{S/(S$\backslash$NP)}$}}
+      \ \ \ \ \ \ \ \ \ 
+      & & & & & & &\\
+    & &
+      ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
+      \ \ \ \ \ \ \ \ \ 
+      & & & & & & &\\
+    \TABrule & \TABrule &
+      \TABrule & \TABrule &
+      \TABrule & \TABrule &
+      \TABrule & \TABrule &
+      \TABrule\CCGFA &\\
+    & & &
+      !?{^{$\text{S}$}}
+      & & & & & &\\
+    & & &
+      ?{*: $suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})$}
+      & & & & & &
+  }
+  \egroup
+\end{center}
+
+Berdasarkan hasil evaluasi tersebut, kita dapatkan \textit{query} \ref{ccg:query:1}
+yang diperoleh dari kalimat \say{Pamungkas dan Setyo menyukai rendang}.
+Demikian itu, komputer dapat melakukan komputasi berdasarkan \textit{query} yang telah diperoleh.
+Kegiatan tersebut merupakan apa yang disebut dengan CCG \textit{parsing}.
+Untuk dapat melakukan parsing, CCG \textit{lexicon} diperlukan.
+Untuk mendapatkan CCG \textit{lexicon} kita dapat menggunakan CCG \textit{supertagger}
+yang akan melakukan pelabelan suatu token kata ke CCG \textit{lexicon} berdasarkan
+pemetaannya.
+
+\begin{equation}\label{ccg:query:1}
+  suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
+\end{equation}
+
+
+\section{Lambda Calculus}
+\textit{Lambda calculus} ({$\lambda$}\textit{-calculus}) merupakan sebuah formalisme yang dikembangkan
+oleh Alonzo Church sebagai alat yang digunakan untuk memahami konsep komputasi yang efektif
+\cite{DBLP:journals/corr/Rojas15}.
+Formalisme {$\lambda$}\textit{-calculus} cukup populer dan bahkan dijadikan sebagai pondasi teori bagi
+paradigma pemrograman \textit{functional programming}.
+Konsep utama dari {$\lambda$}\textit{-calculus} adalah apa yang disebut dengan \textit{expression}.
+Suatu \textit{expression} dalam {$\lambda$}\textit{-calculus} terdiri dari tiga bagian yaitu
+\textit{lambda notation} ({$\lambda$}), \textit{argument} (seperti $a$, $b$, $c$, $x$, dan lain-lain),
+dan \textit{body} yang dipisahkan dengan tanda titik.
+Sebagai contoh, fungsi lambda ${\lambda}x. x$ merupakan sebuah fungsi identitas yang mengambil
+argumen $x$ kemudian mengembalikan nilai $x$ itu sendiri.
+Dalam hal ini, terlihat bahwa notasi {$\lambda$} merupakan sebuah penanda bagi suatu fungsi lambda.
+Kemudian, pengubah $x$ setelah notasi {$\lambda$} merupakan argumen dari fungsi tersebut.
+Selanjutnya, tanda titik merupakan pemisah antara \textit{head} dan \textit{body} fungsi lambda.
+Terakhir, setelah tanda titik adalah \textit{body} dari suatu fungsi lambda yang mana berupa
+\textit{expression}.
+
+Untuk mempermudah pemahaman, {$\lambda$}\textit{-calculus} dapat diperlakukan seperti fungsi tanpa
+nama. Sebagai contoh, fungsi lambda $({\lambda}x. x + 5)$ apabila diberikan nilai $2$ sehingga
+menjadi $({\lambda}x. x + 5) 2$ akan dievaluasi menjadi ${\lambda}(2). (2) + 5$.
+Demikian itu, nilai yang dikembalikan oleh fungsi tersebut adalah $7$.
+Sama seperti fungsi pada umumnya, konsep ini bernama \textit{substition} (substitusi).
+Memahami {$\lambda$}\textit{-calculus} dirasa perlu berhubung dalam tugas akhir ini
+{$\lambda$}\textit{-calculus} digunakan sebagai bentuk formal di \textit{category}
+dalam konteks CCG \textit{lexicon}. Meskipun {$\lambda$}\textit{-calculus} tidak sesederhana
+yang dijelaskan sebelumnya, setidaknya memahami {$\lambda$}\textit{-calculus} seperti ini
+sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir ini.
+
+
+\section{CCGweb}
+CCGweb\footnote{\url{https://github.com/texttheater/ccgweb}} merupakan
+\textit{open source graphical annotation tool} pertama untuk CCG \cite{evang-etal-2019-ccgweb}.
+Aplikasinya berbasis web dan dibangun dengan menggunakan bahasa pemrograman
+Python, PHP, dan JavaScript.
+Fitur yang paling menarik dari \textit{graphical annotation tool} adalah What You See Is What
+You Get (WYSIWYG) yang mana berupa kemampuan untuk me-\textit{render} CCG \textit{derivation}
+sesuai dengan apa yang kita lihat.
+Maksudnya, CCG \textit{derivation} akan ditampilkan horizontal sesuai dengan panjang kalimatnya
+kemudian hasil \textit{derivation}-nya ditampilkan vertikal seperti contoh pada
+Bagian \ref{kajian-ccg}.
+
+Untuk dapat menggunakan CCGweb, kita perlu melakukan instalasi terlebih dahulu.
+Selanjutnya barulah kita dapat menambahkan kalimat-kalimat yang ingin dianotasi.
+Satu instalasi CCGweb hanya dapat digunakan untuk satu proyek anotasi sehingga
+apabila kita memiliki lebih dari satu proyek maka kita perlu melakukan instalasi
+CCGweb yang baru.
+Demikian itu, CCGtown\footnote{\url{https://github.com/wisn/ccgtown}} hadir dengan
+fitur \textit{multi-project} dan tanpa perlu melakukan instalasi di komputer lokal
+karena aplikasinya \textit{hosted} sehingga dapat diakses kapan pun.
