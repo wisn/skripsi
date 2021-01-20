@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, margin=2.51cm]{geometry}
 %\usepackage{multicol}
-\usepackage{mathptmx}
+% \usepackage{mathptmx}
 \usepackage{array}
 \usepackage{setspace}
 \usepackage{hyperref}
@@ -11,6 +11,30 @@
 \usepackage{graphicx}
 \usepackage[bahasa]{babel}
 %\bibliographystyle{agsm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dirtytalk}
+
+
+% CCG
+\usepackage[TABcline]{tabstackengine}
+\setlength\TABruleshift{\dimexpr.5\ht\strutbox-.5\dp\strutbox}
+\setstacktabbedgap{1ex}
+\TABstackTextstyle{\itshape}
+\setstackgap{S}{2pt}
+
+\def\tbs{\,\textbackslash}
+\newcommand{\so}[1]{\ensuremath{\mbox{\it #1}^\prime}}
+\newcommand\CCGFA{
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{$>$}}}}
+\newcommand\CCGBA{
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{$<$}}}}
+\newcommand\CCGCOOR{
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{\footnotesize $<\&>$}}}}
+\newcommand\CCGTR{
+  \rlap{\kern.5\dimexpr\tabbed@gap\relax\llap{\fboxsep=0pt\colorbox{white}{\footnotesize $>\text{T}$}}}}
+%
+
 
 \addto{\captionsbahasa}{\renewcommand{\abstractname}{ABSTRACT}}
 \addto\captionsbahasa{\renewcommand{\refname}{Daftar Pustaka}}
@@ -58,24 +82,24 @@
 
 \makeatletter
 
-\title{ Judul TA Singkat dan Spesifik, Tetapi Cukup Jelas Memberi Gambaran Mengenai TA yang Diusulkan }\let\Title\@title
+\title{CCGtown: Alat Anotasi Combinatory Categorial Grammar (CCG) Semi-otomatis Berbasis Web}\let\Title\@title
 
-\newcommand{\EngTitle}{The Title of Final Project Should be Short and Specific, but It Describes Well the Goals}
+\newcommand{\EngTitle}{CCGtown: A Web-based Semi-automatic Combinatory Categorial Grammar (CCG) Annotation Tool}
 
-\author{Author Name}\let\Author\@author
-\newcommand{\NIM}{123456789}
+\author{Wisnu Adi Nurcahyo}\let\Author\@author
+\newcommand{\NIM}{1301160479}
 
-\newcommand{\Prodi}{Teknologi Informasi}
+\newcommand{\Prodi}{Informatika}
 
-\newcommand{\Tanggal}{1}
+\newcommand{\Tanggal}{20}
 \newcommand{\Bulan}{Januari}
-\newcommand{\Tahun}{2018}
-\newcommand{\PembimbingSatu}{Dr. xxx.}
-\newcommand{\NIPPembimbingSatu}{16000011}
+\newcommand{\Tahun}{2021}
+\newcommand{\PembimbingSatu}{Dr. Ade Romadhony, S.T., M.T.}
+\newcommand{\NIPPembimbingSatu}{06840042}
 \newcommand{\PembimbingDua}{Mr. yyyy.}
 \newcommand{\NIPPembimbingDua}{15880028}
-\newcommand{\Kaprodi}{Dr. xxx.}
-\newcommand{\NIPKaprodi}{91930541}
+\newcommand{\Kaprodi}{Niken Dwi Wahyu Cahyani, S.T., M.Kom. PhD}
+\newcommand{\NIPKaprodi}{00750052}
 
 
 

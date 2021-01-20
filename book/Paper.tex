@@ -10,15 +10,14 @@
   
   %Nama authors
    \begin{center}
-     \bf \Author$^1$, Pemb 1 tanpa gelar$^2$, Pemb 2 tanpa gelar$^3$, Pemb 3 tanpa gelar$^4$ 
+     \bf \Author$^1$, Ade Romadhony$^2$
   \end{center}
   
   
   %Afiliasi dan email
    \begin{center}
-     $^{1,2,3}$Fakultas Informatika, Universitas Telkom, Bandung\\
-$^4$Divisi Digital Service PT Telekomunikasi Indonesia\\
-$^1$mhs@students.telkomuniversity.ac.id, $^2$pembimbing1@telkomuniversity.ac.id,\\ $^3$pembimbing2@telkomuniversity.ac.id, $^4$pembimbingluar@telkom.co.id 
+      $^{1,2}$Fakultas Informatika, Universitas Telkom, Bandung\\
+      $^1$nurcahyo@student.telkomuniversity.ac.id, $^2$aderomadhony@telkomuniversity.ac.id
   \end{center}
   
    
@@ -64,24 +63,39 @@ Keywords: keyword should be chosen that they best describe the contents of the p
 
 \section{Pendahuluan}
 
-Naskah jurnal ditulis di kertas berukuran standar A4 (21 cm $\times$ 29.7 cm) dalam empat sampai delapan halaman. Naskah ditulis dalam format satu spasi. Tambahkan satu spasi untuk setiap antar-bagian (antara judul dan penulis, antara penulis dan abstrak, antara abstrak dan kata kunci, antara sub-bab dan isi). Semua margin atas, margin bawah, margin kiri, dan margin kanan 25 mm. Margin untuk header dan footer 15 mm. Naskah tidak perlu diberi header dan footer. 
-
-Jurnal TA berisi abstrak, pendahuluan, studi terkait (\textit{related works}) atau studi pustaka (\textit{literature review}), sistem yang dibangun,  evaluasi, dan kesimpulan. Setiap bagian Jurnal TA dijelaskan secara rinci di bagian bawah bab ini.
-Judul TA dalam kalimat lengkap yang  singkat, spesifik, dan jelas memberi gambaran tentang isi TA. Jika pada judul menyatakan sistem/algoritma/pendekatan yang digunakan, maka pada isi (dimulai pada abstrak) berilah justifikasi mengapa sistem tersebut dipilih.
-
-Untuk nama penulis, tuliskan nama lengkapnya. \textbf{Mahasiswa sebagai penulis pertama (\textit{author})}, sedangan pembimbing sebagai \textit{co-author} (penulis dua dan tiga). Diperkenankan ada penambahan co-author yang namanya tidak tercantum dalam SK TA tetapi memberikan kontribusi terhadap makalah ilmiah tersebut. Jumlah penulis maksimal empat orang. Tuliskan nama dan gelar pembimbing dengan benar. Untuk institusi bagi mahasiswa dan dosen pembimbing dari Fakultas Informatika dituliskan afiliasi ‘Fakultas Informatika’ (bukan nama program studi). Untuk email, tuliskan email institusi untuk mahasiswa dan dosen yaitu @student.telkomuniversity.ac.id dan @telkomuniversity.ac.id. Sedangkan untuk pembimbing dari luar kampus dituliskan afiliasi dan alamat email sesuai institusi yang bersangkutan.
-
-Isi bagian Pendahuluan pada prinsipnya merupakan penjelasan lebih detil dari abstrak (utamanya menerangkan \textit{apa} dan \textit{mengapa}), dengan beberapa revisi (tidak \textit{copy paste} dari abstrak).  Isi Pendahuluan terutama menjelaskan latar belakang, penjelasan/identifikasi topik/masalah dan batasannya, tujuan, dan metode penelitian. Isi bagian Pendahuluan diakhiri dengan sistematika/organisasi penulisan. Berbeda dengan bagian Abstrak, pada bagian Pendahuluan ini penjelasan tentang \textit{bagaimana} solusi yang dilakukan, tidak terdapat pada bagian Pendahuluan, namun dijelaskan pada bagian tersendiri.
-
-Panjang bagian Pendahuluan pada jurnal TA antara satu setengah hingga dua halaman untuk jurnal delapan halaman. Beberapa bagian Pendahuluan pada jurnal TA diambil dari Bab Pendahuluan pada proposal TA. Namun, penjelasan-penjelasan pada Bab Pendahuluan proposal TA tersebut perlu diupdate dulu sebelum digunakan. Perbedaan antara bagian pendahuluan dengan yang ada pada proposal TA adalah sebagai berikut. Pertama, Pendahuluan pada jurnal TA lebih pendek dibandingkan yang ada pada proposal. Kedua, pada proposal ada bagian Rencana Kegiatan, sedangkan pada jurnal TA menjelaskan metodologi penyelesaian masalah. Ketiga, pada jurnal TA ada tambahan  sistematika/organisasi tulisan. Keempat, pada jurnal TA tidak ada jadwal kegiatan.
-
-Pada banyak jurnal untuk penelitian, bagian Pendahuluan hanya terdiri dari satu bagian (\textit{section}) tidak dibagi bagi lagi menjadi sub-bagian. Namun, sebagaimana pada Abstrak jurnal TA, sebagai salah satu sarana latihan penulisan akademik dan memperjelas tulisan, bagian Pendahuluan pada jurnal TA dibagi menjadi beberapa paragraf atau sub-bagian. Setiap sub bagian bisa diberi judul yang dengan font tebal atau digaris bawahi. Sebagai contoh berikut ini.\\
-
 \noindent\textbf{Latar Belakang}
 
-Pada sub-bagian ini tuliskan secara singkat tuliskan apa topik yang dikerjakan (mirip dengan yang teklah ditulis di abstrak). Nanti permasalahan akan dijelaskan secara lebih detil di sub-bagian Perumusan Masalah. Kembangkan penjelasan dengan membuat secara lebih detil yang sudah ada di abstrak tentang dua hal berikut. Pertama, mengapa topik yang dipilih menarik dan/atau penting dan/atau sesuai untuk dikerjakan sebagai TA. Kedua, bagaimana dengan kekurangan kondisi saat ini unt topik tersebut (gap/kesenjangan antara kondisi saat ini dengan kondisi yang diharapkan).
+Riset pemrosesan bahasa alami untuk bahasa Indonesia saat ini masih terbilang sedikit.
+Bahkan, masih banyak area riset yang belum tersentuh seperti contohnya
+\textit{combinatory categorial grammar} (CCG).
+Sementara itu, riset mengenai CCG untuk bahasa Inggris sudah cukup matang.
+Adapun untuk bahasa lainnya (seperti bahasa Vietnam) sudah mulai menggunakan CCG di dalam
+penelitiannya \citep{nguyen2019vietnamese}.
+Agar dapat menerapkan CCG di dalam aplikasi yang dibangun, \textit{tools} seperti
+CCG \textit{parser} dan CCG \textit{supertagger} harus tersedia terlebih dahulu.
+Masing-masing dari \textit{tools} tersebut memerlukan \textit{dataset} agar dapat memberikan
+hasil yang akurat.
 
-Jika pada judul TA dituliskan menggunakan suatu pendekatan/metode/algoritma tertentu, jelaskan secara singkat alasan pemilihannya.\\
+Umumnya terdapat dua cara yang paling sering digunakan untuk mengembangkan CCG \textit{supertagger}
+maupun CCG \textit{parser} bahasa lokal yaitu (1) membangun \textit{dataset} CCG \textit{supertag}
+secara manual maupun semi-otomatis atau (2) melakukan transfer \textit{dataset} dari CCGbank
+(atau dari sumber lainnya) ke dalam bahasa lokal dengan cara melakukan alih bahasa dan bila perlu
+melakukan penyesuaian untuk \textit{supertag}-nya \citep{hockenmaier-steedman-2007-ccgbank}.
+Proses pembangunan \textit{dataset} umumnya menggunakan bantuan \textit{annotation tool} agar
+proses anotasinya menjadi lebih mudah.
+Salah satu \textit{annotation tool} yang dapat digunakan adalah
+CCGweb \citep{evang-etal-2019-ccgweb}.
+
+Tugas akhir ini berusaha untuk membangun alat anotasi CCG baru dengan
+UI/UX yang lebih baik dari CCGweb.
+Selain itu, dengan bantuan NLTK alat anotasi ini dapat melakukan \textit{generate} untuk
+CCG \textit{derivation}-nya kemudian pengguna juga dapat mengubah \textit{derivation}-nya
+apabila diperlukan.
+Tujuan dari dibangunnya alat anotasi CCG ini adalah untuk mempermudah proses anotasi yang
+repetitif.
+Selanjutnya, \textit{dataset} CCG pertama untuk bahasa Indonesia diharapkan dapat dipublikasikan.
+\\
+
 
 \noindent\textbf{Topik dan Batasannya}
 
@@ -89,7 +103,9 @@ Sub-bagian ini bisa juga dinamakan Perumusan Masalah atau Identifikasi Masalah. 
 
 Sub-bagian ini mempunyai fungsi sebagai penjelasan tentang topik TA yaitu apa isu/permasalahan yang akan dikerjakan. Untuk lebih memperjelas bisa juga disampaikan definisi atau pengertian. Penyampaian definisi dan penjelasan pada sub-bagian ini sebaiknya dilakukan dalam tulisan naratif dan informal (tanpa formula matematis) apa topik permasalahan yang telah dikerjakan untuk TA. Untuk mempermudah dalam menuliskan sub-bagian ini, dapat dipandang membuat penjelasan kata-kata kunci (pada abstrak) dan judul TA. Dengan penjelasan di sub-bagian ini, maka topiknya menjadi jelas bagi pembaca. Kalau digambarkan dalam sebuah algoritma, maka salah satu materi utama pada sub-bagian ini menjelaskan apa input dan output dari algoritma tersebut. Oleh karena itu, sangat dianjurkan untuk menerangkan apa input dan output, serta sebuah contoh kasusnya secara sangat singkat.
 
-Sebutkan batasan pekerjaan yang ada. Batasan adalah kondisi-kondisi penyederhaan permasalahan, sehingga membuat pekerjaan semakin jauh dari ideal. Batasan masalah berisi pembatasan-pembatasan permasalahan agar menjadi lebih sederhana sehingga bisa/layak dikerjakan sebagai TA yang empat SKS dalam satu semester. Batasan diperlukan karena keterbatasan sumber daya saat pengerjaa TA, misalnya keterbatasan waktu pengerjaan yang hanya satu semester, keterbatasan data pendukung (misalnya tidak tersedianya korpus pengetahuan yang diperlukan) dan keterbatas kemampuan (misalnya untuk implementasi algoritma yang kompleks, dalam implementasinya diimplementasikan bentuk penyederhanaan). Salah satu ciri batasan yang bisa dipakai adalah bila bisa digunakan pada sub-bagian Saran (pada bagian Kesimpulan) agar TA berikutnya melonggarkan atau meniadakan batasan tersebut. Penyederhanaan yang dituliskan untuk batasan, antara lain meliputi data yang ditangani/digunakan, misalnya  jumlah data yang digunakan relatif sedikit, dan proses yang dikerjakan, misalnya ada satu subproses yang dikerjakan secara manual. Sebaiknya setiap batasan diberi alasan, misalnya jumlah data yang digunakan hanya 500 buah (relatif sedikit dibandingkan banyak penilitian unt topik sejenis) karena keterbatasan kemampuan komputer yang tersedia. Contoh lain, misalnya proses pelabelan peran semantik pada kalimat Bahasa Indonesia dilakukan secara manual, karena saat ini belum ditemukan alat bantu otomatis unt pelabelan peran semantik untuk Bahasa Indonesia yang efektif. Contoh batasan masalah yang tidak perlu misalnya sudah jelas tercerminkan pada judul.\\
+Sebutkan batasan pekerjaan yang ada. Batasan adalah kondisi-kondisi penyederhaan permasalahan, sehingga membuat pekerjaan semakin jauh dari ideal. Batasan masalah berisi pembatasan-pembatasan permasalahan agar menjadi lebih sederhana sehingga bisa/layak dikerjakan sebagai TA yang empat SKS dalam satu semester. Batasan diperlukan karena keterbatasan sumber daya saat pengerjaa TA, misalnya keterbatasan waktu pengerjaan yang hanya satu semester, keterbatasan data pendukung (misalnya tidak tersedianya korpus pengetahuan yang diperlukan) dan keterbatas kemampuan (misalnya untuk implementasi algoritma yang kompleks, dalam implementasinya diimplementasikan bentuk penyederhanaan). Salah satu ciri batasan yang bisa dipakai adalah bila bisa digunakan pada sub-bagian Saran (pada bagian Kesimpulan) agar TA berikutnya melonggarkan atau meniadakan batasan tersebut. Penyederhanaan yang dituliskan untuk batasan, antara lain meliputi data yang ditangani/digunakan, misalnya  jumlah data yang digunakan relatif sedikit, dan proses yang dikerjakan, misalnya ada satu subproses yang dikerjakan secara manual. Sebaiknya setiap batasan diberi alasan, misalnya jumlah data yang digunakan hanya 500 buah (relatif sedikit dibandingkan banyak penilitian unt topik sejenis) karena keterbatasan kemampuan komputer yang tersedia. Contoh lain, misalnya proses pelabelan peran semantik pada kalimat Bahasa Indonesia dilakukan secara manual, karena saat ini belum ditemukan alat bantu otomatis unt pelabelan peran semantik untuk Bahasa Indonesia yang efektif. Contoh batasan masalah yang tidak perlu misalnya sudah jelas tercerminkan pada judul.
+\\
+
 
 \noindent\textbf{Tujuan}
 
@@ -124,16 +140,217 @@ Tujuan-tujuan yang ditetapkan menjadi bahan untuk menentukan skenario eksperimen
 
 Pada sub-bagian ini dituliskan bagian-bagian selanjutnya (setelah Pendahuluan) pada jurnal TA ini, disertai penjelasan sangat singkat.
 
+
+
 \section{Studi Terkait}
-Bagian ini berisi teori/studi/literatur yang mendukung (terkait erat) dengan topik TA yang dikerjakan. Bagian ini bisa bernama Tinjauan Pustaka atau Landasan Teori. Dalam bahasa Inggris disebut sebagai  \textit{Related Work} atau \textit{Literature Revie}w. Studi Terkait dapat dituliskan pada bagian terpisah seperti contoh ini atau digabungkan dengan bagian Pendahuluan. Materi yang dijelaskan pada bagian ini adalah yang benar-benar terkait erat dengan topik TA, meskipun tidak digunakan pada TA yang dikerjakan. 
 
-Semua studi atau teori yang dipaparkan mengacu pada sumber pustaka. Pustaka yang digunakan sebagai sumber informasi adalah dari sumber yang kredibel. Apakah sebuah sumber kredibel atau tidak, bisa dikonsultasikan dengan pembimbing. Pustaka biasanya dari jurnal dan konferensi  yang mempunyai reputasi yang bagus, sebagai tambahan bisa juga dari buku teks. Hindari sebisa mungkin sumber yang tidak direview dengan ketat misalnya Wikipedia, blog, dan materi kuliah,  meskipun materi-materi pada sumber-sumber tersebut membantu mahasiswa dalam memahami topik yang dikerjakan (sebagai bibliografi\footnote{Bibliografi adalah semua sumber yang digunakan dalam proses pengerjaan baik diacu maupun tidak dalam tulisan, sedangkan referensi adalah daftar sumber yang diacu dalam tulisan.}).   Untuk referensi berupa TA mahasiswa, sebaiknya juga tidak dipakai, kecuali untuk yang spesifik misalnya tentang database yang dibangun oleh TA mahasiswa yang telah selesai.
+\noindent\textbf{Categorial Grammar}
 
-Disamping penjelasan tentang teori, bagian ini juga bisa berisi metrik pengukuran dan data yang digunakan pada permasalahan topik TA. 
+Categorial Grammar (CG) merupakan sebuah istilah yang mencakup beberapa formalisme terkait yang diajukan
+untuk sintaks dan semantik dari bahasa alami serta untuk bahasa logis dan matematis \citep{Steedman92catg}.
+Karakteristik yang paling terlihat dari CG adalah bentuk ekstrim dari leksikalismenya di mana beban utama
+(atau bahkan seluruh beban) sintaksisnya ditanggung oleh leksikon.
+Konstituen tata bahasa dalam \textit{categorial grammar} dan khususnya semua leksikal diasosiasikan
+dengan suatu \textit{type} atau \say{\textit{category}} (dalam \textit{category theory}) yang
+mendefinisikan potensi mereka untuk dikombinasikan dengan konstituen lain untuk menghasilkan konstituen
+majemuk.
+\textit{Category} tersebut adalah salah satu dari sejumlah kecil \textit{category} dasar (seperti NP)
+atau \textit{functor} (dalam \textit{category theory}).
+Dalam hal ini, \textit{category} dapat diartikan sebagai \textit{syntactic type} dari suatu kata.
 
-Panjang bagian ini sekitar setengah halaman (maksimal satu setengah halaman) untuk jurnal yang berjumlah total delapan halaman.
+Secara formal, \textit{syntactic type} didefinisikan sebagai himpunan bagian dari suatu
+\textit{semigroup} $M$ yang tunduk pada tiga operasi yaitu \ref{catg:syn:1},
+\ref{catg:syn:2}, dan \ref{catg:syn:3} dimana $A$, $B$, dan $C$ merupakan himpunan bagian dari $M$
+\cite{Lambek1988}. Adapun $A \cdot B$ dibaca $A$ \textit{times} $B$, $C/B$ dibaca $C$ \textit{over}
+$B$, dan $A\backslash{}C$ dibaca $A$ \textit{under} $C$. Selanjutnya, dapat dilihat bahwasannya
+untuk semua $A, B, C \subseteq M$ sehingga kita dapatkan \ref{catg:syn:4} dan \ref{catg:syn:5}.
+Terakhir, persamaan \ref{catg:syn:6} dapat diabaikan apabila dihadapkan dengan
+\textit{multiplicative system} yang tidak asosiatif. Sementara itu, apabila \textit{semigroup}-nya
+merupakan sebuah \textit{monoid} dengan identitas $1$ maka kita dapatkan \ref{catg:syn:7} dimana
+$I = \{1\}$.
 
-Semua sitasi yang dibuat pada jurnal, harus tercantum pada Daftar Pustaka jurnal. Demikian juga sebaliknya, semua pustaka dan ditulis pada Daftar Pustaka. Penulisan sitasi dengan angka urutan pustaka dalam kurung siku, sebagai contoh \citep{ochoa2003hybrid} dan \citep{van2002fundamentals,Budi}. Nomor urut pustaka bisa dengan mengurutkan kemunculan di tulisan ataupun dengan mengurutkan abjad penulis.
+\begin{align}
+  \begin{split}\label{catg:syn:1}
+    A \cdot B & = \{x \cdot y \in M \mid x \in A \land y \in B\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:2}
+    C/B & = \{x \in M \mid \forall_{y \in B} x \cdot y \in C\}
+  \end{split}\\
+  \begin{split}\label{catg:syn:3}
+    A\backslash{}C & = \{y \in M \mid \forall_{x \in A} x \cdot y \in C\}
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:4}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; A \subseteq C/B
+  \end{split}\\
+  \begin{split}\label{catg:syn:5}
+    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; B \subseteq A\backslash{}C
+  \end{split}
+\end{align}
+
+\begin{align}
+  \begin{split}\label{catg:syn:6}
+    (A \cdot B) \cdot C = A \cdot (B \cdot C)
+  \end{split}\\
+  \begin{split}\label{catg:syn:7}
+    I \cdot A = A = A \cdot I
+  \end{split}
+\end{align}
+
+Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \textit{directional}-nya.
+Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
+Lambek, dan kemudian dimodifikasi dalam kelompok teori yang dibedakan sebagai tata bahasa
+\say{\textit{combinatory}} \textit{categorial grammar} (CCG).
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ merupakan suatu \textit{functor} yang
+memiliki dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
+Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
+Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+$\text{X}/\text{Y}$ ada di bagian kanan atau dengan kata lain $\text{Y}$.
+Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+$\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$.
+Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
+mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
+\\
+
+
+\noindent\textbf{Combinatory Categorial Grammar}\label{kajian-ccg}
+
+Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
+diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
+\citep{Steedman96avery}.
+Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
+Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
+(dalam \textit{lambda calculus}, \textit{lambda function}).
+Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
+$\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
+Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
+Sebagai contoh, anggap saja kita memiliki kamus pemetaan seperti pada Gambar \ref{ccg:mapping:1}.
+Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka kita dapatkan:
+
+\begin{figure}\centering\small
+  \begin{align*}
+    \text{Pamungkas} &\ \vdash\ \text{NP}:\ \so{pamungkas}\\
+    \text{Setyo} &\ \vdash\ \text{NP}:\ \so{setyo}\\
+    \text{dan} &\ \vdash\ \text{CONJ}:\ \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+    \text{menyukai} &\ \vdash\ \text{(S{$\backslash$}NP)/NP}:\ \lambda x.\lambda y.\ suka(y, x)\\
+    \text{rendang} &\ \vdash\ \text{NP}:\ \so{rendang}
+  \end{align*}
+  \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
+  \label{ccg:mapping:1}
+\end{figure}
+
+\begin{center}
+  \bgroup
+  \catcode`!=\active \def!{\upshape}
+  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+  \catcode`^=\active \def^#1{\footnotesize{#1}}
+  \catcode`*=\active \def*#1{\scriptsize{#1}}
+  \tabbedShortstack{
+    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+    \TABcline{1,3,5,7,9}
+    !^{$\text{NP}$} & &
+      !^{$\text{CONJ}$} & &
+      !^{$\text{NP}$} & &
+      !^{$\text{(S$\backslash$NP)/NP}$} & &
+      !^{$\text{NP}$} &\\
+    !{*: \so{pamungkas}} & &
+      !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
+      !{*: \so{setyo}} & &
+      !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
+      !{*: \so{rendang}} &
+  }
+  \egroup
+\end{center}
+
+Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
+yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
+operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
+dan \textit{type rising}.
+Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
+\textit{forward application} di akhir.
+Sehingga, kita dapatkan:
+
+% \begin{center}
+%   \bgroup
+%   \catcode`!=\active \def!{\upshape}
+%   \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+%   \catcode`^=\active \def^#1{\footnotesize{#1}}
+%   \catcode`*=\active \def*#1{\scriptsize{#1}}
+%   \tabbedLongunderstack{
+%     !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+%     \TABcline{1,3,5,7,9}
+%     !^{$\text{NP}$} & &
+%       !^{$\text{CONJ}$} & &
+%       !^{$\text{NP}$} & &
+%       !^{$\text{(S$\backslash$NP)/NP}$} & &
+%       !^{$\text{NP}$} &\\
+%     !{*: \so{pamungkas}} & &
+%       !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
+%       !{*: \so{setyo}} & &
+%       !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
+%       !{*: \so{rendang}} &\\
+%     \TABrule & \TABrule &
+%       \TABrule & \TABrule &
+%       \TABrule\CCGCOOR & &
+%       \TABrule & \TABrule &
+%       \TABrule\CCGFA &\\
+%     & &
+%       !?{^{$\text{NP}$}}
+%       \ \ \ \ \ \ \ \ \ 
+%       & & & &
+%       \ \ \ \ \ \ \ 
+%       !?{^{$\text{S$\backslash$NP}$}}
+%       & & &\\
+%     & &
+%       ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
+%       \ \ \ \ \ \ \ \ \ 
+%       & & & &
+%       \ \ \ \ \ \ \ 
+%       ?{*: $\lambda y.\ suka(y, \so{rendang})$}
+%       & & &\\
+%     \TABrule & \TABrule &
+%       \TABrule & \TABrule &
+%       \TABrule\CCGTR & &
+%       & & &\\
+%     & &
+%       !?{^{$\text{S/(S$\backslash$NP)}$}}
+%       \ \ \ \ \ \ \ \ \ 
+%       & & & & & & &\\
+%     & &
+%       ?{*: $\lambda f.\ (f\ \so{pamungkas}) \land (f\ \so{setyo})$}
+%       \ \ \ \ \ \ \ \ \ 
+%       & & & & & & &\\
+%     \TABrule & \TABrule &
+%       \TABrule & \TABrule &
+%       \TABrule & \TABrule &
+%       \TABrule & \TABrule &
+%       \TABrule\CCGFA &\\
+%     & & &
+%       !?{^{$\text{S}$}}
+%       & & & & & &\\
+%     & & &
+%       ?{*: $suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})$}
+%       & & & & & &
+%   }
+%   \egroup
+% \end{center}
+
+Berdasarkan hasil evaluasi tersebut, kita dapatkan \textit{query} \ref{ccg:query:1}
+yang diperoleh dari kalimat \say{Pamungkas dan Setyo menyukai rendang}.
+Demikian itu, komputer dapat melakukan komputasi berdasarkan \textit{query} yang telah diperoleh.
+Kegiatan tersebut merupakan apa yang disebut dengan CCG \textit{parsing}.
+Untuk dapat melakukan parsing, CCG \textit{lexicon} diperlukan.
+Untuk mendapatkan CCG \textit{lexicon} kita dapat menggunakan CCG \textit{supertagger}
+yang akan melakukan pelabelan suatu token kata ke CCG \textit{lexicon} berdasarkan
+pemetaannya.
+
+\begin{equation}\label{ccg:query:1}
+  suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
+\end{equation}
+
+
 
 \section{Sistem yang Dibangun}
 
