@@ -44,7 +44,8 @@
 \usepackage{xcolor}
 
 \renewcommand{\lstlistingname}{Kode}
-\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{chapter}.\arabic{lstlisting}}} 
+\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}}} 
+% \AtBeginDocument{\counterwithin{lstlisting}{section}}
 
 \lstset{
   language=python,
