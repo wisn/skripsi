@@ -26,22 +26,7 @@
 {\bf \parindent0pt \noindent\rule{\textwidth}{1pt}
 Abstrak
 
-Dalam pemrosesan bahasa alami, combinatory categorial grammar (CCG) merupakan salah satu
-formalisme tata bahasa yang dapat digunakan untuk membangun sebuah \textit{parser} yang umumnya
-dikenal sebagai CCG \textit{parser}.
-CCG \textit{parser} dapat digunakan untuk berbagai macam keperluan dalam pemrosesan bahasa alami.
-Sebagai contoh, CCG \textit{parser} dapat digunakan untuk memperoleh informasi
-(\textit{information extraction}) dari suatu kalimat yang kemudian membentuk sebuah \textit{query}.
-Agar dapat membangun CCG \textit{parser} ataupun \textit{tools} lainnya, ketersediaan
-\textit{dataset} CCG yang memuat CCG \textit{lexicon} sangat diperlukan. Saat Tugas Akhir ini
-ditulis, \textit{dataset} CCG untuk bahasa Indonesia belum tersedia. Demikian itu, CCGtown dibangun
-sebagai \textit{annotation tool} yang dapat digunakan untuk membangun \textit{dataset} CCG.
-CCGtown merupakan \textit{open source graphical annotation tool} berbasis web yang dirancang
-dengan fokus mempercepat serta mempermudah proses penganotasian.
-Dengan fitur \textit{generate} CCG \textit{derivation} serta \textit{auto-assign} CCG
-\textit{category} kegiatan repetitif dalam melakukan anotasi akhirnya berkurang.
-Dengan antarmuka (UI/UX) yang cukup baik menjadikan CCGtown alat anotasi yang mudah digunakan
-(\textit{user friendly}) oleh berbagai kalangan pengguna.
+TBA.
 
 \bigskip
 Kata kunci: pemrosesan bahasa alami, combinatory categorial grammar, alat anotasi
@@ -55,18 +40,7 @@ Kata kunci: pemrosesan bahasa alami, combinatory categorial grammar, alat anotas
 \noindent\rule{\textwidth}{1pt}
 Abstract
 
-In natural language processing, combinatory categorial grammar (CCG) is one of the grammatical
-formalisms that can be used to construct a parser which is commonly known as CCG parser.
-The CCG parser can be used for a wide variety of purposes in natural language processing.
-For example, the CCG parser can be used to obtain information (information retrieveal) from a
-sentence which then forms a query. In order to build a CCG parser or other tools, the availability
-of a CCG dataset containing the CCG lexicon is needed. When this final project was written, the CCG
-dataset for Indonesian was not yet available. Thus, CCGtown was built as an annotation tool that can
-be used to build CCG datasets. CCGtown is a web-based open source graphical annotation tool designed
-with a focus on speeding up and simplifying the annotation process.
-With both the generate CCG derivation feature and auto-assign CCG category feature, the repetitive
-activity in annotating is finally reduced. With a pretty good interface (UI/UX), CCGtown becomes
-an easy-to-use annotation tool for various users.
+TBA.
 
 \bigskip
 Keywords: natural language processing, combinatory categorial grammar, annotation tool
@@ -81,35 +55,56 @@ Keywords: natural language processing, combinatory categorial grammar, annotatio
 
 \noindent\textbf{Latar Belakang}
 
-Riset pemrosesan bahasa alami untuk bahasa Indonesia saat ini masih terbilang sedikit.
-Bahkan, masih banyak area riset yang belum tersentuh seperti contohnya
-\textit{combinatory categorial grammar} (CCG).
-Sementara itu, riset mengenai CCG untuk bahasa Inggris sudah cukup matang.
-Adapun untuk bahasa lainnya (seperti bahasa Vietnam) sudah mulai menggunakan CCG di dalam
-penelitiannya \citep{nguyen2019vietnamese}.
-Agar dapat menerapkan CCG di dalam aplikasi yang dibangun, \textit{tools} seperti
-CCG \textit{parser} dan CCG \textit{supertagger} harus tersedia terlebih dahulu.
-Masing-masing dari \textit{tools} tersebut memerlukan \textit{dataset} agar dapat memberikan
-hasil yang akurat.
+CCGweb\footnote{\url{https://github.com/texttheater/ccgweb}} merupakan alat anotasi
+\textit{open source} berbasis web pertama yang dikembangkan khusus untuk memberikan anotasi
+CCG\citep{evang-etal-2019-ccgweb}. Fitur yang ditawarkan CCGweb cukup beragam mulai dari
+\textit{dynamic annotation}, WYSIWYG (\textit{what you see is what you get}),
+\textit{lexical category constraint}, \textit{span constraint}, \textit{issue reporting} via
+layanan \textit{web service} eksternal, hingga \textit{adjudication support}. Selain itu, CCGweb
+dibangun untuk membangun \textit{dataset} CCG \textit{multilingual} yang artinya terdapat lebih
+dari satu bahasa untuk satu kalimat yang sama. Untuk dapat menggunakan CCGweb, pengguna harus
+melakukan instalasi manual secara mandiri dan dapat dilakukan baik di komputer pribadinya ataupun
+di layanan \textit{hosting} maupun \textit{cloud}. Adapun proyek anotasi yang dapat dikerjakan
+dalam satu waktu adalah satu buah proyek yang mana dapat memiliki satu bahasa atau lebih.
+Demikian itu, pengguna tidak dapat mengerjakan lebih dari satu proyek dan harus menyelesaikan
+proyek sebelumnya agar dapat memulai proyek baru. Alternatif lainnya adalah melakukan instalasi
+kembali sehingga pengguna akan memiliki lebih dari satu aplikasi CCGweb.
 
-Umumnya terdapat dua cara yang paling sering digunakan untuk mengembangkan CCG \textit{supertagger}
-maupun CCG \textit{parser} bahasa lokal yaitu (1) membangun \textit{dataset} CCG \textit{supertag}
-secara manual maupun semi-otomatis atau (2) melakukan transfer \textit{dataset} dari CCGbank
-(atau dari sumber lainnya) ke dalam bahasa lokal dengan cara melakukan alih bahasa dan bila perlu
-melakukan penyesuaian untuk \textit{supertag}-nya \citep{hockenmaier-steedman-2007-ccgbank}.
-Proses pembangunan \textit{dataset} umumnya menggunakan bantuan \textit{annotation tool} agar
-proses anotasinya menjadi lebih mudah.
-Salah satu \textit{annotation tool} yang dapat digunakan adalah
-CCGweb \citep{evang-etal-2019-ccgweb}.
+Untuk dapat menggunakan CCGweb, pengguna diharapkan telah mempersiapkan beberapa
+\textit{dependency} yang diperlukan yaitu
+EasyCCG\footnote{\url{https://github.com/ParallelMeaningBank/easyccg}} (termasuk berkas modelnya),
+Elephant \textit{tokenizer}\footnote{\url{https://github.com/ParallelMeaningBank/elephant}}
+(termasuk berkas modelnya), berkas model UDPipe\footnote{\url{https://ufal.mff.cuni.cz/udpipe}},
+Produce \textit{build system}\footnote{\url{https://github.com/texttheater/produce}}, dan
+Viasock\footnote{\url{https://github.com/texttheater/viasock}}. Selain \textit{dependency} tersebut,
+beberapa \textit{dependency} lainnya relatif mudah untuk dipersiapkan sehingga dapat kita lewati.
+Kelima \textit{dependency} yang diperlukan tersebut harus dipersiapkan secara mandiri. Hal ini
+menyulitkan bagi pengguna yang ingin menggunakan CCGweb di komputer pribadinya karena proses ini
+rawan mengalami \textit{error} seperti perbedaan versi yang digunakan antar \textit{dependency}-nya
+dan sebagainya. Kendala yang dialami oleh calon pengguna ketika melakukan \textit{setup} juga dapat
+mengurangi minat calon kontributor untuk memberikan kontribusi bagi pengembangan CCGweb. Demikian
+itu, langkah \textit{setup} yang perlu dilakukan sebaiknya dikurangi hingga sesedikit mungkin.
+Salah satu solusinya adalah dengan menambahkan perintah baru untuk melakukan otomasi proses
+\textit{setup} seperti menyiapkan semua \textit{dependency} yang diperlukan secara otomatis,
+melakukan instalasi DBMS\footnote{\textit{database management system}} secara otomatis, membuatkan
+tabel-tabel yang diperlukan secara otomatis, dan seterusnya. Akibatnya, calon pengguna dan calon
+kontributor dapat langsung fokus pada tujuannya dalam menggunakan alat anotasi tersebut tanpa perlu
+direpotkan untuk melakukan \textit{setup} yang panjang.
 
-Tugas akhir ini berusaha untuk membangun alat anotasi CCG baru dengan
-UI/UX yang lebih baik dari CCGweb.
-Selain itu, dengan bantuan NLTK alat anotasi ini dapat melakukan \textit{generate} untuk
-CCG \textit{derivation}-nya kemudian pengguna juga dapat mengubah \textit{derivation}-nya
-apabila diperlukan.
-Tujuan dari dibangunnya alat anotasi CCG ini adalah untuk mempermudah proses anotasi yang
-repetitif.
-Selanjutnya, \textit{dataset} CCG pertama untuk bahasa Indonesia diharapkan dapat dipublikasikan.
+CCGtown\footnote{\url{https://github.com/wisn/ccgtown}} merupakan alat anotasi CCG alternatif yang
+dapat digunakan oleh \textit{annotator}. CCGtown memiliki kemampuan untuk membuat banyak proyek
+anotasi sekaligus. Selain itu, CCGtown juga dapat langsung digunakan secara daring tanpa perlu
+melakukan instalasi terlebih dahulu. Untuk memudahkan calon kontributor, CCGtown menggunakan
+\textit{web framework} populer yang dapat dipelajari oleh siapapun serta menyediakan
+perintah-perintah yang dapat digunakan untuk melakukan otomasi seperti contohnya pada proses
+\textit{setup}-nya. CCGtown juga dipublikasikan sebagai \textit{open source software} sehingga
+siapapun dapat melihat sumber kodenya, menambahkan fitur, mengurangi fitur, mengunggah CCGtown di
+\textit{server} pribadinya, dan masih banyak lagi. Adapun fitur yang dimiliki CCGtown saat ini
+mirip dengan CCGweb hanya saja dengan beberapa penyesuaian. Pengguna dapat menambahkan banyak
+proyek sekaligus, dapat menambahkan kalimat yang ingin diberikan anotasi, dapat memberikan anotasi
+CCG, dapat menyunting CCG \textit{derivation} secara langsung dengan konsep WYSIWYG, dapat
+melakukan \textit{generate} CCG \textit{derivation}, dan dapat melakukan \textit{auto-assign} CCG
+\textit{lexicon}. Fitur-fitur lainnya dapat ditambahkan di lain waktu.
 \\
 
 
@@ -137,18 +132,6 @@ dan lain-lain. Kendati banyaknya alat anotasi yang sudah tersedia, dukungan anot
 Combinatory Categorial Grammar (CCG) belum banyak. Salah satu alat anotasi CCG dengan antarmuka
 grafis yang tersedia adalah CCGweb\footnote{\url{https://ccgweb.phil.hhu.de/}}.
 
-CCGweb merupakan alat anotasi berbasis web yang dikembangkan khusus untuk memberikan anotasi CCG.
-Secara UI dan UX, CCGweb masih membutuhkan banyak perbaikan. Selain itu, kemampuan yang dimiliki
-CCGweb juga masih sangat terbatas. Demikian itu, dalam Tugas Akhir ini kami mencoba untuk
-mengembangkan alat anotasi CCG berbasis web baru dengan UI dan UX yang lebih baik serta
-fitur yang lebih banyak. Beberapa fitur yang kami tambahkan adalah kemampuan untuk membuat lebih
-dari satu proyek anotasi dalam satu akun, dapat melakukan \textit{generate} CCG \textit{derivation}
-(turunan CCG) dengan bantuan NLTK selama anotasi CCG yang diberikan absah, dapat melakukan
-perubahan terhadap CCG \textit{derivation} secara langsung, serta dapat melakukan pemberian anotasi
-secara otomatis terhadap token kata yang masih belum diberikan anotasinya berdasarkan anotasi-anotasi
-yang telah diberikan sebelumnya terhadap kata yang sama. Adapun alat anotasi CCG yang kami kembangkan
-diberi nama CCGtown.
-
 Anotasi CCG sebenarnya memiliki bentuk yang rumit. Anotasi CCG memiliki bentuk sintaktik dan
 bentuk semantik. Bentuk $(S/N)$ yang akan dilihat pada bagian selanjutnya merupakan bentuk sintaktik
 dari CCG. Adapun $: \lambda x.\lambda y.\ suka(y, x)$ yang akan dilihat pada bagian selanjutnya
@@ -160,250 +143,247 @@ adalah CCGbank. Namun, CCGbank bukanlah \textit{dataset} yang dapat dengan bebas
 Demikian itu, CCGtown menggunakan sampel yang tersedia secara terbuka saja seperti contoh kasus
 dari referensi yang digunakan, contoh anotasi CCG di halaman NLTK, dan sebagainya.
 
-Fokus CCGtown pada Tugas Akhir ini adalah untuk memberikan alternatif alat anotasi CCG yang sudah
-tersedia yaitu CCGweb. CCGtown diharapkan dapat memberikan UI/UX yang lebih baik. Demikian itu,
-pengujian yang akan dilakukan adalah pengujian untuk \textit{user experience} yaitu dengan
-menggunakan UEQ-S\footnote{User Experience Questionnaire Short version}. UEQ sejatinya memiliki
-banyak kuisioner yang perlu dijawab. Untuk mempercepat kebutuhan pengujian, kami menggunakan
-UEQ versi singkat yang mana hanya memiliki delapan pertanyaan\citep{UEQ-S}. Ekspektasi banyaknya
-responden untuk pengujian ini setidaknya 20 responden. Akan tetapi, sulit rasanya bagi CCGtown untuk
-mendapatkan responden sebanyak itu karena tidak banyak orang yang mengerti apa itu Combinatory
-Categorial Grammar (CCG). Adapun keabsahan CCG yang sudah dianotasi kemudian diekspor tidak
-kami validasi karena keterbatasan sumber daya manusia dan kurangnya kebutuhan waktu.
-Selain itu, CCGtown saat ini ekspektasinya digunakan hanya untuk memberikan anotasi pada
-\textit{dataset} dengan bahasa Indonesia dan bahasa Inggris saja.
+Fokus CCGtown pada Tugas Akhir ini adalah untuk memberikan alternatif alat anotasi CCG yang telah
+tersedia yaitu CCGweb. CCGtown menyuguhkan \textit{development cycle} yang lebih baik dari CCGweb
+dan menyediakan perintah-perintah untuk melakukan berbagai macam prosesnya secara otomatis.
+Salah satunya adalah perintah untuk melakukan \textit{setup}-nya. Karena keterbatasan waktu,
+beberapa fitur yang telah tersedia di CCGweb akan dihilangkan atau diganti. Tugas Akhir ini
+berupaya untuk menunjukkan bahwa alat anotasi CCG dapat dikembangkan dengan menggunakan
+\textit{web framework} yang telah tersedia serta dapat juga menggunakan \textit{deployment tool}
+yang telah tersedia. Berbanding terbalik dengan CCGweb yang tidak menggunakan \textit{web framework}
+apapun serta menggunakan \textit{build tools} kustom yang dibuat sendiri.
 \\
 
 
 \noindent\textbf{Tujuan}
 
-CCGtown diharapkan dapat menjadi alternatif alat anotasi CCG yang memiliki UI/UX yang lebih baik.
-Satu-satunya alat anotasi CCG yang menjadi tolak ukur adalah CCGweb.
-Demikian itu, pengujian yang akan dilakukan adalah dengan menggunakan User Experience Questionnaire
-atau biasa disingkat menjadi UEQ. Hasil dari UEQ ini kemudian dijadikan sebuah grafik yang memberikan
-metrik mengenai seberapa baik CCGtown berdasarkan umpan balik dari pengguna yang telah mencoba
-CCGtown.
+CCGtown diharapkan dapat menjadi alat anotasi CCG alternatif yang dapat digunakan secara langsung
+oleh pengguna tanpa perlu melakukan instalasi terlebih dahulu. CCGtown juga diharapkan dapat
+memberikan proses \textit{development} dan proses \textit{deployment} yang lebih baik agar calon
+kontributor dapat dengan mudah memberikan serta melakukan pengujian terhadap kontribusinya.
 \\
 
 
 \noindent \textbf{Organisasi Tulisan}
 
-\textbf{Studi Terkait} menjelaskan dasar-dasar materi yang perlu diketahui sebelum beranjak ke bagian
-selanjutnya. Bagian tersebut membahas apa itu Categorial Grammar (CG), apa itu Combinatory
-Categorial Grammar (CCG), penjelasan singkat mengenai Lambda Calculus yang digunakan oleh CCG sebagai
-semantiknya, kemudian penjelasan singkat mengenai CCGweb.
-\textbf{Sistem yang Dibangun} menjelaskan mengenai teknologi apa saja yang digunakan, mengapa
-menggunakan teknologi tersebut, seperti apa desain database dan sistemnya, serta mengapa CCGtown
-memiliki desain UI/UX demikian.
-\textbf{Evaluasi} memberikan gambaran hasil UEQ yang telah diubah menjadi metrik dengan penjabarannya.
+TBA.
+% \textbf{Studi Terkait} menjelaskan dasar-dasar materi yang perlu diketahui sebelum beranjak ke bagian
+% selanjutnya. Bagian tersebut membahas apa itu Categorial Grammar (CG), apa itu Combinatory
+% Categorial Grammar (CCG), penjelasan singkat mengenai Lambda Calculus yang digunakan oleh CCG sebagai
+% semantiknya, kemudian penjelasan singkat mengenai CCGweb.
+% \textbf{Sistem yang Dibangun} menjelaskan mengenai teknologi apa saja yang digunakan, mengapa
+% menggunakan teknologi tersebut, seperti apa desain database dan sistemnya, serta mengapa CCGtown
+% memiliki desain UI/UX demikian.
+% \textbf{Evaluasi} memberikan gambaran hasil UEQ yang telah diubah menjadi metrik dengan penjabarannya.
 
 
 
 \section{Studi Terkait}
 
-\noindent\textbf{Categorial Grammar}
+TBA.
+% \noindent\textbf{Categorial Grammar}
 
-Categorial Grammar (CG) merupakan sebuah istilah yang mencakup beberapa formalisme terkait yang diajukan
-untuk sintaks dan semantik dari bahasa alami serta untuk bahasa logis dan matematis \citep{Steedman92catg}.
-Karakteristik yang paling terlihat dari CG adalah bentuk ekstrim dari leksikalismenya di mana beban utama
-(atau bahkan seluruh beban) sintaksisnya ditanggung oleh leksikon.
-Konstituen tata bahasa dalam \textit{categorial grammar} dan khususnya semua leksikal diasosiasikan
-dengan suatu \textit{type} atau \say{\textit{category}} (dalam \textit{category theory}) yang
-mendefinisikan potensi mereka untuk dikombinasikan dengan konstituen lain untuk menghasilkan konstituen
-majemuk.
-\textit{Category} tersebut adalah salah satu dari sejumlah kecil \textit{category} dasar (seperti NP)
-atau \textit{functor} (dalam \textit{category theory}).
-Dalam hal ini, \textit{category} dapat diartikan sebagai \textit{syntactic type} dari suatu kata.
+% Categorial Grammar (CG) merupakan sebuah istilah yang mencakup beberapa formalisme terkait yang diajukan
+% untuk sintaks dan semantik dari bahasa alami serta untuk bahasa logis dan matematis \citep{Steedman92catg}.
+% Karakteristik yang paling terlihat dari CG adalah bentuk ekstrim dari leksikalismenya di mana beban utama
+% (atau bahkan seluruh beban) sintaksisnya ditanggung oleh leksikon.
+% Konstituen tata bahasa dalam \textit{categorial grammar} dan khususnya semua leksikal diasosiasikan
+% dengan suatu \textit{type} atau \say{\textit{category}} (dalam \textit{category theory}) yang
+% mendefinisikan potensi mereka untuk dikombinasikan dengan konstituen lain untuk menghasilkan konstituen
+% majemuk.
+% \textit{Category} tersebut adalah salah satu dari sejumlah kecil \textit{category} dasar (seperti NP)
+% atau \textit{functor} (dalam \textit{category theory}).
+% Dalam hal ini, \textit{category} dapat diartikan sebagai \textit{syntactic type} dari suatu kata.
 
-Secara formal, \textit{syntactic type} didefinisikan sebagai himpunan bagian dari suatu
-\textit{semigroup} $M$ yang tunduk pada tiga operasi yaitu \ref{catg:syn:1},
-\ref{catg:syn:2}, dan \ref{catg:syn:3} dimana $A$, $B$, dan $C$ merupakan himpunan bagian dari $M$
-\citep{Lambek1988}. Adapun $A \cdot B$ dibaca $A$ \textit{times} $B$, $C/B$ dibaca $C$ \textit{over}
-$B$, dan $A\backslash{}C$ dibaca $A$ \textit{under} $C$. Selanjutnya, dapat dilihat bahwasannya
-untuk semua $A, B, C \subseteq M$ sehingga kita dapatkan \ref{catg:syn:4} dan \ref{catg:syn:5}.
-Terakhir, persamaan \ref{catg:syn:6} dapat diabaikan apabila dihadapkan dengan
-\textit{multiplicative system} yang tidak asosiatif. Sementara itu, apabila \textit{semigroup}-nya
-merupakan sebuah \textit{monoid} dengan identitas $1$ maka kita dapatkan \ref{catg:syn:7} dimana
-$I = \{1\}$.
+% Secara formal, \textit{syntactic type} didefinisikan sebagai himpunan bagian dari suatu
+% \textit{semigroup} $M$ yang tunduk pada tiga operasi yaitu \ref{catg:syn:1},
+% \ref{catg:syn:2}, dan \ref{catg:syn:3} dimana $A$, $B$, dan $C$ merupakan himpunan bagian dari $M$
+% \citep{Lambek1988}. Adapun $A \cdot B$ dibaca $A$ \textit{times} $B$, $C/B$ dibaca $C$ \textit{over}
+% $B$, dan $A\backslash{}C$ dibaca $A$ \textit{under} $C$. Selanjutnya, dapat dilihat bahwasannya
+% untuk semua $A, B, C \subseteq M$ sehingga kita dapatkan \ref{catg:syn:4} dan \ref{catg:syn:5}.
+% Terakhir, persamaan \ref{catg:syn:6} dapat diabaikan apabila dihadapkan dengan
+% \textit{multiplicative system} yang tidak asosiatif. Sementara itu, apabila \textit{semigroup}-nya
+% merupakan sebuah \textit{monoid} dengan identitas $1$ maka kita dapatkan \ref{catg:syn:7} dimana
+% $I = \{1\}$.
 
-\begin{align}
-  \begin{split}\label{catg:syn:1}
-    A \cdot B & = \{x \cdot y \in M \mid x \in A \land y \in B\}
-  \end{split}\\
-  \begin{split}\label{catg:syn:2}
-    C/B & = \{x \in M \mid \forall_{y \in B} x \cdot y \in C\}
-  \end{split}\\
-  \begin{split}\label{catg:syn:3}
-    A\backslash{}C & = \{y \in M \mid \forall_{x \in A} x \cdot y \in C\}
-  \end{split}
-\end{align}
+% \begin{align}
+%   \begin{split}\label{catg:syn:1}
+%     A \cdot B & = \{x \cdot y \in M \mid x \in A \land y \in B\}
+%   \end{split}\\
+%   \begin{split}\label{catg:syn:2}
+%     C/B & = \{x \in M \mid \forall_{y \in B} x \cdot y \in C\}
+%   \end{split}\\
+%   \begin{split}\label{catg:syn:3}
+%     A\backslash{}C & = \{y \in M \mid \forall_{x \in A} x \cdot y \in C\}
+%   \end{split}
+% \end{align}
 
-\begin{align}
-  \begin{split}\label{catg:syn:4}
-    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; A \subseteq C/B
-  \end{split}\\
-  \begin{split}\label{catg:syn:5}
-    A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; B \subseteq A\backslash{}C
-  \end{split}
-\end{align}
+% \begin{align}
+%   \begin{split}\label{catg:syn:4}
+%     A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; A \subseteq C/B
+%   \end{split}\\
+%   \begin{split}\label{catg:syn:5}
+%     A \cdot B \subseteq C & \;\;\;\;\text{jika dan hanya jika}\;\;\;\; B \subseteq A\backslash{}C
+%   \end{split}
+% \end{align}
 
-\begin{align}
-  \begin{split}\label{catg:syn:6}
-    (A \cdot B) \cdot C = A \cdot (B \cdot C)
-  \end{split}\\
-  \begin{split}\label{catg:syn:7}
-    I \cdot A = A = A \cdot I
-  \end{split}
-\end{align}
+% \begin{align}
+%   \begin{split}\label{catg:syn:6}
+%     (A \cdot B) \cdot C = A \cdot (B \cdot C)
+%   \end{split}\\
+%   \begin{split}\label{catg:syn:7}
+%     I \cdot A = A = A \cdot I
+%   \end{split}
+% \end{align}
 
-Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \textit{directional}-nya.
-Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
-Lambek, dan kemudian dimodifikasi dalam kelompok teori yang dibedakan sebagai tata bahasa
-\say{\textit{combinatory}} \textit{categorial grammar} (CCG).
-Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ merupakan suatu \textit{functor} yang
-memiliki dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
-Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
-Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
-$\text{X}/\text{Y}$ ada di bagian kanan atau dengan kata lain $\text{Y}$.
-Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
-$\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$.
-Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
-mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
-\\
-
-
-\noindent\textbf{Combinatory Categorial Grammar}\label{kajian-ccg}
-
-Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
-diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
-\citep{Steedman96avery}.
-Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
-Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
-(dalam \textit{lambda calculus}, \textit{lambda function}).
-Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
-$\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
-Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
-Sebagai contoh, anggap saja kita memiliki kamus pemetaan seperti pada Gambar \ref{ccg:mapping:1}.
-Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka kita dapatkan:
-
-\begin{figure}\centering\small
-  \begin{align*}
-    \text{Pamungkas} &\ \vdash\ \text{NP}:\ \so{pamungkas}\\
-    \text{Setyo} &\ \vdash\ \text{NP}:\ \so{setyo}\\
-    \text{dan} &\ \vdash\ \text{CONJ}:\ \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
-    \text{menyukai} &\ \vdash\ \text{(S{$\backslash$}NP)/NP}:\ \lambda x.\lambda y.\ suka(y, x)\\
-    \text{rendang} &\ \vdash\ \text{NP}:\ \so{rendang}
-  \end{align*}
-  \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
-  \label{ccg:mapping:1}
-\end{figure}
-
-\begin{center}
-  \bgroup
-  \catcode`!=\active \def!{\upshape}
-  \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
-  \catcode`^=\active \def^#1{\footnotesize{#1}}
-  \catcode`*=\active \def*#1{\scriptsize{#1}}
-  \tabbedShortstack{
-    !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
-    \TABcline{1,3,5,7,9}
-    !^{$\text{NP}$} & &
-      !^{$\text{CONJ}$} & &
-      !^{$\text{NP}$} & &
-      !^{$\text{(S$\backslash$NP)/NP}$} & &
-      !^{$\text{NP}$} &\\
-    !{*: \so{pamungkas}} & &
-      !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
-      !{*: \so{setyo}} & &
-      !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
-      !{*: \so{rendang}} &
-  }
-  \egroup
-\end{center}
-
-Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
-yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
-operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
-dan \textit{type rising}.
-Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
-\textit{forward application} di akhir.
-Sehingga, kita dapatkan Gambar \ref{ccg-fig1}.
-Berdasarkan hasil evaluasi tersebut, kita dapatkan \textit{query} \ref{ccg:query:1}
-yang diperoleh dari kalimat \say{Pamungkas dan Setyo menyukai rendang}.
-Demikian itu, komputer dapat melakukan komputasi berdasarkan \textit{query} yang telah diperoleh.
-Kegiatan tersebut merupakan apa yang disebut dengan CCG \textit{parsing}.
-Untuk dapat melakukan parsing, CCG \textit{lexicon} diperlukan.
-Untuk mendapatkan CCG \textit{lexicon} kita dapat menggunakan CCG \textit{supertagger}
-yang akan melakukan pelabelan suatu token kata ke CCG \textit{lexicon} berdasarkan
-pemetaannya.
-
-\begin{figure}\centering\small
-  \includegraphics[width=.75\textwidth]{ccg1}
-  \caption{
-    Contoh CCG \textit{derivation} dengan operasi \textit{coordination},
-    \textit{forward application}, dan \textit{type rising}.}
-  \label{ccg-fig1}
-\end{figure}
-
-\begin{equation}\label{ccg:query:1}
-  suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
-\end{equation}
-\\
+% Ada beberapa notasi berbeda untuk \textit{category} dalam merepresentasikan \textit{directional}-nya.
+% Notasi yang paling umum digunakan adalah \say{\textit{slash notation}} yang dipelopori oleh Bar-Hilel,
+% Lambek, dan kemudian dimodifikasi dalam kelompok teori yang dibedakan sebagai tata bahasa
+% \say{\textit{combinatory}} \textit{categorial grammar} (CCG).
+% Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ merupakan suatu \textit{functor} yang
+% memiliki dua buah notasi \textit{slash} yaitu $\backslash$ dan $/$.
+% Masing-masing notasi \textit{slash} tersebut merepresentasikan \textit{directionality} yang berbeda.
+% Notasi \textit{forward slash}, $/$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+% $\text{X}/\text{Y}$ ada di bagian kanan atau dengan kata lain $\text{Y}$.
+% Adapun \textit{backward slash}, $\backslash$, mengindikasikan bahwa argumen dari suatu \textit{functor}
+% $\text{X}\backslash\text{Y}$ ada di bagian kiri atau dengan kata lain $\text{X}$.
+% Demikian itu, penggunaan notasi \textit{slash} yang tepat sangat penting dikarenakan hal ini dapat
+% mempengaruhi konstituen dari hasil \say{kombinasi} \textit{category}-nya.
+% \\
 
 
-\noindent\textbf{Lambda Calculus}
+% \noindent\textbf{Combinatory Categorial Grammar}\label{kajian-ccg}
 
-\textit{Lambda calculus} ({$\lambda$}\textit{-calculus}) merupakan sebuah formalisme yang dikembangkan
-oleh Alonzo Church sebagai alat yang digunakan untuk memahami konsep komputasi yang efektif
-\citep{DBLP:journals/corr/Rojas15}.
-Formalisme {$\lambda$}\textit{-calculus} cukup populer dan bahkan dijadikan sebagai pondasi teori bagi
-paradigma pemrograman \textit{functional programming}.
-Konsep utama dari {$\lambda$}\textit{-calculus} adalah apa yang disebut dengan \textit{expression}.
-Suatu \textit{expression} dalam {$\lambda$}\textit{-calculus} terdiri dari tiga bagian yaitu
-\textit{lambda notation} ({$\lambda$}), \textit{argument} (seperti $a$, $b$, $c$, $x$, dan lain-lain),
-dan \textit{body} yang dipisahkan dengan tanda titik.
-Sebagai contoh, fungsi lambda ${\lambda}x. x$ merupakan sebuah fungsi identitas yang mengambil
-argumen $x$ kemudian mengembalikan nilai $x$ itu sendiri.
-Dalam hal ini, terlihat bahwa notasi {$\lambda$} merupakan sebuah penanda bagi suatu fungsi lambda.
-Kemudian, pengubah $x$ setelah notasi {$\lambda$} merupakan argumen dari fungsi tersebut.
-Selanjutnya, tanda titik merupakan pemisah antara \textit{head} dan \textit{body} fungsi lambda.
-Terakhir, setelah tanda titik adalah \textit{body} dari suatu fungsi lambda yang mana berupa
-\textit{expression}.
+% Combinatory Categorial Grammar (CCG) merupakan salah satu formalisme tata bahasa yang gaya aturannya
+% diturunkan dari \textit{categorial grammar} dengan beberapa penambahan aturan dan istilah baru
+% \citep{Steedman96avery}.
+% Di CCG, \textit{category} dapat dipasangkan dengan \textit{semantic representation}.
+% Dalam hal ini, \textit{semantic representation} yang dimaksud adalah abstraksi fungsi lambda
+% (dalam \textit{lambda calculus}, \textit{lambda function}).
+% Sebagai contoh, \textit{category} $\text{(S$\backslash$NP)/NP}$ dapat dipasangkan dengan fungsi lambda
+% $\lambda{x. fx}$ sehingga dapat ditulis menjadi $\text{(S$\backslash$NP)/NP} : \lambda{x. fx}$.
+% Adapun pemetaan dari suatu token kata ke \textit{category}-nya menggunakan notasi $\vdash$.
+% Sebagai contoh, anggap saja kita memiliki kamus pemetaan seperti pada Gambar \ref{ccg:mapping:1}.
+% Apabila kita memiliki kalimat \say{Pamungkas dan Setyo menyukai rendang}, maka kita dapatkan:
 
-Untuk mempermudah pemahaman, {$\lambda$}\textit{-calculus} dapat diperlakukan seperti fungsi tanpa
-nama. Sebagai contoh, fungsi lambda $({\lambda}x. x + 5)$ apabila diberikan nilai $2$ sehingga
-menjadi $({\lambda}x. x + 5) 2$ akan dievaluasi menjadi ${\lambda}(2). (2) + 5$.
-Demikian itu, nilai yang dikembalikan oleh fungsi tersebut adalah $7$.
-Sama seperti fungsi pada umumnya, konsep ini bernama \textit{substition} (substitusi).
-Memahami {$\lambda$}\textit{-calculus} dirasa perlu berhubung dalam tugas akhir ini
-{$\lambda$}\textit{-calculus} digunakan sebagai bentuk formal di \textit{category}
-dalam konteks CCG \textit{lexicon}. Meskipun {$\lambda$}\textit{-calculus} tidak sesederhana
-yang dijelaskan sebelumnya, setidaknya memahami {$\lambda$}\textit{-calculus} seperti ini
-sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir ini.
-\\
+% \begin{figure}\centering\small
+%   \begin{align*}
+%     \text{Pamungkas} &\ \vdash\ \text{NP}:\ \so{pamungkas}\\
+%     \text{Setyo} &\ \vdash\ \text{NP}:\ \so{setyo}\\
+%     \text{dan} &\ \vdash\ \text{CONJ}:\ \lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)\\
+%     \text{menyukai} &\ \vdash\ \text{(S{$\backslash$}NP)/NP}:\ \lambda x.\lambda y.\ suka(y, x)\\
+%     \text{rendang} &\ \vdash\ \text{NP}:\ \so{rendang}
+%   \end{align*}
+%   \caption{Kamus yang memetakan token kata ke bentuk CCG \textit{lexicon}-nya.}
+%   \label{ccg:mapping:1}
+% \end{figure}
+
+% \begin{center}
+%   \bgroup
+%   \catcode`!=\active \def!{\upshape}
+%   \catcode`?=\active \def?#1{\makebox[0pt]{#1}}
+%   \catcode`^=\active \def^#1{\footnotesize{#1}}
+%   \catcode`*=\active \def*#1{\scriptsize{#1}}
+%   \tabbedShortstack{
+%     !^Pamungkas & & !^dan & & !^Setyo & & !^menyukai & & !^rendang &\\
+%     \TABcline{1,3,5,7,9}
+%     !^{$\text{NP}$} & &
+%       !^{$\text{CONJ}$} & &
+%       !^{$\text{NP}$} & &
+%       !^{$\text{(S$\backslash$NP)/NP}$} & &
+%       !^{$\text{NP}$} &\\
+%     !{*: \so{pamungkas}} & &
+%       !{*: $\lambda x.\lambda y.\lambda f.\ (f\ x) \land (f\ y)$} & &
+%       !{*: \so{setyo}} & &
+%       !{*: $\lambda x.\lambda y.\ suka(y, x)$} & &
+%       !{*: \so{rendang}} &
+%   }
+%   \egroup
+% \end{center}
+
+% Ada beberapa operasi yang dapat dilakukan dalam CCG. \textit{Operand} dari operasi
+% yang dimaksud adalah \textit{category}. Berdasarkan contoh di atas, akan ada tiga
+% operasi yang dijalankan yaitu \textit{coordination}, \textit{forward application},
+% dan \textit{type rising}.
+% Untuk mendapatkan hasil yang diinginkan, kita lakukan \textit{type rising} sebelum
+% \textit{forward application} di akhir.
+% Sehingga, kita dapatkan Gambar \ref{ccg-fig1}.
+% Berdasarkan hasil evaluasi tersebut, kita dapatkan \textit{query} \ref{ccg:query:1}
+% yang diperoleh dari kalimat \say{Pamungkas dan Setyo menyukai rendang}.
+% Demikian itu, komputer dapat melakukan komputasi berdasarkan \textit{query} yang telah diperoleh.
+% Kegiatan tersebut merupakan apa yang disebut dengan CCG \textit{parsing}.
+% Untuk dapat melakukan parsing, CCG \textit{lexicon} diperlukan.
+% Untuk mendapatkan CCG \textit{lexicon} kita dapat menggunakan CCG \textit{supertagger}
+% yang akan melakukan pelabelan suatu token kata ke CCG \textit{lexicon} berdasarkan
+% pemetaannya.
+
+% \begin{figure}\centering\small
+%   \includegraphics[width=.75\textwidth]{ccg1}
+%   \caption{
+%     Contoh CCG \textit{derivation} dengan operasi \textit{coordination},
+%     \textit{forward application}, dan \textit{type rising}.}
+%   \label{ccg-fig1}
+% \end{figure}
+
+% \begin{equation}\label{ccg:query:1}
+%   suka(\so{pamungkas}, \so{rendang}) \land suka(\so{setyo}, \so{rendang})
+% \end{equation}
+% \\
 
 
-\noindent\textbf{CCGweb}
+% \noindent\textbf{Lambda Calculus}
 
-CCGweb\footnote{\url{https://github.com/texttheater/ccgweb}} merupakan
-\textit{open source graphical annotation tool} pertama untuk CCG \citep{evang-etal-2019-ccgweb}.
-Aplikasinya berbasis web dan dibangun dengan menggunakan bahasa pemrograman
-Python, PHP, dan JavaScript.
-Fitur yang paling menarik dari \textit{graphical annotation tool} adalah What You See Is What
-You Get (WYSIWYG) yang mana berupa kemampuan untuk me-\textit{render} CCG \textit{derivation}
-sesuai dengan apa yang kita lihat.
-Maksudnya, CCG \textit{derivation} akan ditampilkan horizontal sesuai dengan panjang kalimatnya
-kemudian hasil \textit{derivation}-nya ditampilkan vertikal seperti contoh pada
-Bagian \ref{kajian-ccg}.
+% \textit{Lambda calculus} ({$\lambda$}\textit{-calculus}) merupakan sebuah formalisme yang dikembangkan
+% oleh Alonzo Church sebagai alat yang digunakan untuk memahami konsep komputasi yang efektif
+% \citep{DBLP:journals/corr/Rojas15}.
+% Formalisme {$\lambda$}\textit{-calculus} cukup populer dan bahkan dijadikan sebagai pondasi teori bagi
+% paradigma pemrograman \textit{functional programming}.
+% Konsep utama dari {$\lambda$}\textit{-calculus} adalah apa yang disebut dengan \textit{expression}.
+% Suatu \textit{expression} dalam {$\lambda$}\textit{-calculus} terdiri dari tiga bagian yaitu
+% \textit{lambda notation} ({$\lambda$}), \textit{argument} (seperti $a$, $b$, $c$, $x$, dan lain-lain),
+% dan \textit{body} yang dipisahkan dengan tanda titik.
+% Sebagai contoh, fungsi lambda ${\lambda}x. x$ merupakan sebuah fungsi identitas yang mengambil
+% argumen $x$ kemudian mengembalikan nilai $x$ itu sendiri.
+% Dalam hal ini, terlihat bahwa notasi {$\lambda$} merupakan sebuah penanda bagi suatu fungsi lambda.
+% Kemudian, pengubah $x$ setelah notasi {$\lambda$} merupakan argumen dari fungsi tersebut.
+% Selanjutnya, tanda titik merupakan pemisah antara \textit{head} dan \textit{body} fungsi lambda.
+% Terakhir, setelah tanda titik adalah \textit{body} dari suatu fungsi lambda yang mana berupa
+% \textit{expression}.
 
-Untuk dapat menggunakan CCGweb, kita perlu melakukan instalasi terlebih dahulu.
-Selanjutnya barulah kita dapat menambahkan kalimat-kalimat yang ingin dianotasi.
-Satu instalasi CCGweb hanya dapat digunakan untuk satu proyek anotasi sehingga
-apabila kita memiliki lebih dari satu proyek maka kita perlu melakukan instalasi
-CCGweb yang baru.
-Demikian itu, CCGtown\footnote{\url{https://github.com/wisn/ccgtown}} hadir dengan
-fitur \textit{multi-project} dan tanpa perlu melakukan instalasi di komputer lokal
-karena aplikasinya \textit{hosted} sehingga dapat diakses kapan pun.
+% Untuk mempermudah pemahaman, {$\lambda$}\textit{-calculus} dapat diperlakukan seperti fungsi tanpa
+% nama. Sebagai contoh, fungsi lambda $({\lambda}x. x + 5)$ apabila diberikan nilai $2$ sehingga
+% menjadi $({\lambda}x. x + 5) 2$ akan dievaluasi menjadi ${\lambda}(2). (2) + 5$.
+% Demikian itu, nilai yang dikembalikan oleh fungsi tersebut adalah $7$.
+% Sama seperti fungsi pada umumnya, konsep ini bernama \textit{substition} (substitusi).
+% Memahami {$\lambda$}\textit{-calculus} dirasa perlu berhubung dalam tugas akhir ini
+% {$\lambda$}\textit{-calculus} digunakan sebagai bentuk formal di \textit{category}
+% dalam konteks CCG \textit{lexicon}. Meskipun {$\lambda$}\textit{-calculus} tidak sesederhana
+% yang dijelaskan sebelumnya, setidaknya memahami {$\lambda$}\textit{-calculus} seperti ini
+% sudah cukup untuk dapat membangun \textit{supertagger} yang ada di tugas akhir ini.
+% \\
+
+
+% \noindent\textbf{CCGweb}
+
+% CCGweb\footnote{\url{https://github.com/texttheater/ccgweb}} merupakan
+% \textit{open source graphical annotation tool} pertama untuk CCG \citep{evang-etal-2019-ccgweb}.
+% Aplikasinya berbasis web dan dibangun dengan menggunakan bahasa pemrograman
+% Python, PHP, dan JavaScript.
+% Fitur yang paling menarik dari \textit{graphical annotation tool} adalah What You See Is What
+% You Get (WYSIWYG) yang mana berupa kemampuan untuk me-\textit{render} CCG \textit{derivation}
+% sesuai dengan apa yang kita lihat.
+% Maksudnya, CCG \textit{derivation} akan ditampilkan horizontal sesuai dengan panjang kalimatnya
+% kemudian hasil \textit{derivation}-nya ditampilkan vertikal seperti contoh pada
+% Bagian \ref{kajian-ccg}.
+
+% Untuk dapat menggunakan CCGweb, kita perlu melakukan instalasi terlebih dahulu.
+% Selanjutnya barulah kita dapat menambahkan kalimat-kalimat yang ingin dianotasi.
+% Satu instalasi CCGweb hanya dapat digunakan untuk satu proyek anotasi sehingga
+% apabila kita memiliki lebih dari satu proyek maka kita perlu melakukan instalasi
+% CCGweb yang baru.
+% Demikian itu, CCGtown\footnote{\url{https://github.com/wisn/ccgtown}} hadir dengan
+% fitur \textit{multi-project} dan tanpa perlu melakukan instalasi di komputer lokal
+% karena aplikasinya \textit{hosted} sehingga dapat diakses kapan pun.
 
 
 
@@ -763,102 +743,6 @@ Suatu token kata mungkin memiliki lebih dari satu anotasi. CCGtown hanya akan me
 anotasi saja. Akibatnya, pengguna sebaiknya tetap melakukan peninjauan.
 Kendati demikian, setidaknya kegiatan anotasi yang repetitif dapat berkurang sehingga memudahkan
 dan mempercepat proses anotasi.
-\\
-
-
-\noindent\textbf{Pertimbangan UI/UX}
-
-Secara keseluruhan, CCGtown memiliki halaman rumah (\textit{homepage}), halaman \textit{register},
-halaman \textit{login}, halaman Projects, dan halaman Editor.
-Halaman \textit{register} dan halaman \textit{login} pada dasarnya sama.
-Perbedaannya hanya terdapat di jumlah \textit{field} yang diminta serta \textit{copy writting}
-yang sedikit berbeda. Desain UI\footnote{User Interface} serta UX\footnote{User Experience}
-CCGtown dibuat dengan fokus untuk mempermudah penggunaan \textit{annotation tool} ini.
-CCGtown tidak menggunakan banyak warna. Hal ini untuk mengurangi kelelahan pada mata pengguna.
-CCGtown menggunakan bahasa Inggris di antarmukanya karena target pengguna CCGtown adalah
-pengguna baik dari Indonesia yang mengerti bahasa Inggris maupun pengguna dari manca negara.
-
-CCGtown menggunakan UIKit\footnote{\url{https://getuikit.com/}} sebagai \textit{framework}
-untuk melakukan implementasi desain web-nya. UIKit dipilih karena komponen-komponen yang
-dibutuhkan CCGtown sudah tersedia sehingga CCGtown hanya perlu melakukan sedikit penyesuaian
-seperti penambahan warna, pengaturan jarak (\textit{margin} dan \textit{padding}), dan sejenisnya.
-UIKit juga sudah menyediakan kumpulan \textit{icons} yang dapat langsung digunakan.
-Hal ini mengakibatkan proses pengembangan desain web CCGtown dapat diselesaikan dalam waktu yang
-relatif cukup singkat.
-
-Warna utama (\textit{primary color}) CCGtown adalah warna ungu.
-Berdasarkan psikologi warna, warna ungu adalah warna fantasi dan magis.
-CCGtown dapat men-\textit{generate} CCG \textit{derivation} dan melakukan \textit{auto-assign}
-CCG \textit{category} sehingga memiliki sifat yang seakan-akan mengandung magi (sihir).
-Selain itu, ungu menumbuhkan kreativitas dengan membangkitkan indra kita sambil mempromosikan
-ketenangan yang diperlukan untuk melakukan pengamatan yang intuitif dan berwawasan.
-Warna ungu banyak digunakan oleh \textit{homepage} seperti yang terlihat pada Gambar
-\ref{ui:homepage}. Halaman rumah CCGtown didesain sederhana dan langsung kepada intinya.
-Halaman rumah CCGtown menampilkan beberapa fitur yang dapat menjadi alasan bagi pengguna
-untuk menggunakan CCGtown. Selain itu, halaman rumah CCGtown juga menampilkan demonstrasi
-singkat dengan gambar animasi proses penganotasian di CCGtown. Demonstrasi singkat
-diberikan untuk memberikan gambaran kepada calon pengguna tentang betapa mudahnya
-menggunakan CCGtown untuk menganotasi CCG.
-
-Pada Gambar \ref{ui:register} dan Gambar \ref{ui:login}, terlihat bahwasannya halaman
-\textit{register} dan halaman \textit{login} pada dasarnya sama. Pada halaman
-\textit{register}, informasi yang dibutuhkan hanyalah \textit{email address} dan
-\textit{password} (dengan tambahan \textit{password confirmation} untuk validasi).
-Hal ini agar pengguna dapat dengan mudah mendaftar tanpa perlu mengisi banyak \textit{field}
-terlebih dahulu sebelum dapat menggunakan CCGtown. Selain itu, informasi lain dari
-pengguna saat ini belum dibutuhkan. Apabila terjadi perubahan mengenai data pengguna,
-pengguna dapat memperbarui datanya di kemudian hari melaui halaman lain seperti halaman profil
-yang mungkin saja akan ditambahkan di CCGtown versi berikutnya.
-
-CCGtown menggunakan \textit{flash message} berupa \textit{toast} untuk setiap pesan
-\textit{feedback} yang diberikan oleh sisi \textit{backend}. Sebagai contoh, pada Gambar
-\ref{ui:flash-message} di bagian pojok kanan bawah merupakan pesan \textit{feedback}
-yang memberikan informasi bahwasannya kombinasi \textit{email} dan/atau \textit{password}
-tidak cocok sehingga pengguna tidak dapat \textit{login}. Notifikasi \textit{toast} tersebut
-dapat langsung ditutup oleh pengguna atau akan hilang dengan sendirinya dalam waktu sekitar
-lima detik. Penggunaan \textit{toast} yang muncul dari bawah dengan warna ungu tersebut
-dapat mengalihkan perhatian pengguna sehingga pengguna menyadari pesan yang disampaikan oleh
-\textit{backend} CCGtown.
-
-Selanjutnya, dengan asumsi pengguna baru saja mendaftar kemudian melakukan \textit{login},
-pengguna akan dialihkan ke halaman Projects. Halaman Projects tersebut berada di dalam
-\textit{empty state} karena pengguna belum membuat satupun proyek. Seperti yang dapat
-dilihat pada Gambar \ref{ui:projects-empty}, pengguna dapat melihat instruksi apa yang
-harus ia lakukan yang mana dalam hal ini adalah membuat proyek baru.
-Sebaliknya, apabila pengguna telah membuat proyek maka tampilan yang dilihat akan
-seperti pada Gambar \ref{ui:projects}. Pengguna dapat membuka halaman Editor dengan
-cara melakukan klik di nama proyek maupun di ikon \textit{edit}. Selain itu,
-pengguna juga dapat langsung melakukan \textit{export to JSON} melakukan klik di ikon
-\textit{download}. Apabila pengguna merasa tidak lagi memerlukan suatu proyek, maka
-pengguna dapat menghapusnya dengan melakukan klik di ikon \textit{trash}.
-
-Setelah membuat proyek baru, pengguna akan melihat halaman Editor dalam
-\textit{empty state} seperti yang dapat dilihat pada Gambar \ref{ui:editor-empty}.
-Pada bagian kanan halaman Editor, terdapat beberapa \textit{section} yaitu
-Project Detail yang dapat digunakan untuk mengubah nama proyek dan status proyek,
-Automation Rules yang akan digunakan oleh NLTK untuk melakukan \textit{generate}
-CCG \textit{derivation}, serta CCG Lexicons yang menampilkan statistik dari jenis
-sintaksis CCG yang telah dianotasikan dan berapa kali ia dianotasikan.
-Untuk dapat menambahkan kalimat baru, pengguna hanya perlu melakukan klik di
-tombol "Add Sentences". Setelah itu, pengguna dapat langsung melakukan penganotasian
-seperti yang terlihat pada Gambar \ref{ui:editor-annotating}. Apabila pengguna telah
-memberikan anotasi ke semua token kata yang ada di kalimat tersebut, pengguna dapat
-melakukan \textit{generate} CCG \textit{derivation}. Hasil dari \textit{generate} CCG
-\textit{derivation} tersebut dapat dilihat pada Gambar \ref{ui:deriv-generated}.
-
-Pengguna juga dapat langsung mengubah CCG \textit{derivation} suatu kalimat secara
-langsung. Contohnya dapat dilihat pada Gambar \ref{ui:deriv-progress}.
-Pengguna dapat memberikan anotasi ke token kata di \textit{modal} (\textit{editable}
-CCG \textit{derivation}) tersebut. Pengguna dapat menambahkan beberapa baris kosong
-sekaligus yang kemudian akan diisi oleh CCG \textit{derivation} dari kalimat tersebut.
-Warna abu-abu menunjukkan bahwa konfigurasi dari CCG \textit{derivation} di baris tersebut
-masih kosong. Kemudian, warna ungu menunjukkan bahwa pada bagian tersebut (baik anotasi
-maupun operator) tidak diisi. Perbedaan ini diberikan untuk memberikan pengguna
-\textit{awareness} mengenai mana saja bagian yang harus diisi atau dilengkapi.
-Adapun konfigurasi \textit{derivation}-nya terlihat pada Gambar \ref{ui:deriv-configure}.
-Dengan kemampuan ini pengguna dapat melakukan \textit{generate} kemudian apabila ada
-\textit{derivation} yang dirasa kurang cocok maka pengguna dapat langsung melakukan
-perubahan dengan mudah dan interaktif.
 
 
 
@@ -866,157 +750,159 @@ perubahan dengan mudah dan interaktif.
 
 \subsection{Hasil Pengujian}
 
-Pengujian UEQ-S dilakukan dengan menyebarkan sebuah \textit{form} kuisioner yang terdiri dari
-delapan pertanyaan berbasis skala (satu sampai dengan tujuh). Kuisioner tersebut disebarkan ke
-berbagai komunitas daring yang topik bahasannya seputar pemrograman, \textit{artificial intelligent},
-\textit{machine learning}, dan \textit{natural language processing}. Masing-masing komunitas
-memiliki jumlah anggota yang bervariasi mulai dari ratusan hingga ribuan. Kendati demikian,
-responden yang didapatkan hanya enam orang. Sejatinya dibutuhkan setidaknya 20 hingga 30 responden
-untuk mendapatkan hasil yang stabil. Hal ini kemungkinan disebabkan oleh sedikitnya anggota
-komunitas yang mengetahui apa itu CCG dan/atau sedikitnya anggota komunitas yang pernah melakukan
-anotasi secara mandiri.
+TBA.
+% Pengujian UEQ-S dilakukan dengan menyebarkan sebuah \textit{form} kuisioner yang terdiri dari
+% delapan pertanyaan berbasis skala (satu sampai dengan tujuh). Kuisioner tersebut disebarkan ke
+% berbagai komunitas daring yang topik bahasannya seputar pemrograman, \textit{artificial intelligent},
+% \textit{machine learning}, dan \textit{natural language processing}. Masing-masing komunitas
+% memiliki jumlah anggota yang bervariasi mulai dari ratusan hingga ribuan. Kendati demikian,
+% responden yang didapatkan hanya enam orang. Sejatinya dibutuhkan setidaknya 20 hingga 30 responden
+% untuk mendapatkan hasil yang stabil. Hal ini kemungkinan disebabkan oleh sedikitnya anggota
+% komunitas yang mengetahui apa itu CCG dan/atau sedikitnya anggota komunitas yang pernah melakukan
+% anotasi secara mandiri.
 
-UEQ Online\footnote{\url{https://www.ueq-online.org/}} telah menyediakan Data Analysis Tools
-dalam bentuk \textit{spreadsheet} untuk membantu proses pengujian dengan menggunakan UEQ-S.
-Hasil pengujian dapat dilihat pada Tabel \ref{table:hasil-pengujian} dan Tabel \ref{table:ueq-scale}.
-Adapun grafik \textit{mean value} serta grafik hasil akhir perhitungannya dapat dilihat pada Gambar
-\ref{ueq:mean-graph} dan Gambar \ref{ueq:overall-result}. Selain itu, Data Analysis Tools
-juga menyediakan grafik hasil \textit{benchmark} dengan \textit{dataset} yang memiliki
-14056 total responden dalam 280 studi yang memuat berbagai macam produk
-(\textit{business software}, \textit{web pages}, \textit{web shops}, dan jejaring sosial).
-Grafik hasil \textit{benchmark} tersebut dapat dilihat pada Gambar \ref{ueq:benchmark}.
+% UEQ Online\footnote{\url{https://www.ueq-online.org/}} telah menyediakan Data Analysis Tools
+% dalam bentuk \textit{spreadsheet} untuk membantu proses pengujian dengan menggunakan UEQ-S.
+% Hasil pengujian dapat dilihat pada Tabel \ref{table:hasil-pengujian} dan Tabel \ref{table:ueq-scale}.
+% Adapun grafik \textit{mean value} serta grafik hasil akhir perhitungannya dapat dilihat pada Gambar
+% \ref{ueq:mean-graph} dan Gambar \ref{ueq:overall-result}. Selain itu, Data Analysis Tools
+% juga menyediakan grafik hasil \textit{benchmark} dengan \textit{dataset} yang memiliki
+% 14056 total responden dalam 280 studi yang memuat berbagai macam produk
+% (\textit{business software}, \textit{web pages}, \textit{web shops}, dan jejaring sosial).
+% Grafik hasil \textit{benchmark} tersebut dapat dilihat pada Gambar \ref{ueq:benchmark}.
 
-\begin{table}
-\caption{\textbf{Hasil pengujian UEQ-S.}}
-\label{table:hasil-pengujian}
-\centering
-\begin{tabular}{| c | c  | c | c | c | c | c | c |}
-  \hline
-  \textbf{Item} & \textbf{Mean} & \textbf{Variance} & \textbf{Std. Deviance} & \textbf{Negative} & \textbf{Positive} & \textbf{Scale} &  \\ [0.5ex] 
-  \hline
-  1 & 2.2 & 0.6 & 0.8 & obstructive & supportive & Pragmatic Quality & \cellcolor{blue!50} \\
-  2 & 2.2 & 0.6 & 0.7 & complicated & easy & Pragmatic Quality & \cellcolor{blue!50} \\
-  3 & 1.0 & 4.4 & 2.1 & inefficient & efficient & Pragmatic Quality & \cellcolor{blue!50} \\
-  4 & 1.2 & 5.4 & 2.3 & confusing & clear & Pragmatic Quality & \cellcolor{blue!50} \\
-  5 & 0.8 & 5.4 & 2.3 & boring & exciting & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
-  6 & 1.3 & 1.9 & 1.4 & not interesting & interesting & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
-  7 & 2.2 & 0.6 & 0.8 & conventional & inventive & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
-  8 & 1.3 & 2.7 & 1.6 & usual & leading edge & Hedonic Quality & \cellcolor[HTML]{FFC000} \\  [1ex] 
-  \hline
-\end{tabular}
-\end{table}
+% \begin{table}
+% \caption{\textbf{Hasil pengujian UEQ-S.}}
+% \label{table:hasil-pengujian}
+% \centering
+% \begin{tabular}{| c | c  | c | c | c | c | c | c |}
+%   \hline
+%   \textbf{Item} & \textbf{Mean} & \textbf{Variance} & \textbf{Std. Deviance} & \textbf{Negative} & \textbf{Positive} & \textbf{Scale} &  \\ [0.5ex] 
+%   \hline
+%   1 & 2.2 & 0.6 & 0.8 & obstructive & supportive & Pragmatic Quality & \cellcolor{blue!50} \\
+%   2 & 2.2 & 0.6 & 0.7 & complicated & easy & Pragmatic Quality & \cellcolor{blue!50} \\
+%   3 & 1.0 & 4.4 & 2.1 & inefficient & efficient & Pragmatic Quality & \cellcolor{blue!50} \\
+%   4 & 1.2 & 5.4 & 2.3 & confusing & clear & Pragmatic Quality & \cellcolor{blue!50} \\
+%   5 & 0.8 & 5.4 & 2.3 & boring & exciting & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
+%   6 & 1.3 & 1.9 & 1.4 & not interesting & interesting & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
+%   7 & 2.2 & 0.6 & 0.8 & conventional & inventive & Hedonic Quality & \cellcolor[HTML]{FFC000} \\
+%   8 & 1.3 & 2.7 & 1.6 & usual & leading edge & Hedonic Quality & \cellcolor[HTML]{FFC000} \\  [1ex] 
+%   \hline
+% \end{tabular}
+% \end{table}
 
-\begin{table}
-\caption{\textbf{Short UEQ Scales dari hasil pengujian UEQ}.}
-\label{table:ueq-scale}
-\centering
-\begin{tabular}{| c | c |}
-  \hline
-  \multicolumn{2}{| c |}{\textbf{Short UEQ Scales}} \\ [0.5ex]
-  \hline
-  Pragmatic Quality & 1.625 \\
-  Hedonic Quality & 1.417 \\
-  Overall & 1.521 \\ [1ex]
-  \hline
-\end{tabular}
-\end{table}
+% \begin{table}
+% \caption{\textbf{Short UEQ Scales dari hasil pengujian UEQ}.}
+% \label{table:ueq-scale}
+% \centering
+% \begin{tabular}{| c | c |}
+%   \hline
+%   \multicolumn{2}{| c |}{\textbf{Short UEQ Scales}} \\ [0.5ex]
+%   \hline
+%   Pragmatic Quality & 1.625 \\
+%   Hedonic Quality & 1.417 \\
+%   Overall & 1.521 \\ [1ex]
+%   \hline
+% \end{tabular}
+% \end{table}
 
-\begin{figure}[b]\centering
-  \includegraphics[width=\textwidth]{ueq-s_mean-graph}
-  \caption{Grafik Mean Value dari pengujian UEQ-S pada Tabel \ref{table:hasil-pengujian}.}
-  \label{ueq:mean-graph}
-\end{figure}
+% \begin{figure}[b]\centering
+%   \includegraphics[width=\textwidth]{ueq-s_mean-graph}
+%   \caption{Grafik Mean Value dari pengujian UEQ-S pada Tabel \ref{table:hasil-pengujian}.}
+%   \label{ueq:mean-graph}
+% \end{figure}
 
-\begin{figure}[b]\centering
-  \includegraphics[width=\textwidth]{ueq-s_overall-result}
-  \caption{Grafik hasil akhir dari pengujian UEQ-S pada Tabel \ref{table:ueq-scale}.}
-  \label{ueq:overall-result}
-\end{figure}
+% \begin{figure}[b]\centering
+%   \includegraphics[width=\textwidth]{ueq-s_overall-result}
+%   \caption{Grafik hasil akhir dari pengujian UEQ-S pada Tabel \ref{table:ueq-scale}.}
+%   \label{ueq:overall-result}
+% \end{figure}
 
-\begin{figure}[b]\centering
-  \includegraphics[width=\textwidth]{ueq-s_benchmark}
-  \caption{Grafik \textit{benchmark} dari pengujian UEQ-S pada Tabel \ref{table:hasil-pengujian}.}
-  \label{ueq:benchmark}
-\end{figure}
+% \begin{figure}[b]\centering
+%   \includegraphics[width=\textwidth]{ueq-s_benchmark}
+%   \caption{Grafik \textit{benchmark} dari pengujian UEQ-S pada Tabel \ref{table:hasil-pengujian}.}
+%   \label{ueq:benchmark}
+% \end{figure}
 
 
-\subsection{Analisis Hasil Pengujian}
+% \subsection{Analisis Hasil Pengujian}
 
-Tabel \ref{table:hasil-pengujian} pada kolom mean memiliki skala -3 (sangat buruk) sampai dengan
-+3 (sangat baik). Nilai mean antara -0.8 dan 0.8 merepresentasikan \textit{neutral evaluation},
-nilai mean > 0.8 merepresentasikan \textit{positive evaluation}, sementara nilai mean < -0.8
-merepresentasikan \textit{negative evaluation}. Adapun pada kolom \textit{scale}, terdapat dua
-jenis \textit{scale} yaitu Pragmatic Quality (\textit{goal-directed}) dan Hedonic Quality
-(not goal-directed). Berdasarkan Tabel \ref{table:hasil-pengujian}, satu-satunya pengujian yang
-masuk ke dalam kategori \textit{neutral evaluation} adalah \textit{item} nomor 5 yaitu apakah
-CCGtown \textit{boring} atau \textit{exciting}. Hal ini dapat dimengerti karena CCGtown versi
-MVP yang telah dikembangkan fitur-fiturnya masih terbatas dan sangat \textit{straightforward}.
-Selain \textit{item} nomor 5, pengujian lainnya masuk ke dalam kategori
-\textit{positive evaluation}. Kendati demikian, terdapat empat \textit{item} pengujian yang
-nilai mean-nya perlu perhatian khusus meskipun telah masuk ke dalam kategori
-\textit{positive evaluation} yaitu \textit{item} nomor 3, nomor 4, nomor 6, dan nomor 8.
+% Tabel \ref{table:hasil-pengujian} pada kolom mean memiliki skala -3 (sangat buruk) sampai dengan
+% +3 (sangat baik). Nilai mean antara -0.8 dan 0.8 merepresentasikan \textit{neutral evaluation},
+% nilai mean > 0.8 merepresentasikan \textit{positive evaluation}, sementara nilai mean < -0.8
+% merepresentasikan \textit{negative evaluation}. Adapun pada kolom \textit{scale}, terdapat dua
+% jenis \textit{scale} yaitu Pragmatic Quality (\textit{goal-directed}) dan Hedonic Quality
+% (not goal-directed). Berdasarkan Tabel \ref{table:hasil-pengujian}, satu-satunya pengujian yang
+% masuk ke dalam kategori \textit{neutral evaluation} adalah \textit{item} nomor 5 yaitu apakah
+% CCGtown \textit{boring} atau \textit{exciting}. Hal ini dapat dimengerti karena CCGtown versi
+% MVP yang telah dikembangkan fitur-fiturnya masih terbatas dan sangat \textit{straightforward}.
+% Selain \textit{item} nomor 5, pengujian lainnya masuk ke dalam kategori
+% \textit{positive evaluation}. Kendati demikian, terdapat empat \textit{item} pengujian yang
+% nilai mean-nya perlu perhatian khusus meskipun telah masuk ke dalam kategori
+% \textit{positive evaluation} yaitu \textit{item} nomor 3, nomor 4, nomor 6, dan nomor 8.
 
-Pada Tabel \ref{table:hasil-pengujian}, \textit{item} nomor 3 merupakan hasil pengujian apakah
-CCGtown \textit{inefficient} atau \textit{efficient} untuk digunakan. Nilai mean yang didapatkan
-adalah $1.0$ yang mana berarti masih ada banyak bagian yang perlu ditingkatkan. Salah satu
-\textit{feedback} tertulis yang diberikan responden membahas mengenai \textit{preprocessing}
-saat melakukan \textit{input} kalimat baru yang akan diberikan anotasi. Pengguna secara langsung
-melakukan \textit{copy-paste} paragraf dari suatu portal berita. Hal tersebut ternyata menyebabkan
-\textit{500 Server Error}. Salah satu kemungkinan penyebabnya adalah belum dilakukannya tahap
-\textit{case-folding} di dalam sistem \textit{preprocessing} CCGtown. Selain itu, \textit{feedback}
-lainnya dari pengguna adalah tidak adanya peringatan ketika ingin melakukan aksi yang memungkinkan
-untuk hilangnya \textit{unsaved changes}.
+% Pada Tabel \ref{table:hasil-pengujian}, \textit{item} nomor 3 merupakan hasil pengujian apakah
+% CCGtown \textit{inefficient} atau \textit{efficient} untuk digunakan. Nilai mean yang didapatkan
+% adalah $1.0$ yang mana berarti masih ada banyak bagian yang perlu ditingkatkan. Salah satu
+% \textit{feedback} tertulis yang diberikan responden membahas mengenai \textit{preprocessing}
+% saat melakukan \textit{input} kalimat baru yang akan diberikan anotasi. Pengguna secara langsung
+% melakukan \textit{copy-paste} paragraf dari suatu portal berita. Hal tersebut ternyata menyebabkan
+% \textit{500 Server Error}. Salah satu kemungkinan penyebabnya adalah belum dilakukannya tahap
+% \textit{case-folding} di dalam sistem \textit{preprocessing} CCGtown. Selain itu, \textit{feedback}
+% lainnya dari pengguna adalah tidak adanya peringatan ketika ingin melakukan aksi yang memungkinkan
+% untuk hilangnya \textit{unsaved changes}.
 
-\textit{Item} nomor 4 pada Tabel \ref{table:hasil-pengujian} merupakan hasil pengujian apakah
-CCGtown \textit{confusing} atau \textit{clear} yang mana merujuk pada alur dalam menggunakan
-CCGtown. Nilai mean yang didapatkan adalah $1.2$ dan dapat dikatakan cukup baik meskipun CCGtown
-tidak memberikan dokumentasi cara menggunakan aplikasi tersebut. Hal ini disengaja karena salah satu
-pengujian yang ingin diketahui adalah seberapa intuitif CCGtown bagi pengguna. Pengguna dapat
-mengerjakan tugasnya dalam melakukan anotasi karena fitur yang ada masih terbatas dan
-langkah-langkah yang perlu dilakukan sangat \textit{straightforward}. Menurut \textit{feedback}
-tertulis dari responden, CCGtown cukup intuitif bagi pengguna yang mengerti
-NLP\footnote{Natural Language Processing} dan/atau pernah melakukan anotasi secara mandiri.
-Sebaliknya, pengguna yang masih awam dalam NLP cendurung membutuhkan dokumentasi untuk dapat
-menggunakan CCGtown dengan baik.
+% \textit{Item} nomor 4 pada Tabel \ref{table:hasil-pengujian} merupakan hasil pengujian apakah
+% CCGtown \textit{confusing} atau \textit{clear} yang mana merujuk pada alur dalam menggunakan
+% CCGtown. Nilai mean yang didapatkan adalah $1.2$ dan dapat dikatakan cukup baik meskipun CCGtown
+% tidak memberikan dokumentasi cara menggunakan aplikasi tersebut. Hal ini disengaja karena salah satu
+% pengujian yang ingin diketahui adalah seberapa intuitif CCGtown bagi pengguna. Pengguna dapat
+% mengerjakan tugasnya dalam melakukan anotasi karena fitur yang ada masih terbatas dan
+% langkah-langkah yang perlu dilakukan sangat \textit{straightforward}. Menurut \textit{feedback}
+% tertulis dari responden, CCGtown cukup intuitif bagi pengguna yang mengerti
+% NLP\footnote{Natural Language Processing} dan/atau pernah melakukan anotasi secara mandiri.
+% Sebaliknya, pengguna yang masih awam dalam NLP cendurung membutuhkan dokumentasi untuk dapat
+% menggunakan CCGtown dengan baik.
 
-Selanjutnya, \textit{item} nomor 6 merupakan hasil pengujian apakah CCGtown \textit{not interesting}
-atau \textit{interesting}. Nilai mean yang didapatkan adalah $1.3$ yang artinya sebagian besar
-responden menganggap bahwasannya CCGtown menarik dan ingin menggunakannya kembali di waktu yang
-akan datang. Tiga cara terbaik untuk meningkatkan hasil dari pengujian pada \textit{item} ini adalah
-dengan memperbaiki \textit{known bugs}, menambahkan dokumentasi, dan menambahkan fitur-fitur baru
-yang lebih memudahkan pekerjaan pemberi anotasi. Adapun untuk \textit{item} 8 merupakan hasil
-pengujuan apakah CCGtown \textit{usual} atau \textit{leading edge}. Maksudnya, apakah CCGtown
-paling mutakhir? Nilai mean yang didapatkan adalah $1.3$ yang artinya CCGtown sedikit lebih
-mutakhir dibanding dengan alat anotasi CCG lainnya. Apabila dibandingkan dengan alat anotasi
-secara umum, CCGtown masih cukup jauh tertinggal. Bagian ini dapat dikembangkan seiring dengan
-berjalannya waktu.
+% Selanjutnya, \textit{item} nomor 6 merupakan hasil pengujian apakah CCGtown \textit{not interesting}
+% atau \textit{interesting}. Nilai mean yang didapatkan adalah $1.3$ yang artinya sebagian besar
+% responden menganggap bahwasannya CCGtown menarik dan ingin menggunakannya kembali di waktu yang
+% akan datang. Tiga cara terbaik untuk meningkatkan hasil dari pengujian pada \textit{item} ini adalah
+% dengan memperbaiki \textit{known bugs}, menambahkan dokumentasi, dan menambahkan fitur-fitur baru
+% yang lebih memudahkan pekerjaan pemberi anotasi. Adapun untuk \textit{item} 8 merupakan hasil
+% pengujuan apakah CCGtown \textit{usual} atau \textit{leading edge}. Maksudnya, apakah CCGtown
+% paling mutakhir? Nilai mean yang didapatkan adalah $1.3$ yang artinya CCGtown sedikit lebih
+% mutakhir dibanding dengan alat anotasi CCG lainnya. Apabila dibandingkan dengan alat anotasi
+% secara umum, CCGtown masih cukup jauh tertinggal. Bagian ini dapat dikembangkan seiring dengan
+% berjalannya waktu.
 
-Gambar \ref{ueq:mean-graph} merupakan grafik yang merujuk pada Tabel \ref{table:hasil-pengujian}.
-Dapat dilihat bahwasannya nilai mean per \textit{item} bergerak ke kanan. Hal tersebut berarti
-CCGtown dapat diterima dengan baik bagi responden. Tabel \ref{table:ueq-scale} dan Gambar
-\ref{ueq:overall-result} menunjukkan nilai rata-rata \textit{scale} yang telah dikelompokkan
-ke dalam Pragmatic Quality, Hedonic Quality, dan secara keseluruhan. Ketiga nilanya masih belum
-menyentuk angka $2$ yang berarti masih banyak hal yang perlu ditingkatkan oleh CCGtown.
-Kendati demikian, secara keseluruhan CCGtown masuk ke dalam kategori \textit{positive evaluation}.
-Untuk memperjelas lagi, Gambar \ref{ueq:benchmark} merupakan hasil \textit{benchmark} UEQ-S
-CCGtown dengan \textit{dataset} UEQ. Hasilnya \textit{benchmark} tersebut cukup baik mengingat
-nilai mean CCGtown masih pada kategori \textit{good}.
+% Gambar \ref{ueq:mean-graph} merupakan grafik yang merujuk pada Tabel \ref{table:hasil-pengujian}.
+% Dapat dilihat bahwasannya nilai mean per \textit{item} bergerak ke kanan. Hal tersebut berarti
+% CCGtown dapat diterima dengan baik bagi responden. Tabel \ref{table:ueq-scale} dan Gambar
+% \ref{ueq:overall-result} menunjukkan nilai rata-rata \textit{scale} yang telah dikelompokkan
+% ke dalam Pragmatic Quality, Hedonic Quality, dan secara keseluruhan. Ketiga nilanya masih belum
+% menyentuk angka $2$ yang berarti masih banyak hal yang perlu ditingkatkan oleh CCGtown.
+% Kendati demikian, secara keseluruhan CCGtown masuk ke dalam kategori \textit{positive evaluation}.
+% Untuk memperjelas lagi, Gambar \ref{ueq:benchmark} merupakan hasil \textit{benchmark} UEQ-S
+% CCGtown dengan \textit{dataset} UEQ. Hasilnya \textit{benchmark} tersebut cukup baik mengingat
+% nilai mean CCGtown masih pada kategori \textit{good}.
 
    
 \section{Kesimpulan}
 
-CCGtown secara keseluruhan sudah dapat diterima dengan baik oleh pengguna. Secara fungsionalitas,
-CCGtown sudah menyediakan fitur yang cukup untuk dapat memberikan anotasi CCG dengan bentuk
-sederhana (tidak memuat semantik CCG). Adapun secara UI/UX dan interaksi pengguna, CCGtown
-cukup intuitif sehingga dapat langsung digunakan tanpa perlu menghabiskan banyak waktu untuk
-mempelajari fitur-fiturnya. Kendati demikian, masih ada beberapa UI yang dapat lebih dipercantik
-lagi dan ada beberapa UX yang perlu diperbaiki untuk meningkatkan efisiensi dalam menggunakan
-CCGtown.
+TBA.
+% CCGtown secara keseluruhan sudah dapat diterima dengan baik oleh pengguna. Secara fungsionalitas,
+% CCGtown sudah menyediakan fitur yang cukup untuk dapat memberikan anotasi CCG dengan bentuk
+% sederhana (tidak memuat semantik CCG). Adapun secara UI/UX dan interaksi pengguna, CCGtown
+% cukup intuitif sehingga dapat langsung digunakan tanpa perlu menghabiskan banyak waktu untuk
+% mempelajari fitur-fiturnya. Kendati demikian, masih ada beberapa UI yang dapat lebih dipercantik
+% lagi dan ada beberapa UX yang perlu diperbaiki untuk meningkatkan efisiensi dalam menggunakan
+% CCGtown.
 
-Selanjutnya, CCGtown dirasa perlu untuk setidaknya menambahkan fitur tutorial interaktif,
-menambahkan proyek contoh agar pengguna baru dapat langsung melakukan observasi
-kemungkinan-kemungkinan apa saja yang dapat dilakukan oleh CCGtown, menerapkan fitur
-\textit{auto-save}, dan menambahkan fitur untuk melakukan kolaborasi di suatu proyek bersama.
+% Selanjutnya, CCGtown dirasa perlu untuk setidaknya menambahkan fitur tutorial interaktif,
+% menambahkan proyek contoh agar pengguna baru dapat langsung melakukan observasi
+% kemungkinan-kemungkinan apa saja yang dapat dilakukan oleh CCGtown, menerapkan fitur
+% \textit{auto-save}, dan menambahkan fitur untuk melakukan kolaborasi di suatu proyek bersama.
  
 
 
@@ -1025,68 +911,68 @@ kemungkinan-kemungkinan apa saja yang dapat dilakukan oleh CCGtown, menerapkan f
 
 \section*{Lampiran}
 
-\begin{figure}[b]\centering
-  \includegraphics[width=\textwidth]{homepage}
-  \caption{Antarmuka \textit{homepage} CCGtown.}
-  \label{ui:homepage}
-\end{figure}
+% \begin{figure}[b]\centering
+%   \includegraphics[width=\textwidth]{homepage}
+%   \caption{Antarmuka \textit{homepage} CCGtown.}
+%   \label{ui:homepage}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{register}
-  \caption{Antarmuka halaman \textit{register} CCGtown.}
-  \label{ui:register}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{register}
+%   \caption{Antarmuka halaman \textit{register} CCGtown.}
+%   \label{ui:register}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{login}
-  \caption{Antarmuka halaman \textit{login} CCGtown.}
-  \label{ui:login}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{login}
+%   \caption{Antarmuka halaman \textit{login} CCGtown.}
+%   \label{ui:login}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{flash-message}
-  \caption{Antarmuka halaman \textit{login} CCGtown dengan \textit{toast}.}
-  \label{ui:flash-message}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{flash-message}
+%   \caption{Antarmuka halaman \textit{login} CCGtown dengan \textit{toast}.}
+%   \label{ui:flash-message}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{projects-empty}
-  \caption{Antarmuka halaman Projects saat dalam \textit{empty state}.}
-  \label{ui:projects-empty}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{projects-empty}
+%   \caption{Antarmuka halaman Projects saat dalam \textit{empty state}.}
+%   \label{ui:projects-empty}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{projects}
-  \caption{Antarmuka halaman Projects CCGtown.}
-  \label{ui:projects}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{projects}
+%   \caption{Antarmuka halaman Projects CCGtown.}
+%   \label{ui:projects}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{editor-empty}
-  \caption{Antarmuka halaman Editor saat dalam \textit{empty state}.}
-  \label{ui:editor-empty}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{editor-empty}
+%   \caption{Antarmuka halaman Editor saat dalam \textit{empty state}.}
+%   \label{ui:editor-empty}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{editor-annotating}
-  \caption{Antarmuka halaman Editor saat melakukan penganotasian.}
-  \label{ui:editor-annotating}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{editor-annotating}
+%   \caption{Antarmuka halaman Editor saat melakukan penganotasian.}
+%   \label{ui:editor-annotating}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{ccg-derv-generated}
-  \caption{Antarmuka CCG \textit{derivation} yang telah di-\textit{generate}.}
-  \label{ui:deriv-generated}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{ccg-derv-generated}
+%   \caption{Antarmuka CCG \textit{derivation} yang telah di-\textit{generate}.}
+%   \label{ui:deriv-generated}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{ccg-derv-progress}
-  \caption{Antarmuka \textit{editable} CCG \textit{derivation} CCGtown.}
-  \label{ui:deriv-progress}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{ccg-derv-progress}
+%   \caption{Antarmuka \textit{editable} CCG \textit{derivation} CCGtown.}
+%   \label{ui:deriv-progress}
+% \end{figure}
 
-\begin{figure}\centering
-  \includegraphics[width=\textwidth]{ccg-derv-configure}
-  \caption{Antarmuka konfigurasi dari \textit{editable} CCG \textit{derivation} CCGtown.}
-  \label{ui:deriv-configure}
-\end{figure}
+% \begin{figure}\centering
+%   \includegraphics[width=\textwidth]{ccg-derv-configure}
+%   \caption{Antarmuka konfigurasi dari \textit{editable} CCG \textit{derivation} CCGtown.}
+%   \label{ui:deriv-configure}
+% \end{figure}
