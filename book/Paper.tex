@@ -24,9 +24,17 @@
  %%% Abstrak Indonesia %%%%%%%%%%  
    
 {\bf \parindent0pt \noindent\rule{\textwidth}{1pt}
-Abstrak
+Alat anotasi yang tersedia untuk \textit{combinatory categorial grammar} (CCG) masih sangat terbatas.
+Salah satu aplikasi dengan antarmuka grafis yang dapat digunakan adalah CCGweb. Untuk dapat
+menggunakan CCGweb, pengguna diharuskan untuk melakukan \textit{setup} secara mandiri. Proses ini
+dapat menjadi keterbatasan bagi \textit{annotator} karena \textit{dependency} yang perlu
+dipersiapkan cukup banyak. Selain itu, CCGweb hanya dapat mengerjakan satu proyek anotasi CCG
+dalam satu waktu. Demikian itu, kami membangun alat anotasi CCG yang dapat langsung digunakan
+oleh pengguna tanpa perlu melakukan \textit{setup} terlebih dahulu. Alat anotasi tersebut kami
+beri nama CCGtown. Dengan CCGtown, pengguna dapat membuat banyak proyek anotasi sekaligus dan
+telah dilengkapi fitur yang sebagian besarnya tersedia di CCGweb. CCGtown merupakan alat anotasi
+CCG alternatif yang dapat digunakan oleh \textit{annotator} CCG.
 
-TBA.
 
 \bigskip
 Kata kunci: pemrosesan bahasa alami, combinatory categorial grammar, alat anotasi
@@ -40,7 +48,19 @@ Kata kunci: pemrosesan bahasa alami, combinatory categorial grammar, alat anotas
 \noindent\rule{\textwidth}{1pt}
 Abstract
 
-TBA.
+Annotation tools available for combinatory categorial grammar (CCG) are still limited.
+One of the annotation tool with a graphical interface that can be used is CCGweb.
+To be able to use CCGweb, users are required to setup independently.
+This process can be a limitation for annotators because of the many dependencies that
+need to be prepared.
+CCGweb also can only work on one CCG annotation project at a time.
+With that in mind, we built a CCG annotation tool that users can use right away without
+any setup required.
+We call the annotation tool CCGtown.
+With CCGtown, users can create multiple annotation projects at once and it has features
+that are mostly available on CCGweb.
+CCGtown is an alternative CCG annotation tool which can be used by CCG annotators.
+
 
 \bigskip
 Keywords: natural language processing, combinatory categorial grammar, annotation tool
@@ -166,15 +186,15 @@ kontributor dapat dengan mudah memberikan serta melakukan pengujian terhadap kon
 
 \noindent \textbf{Organisasi Tulisan}
 
-TBA.
-% \textbf{Studi Terkait} menjelaskan dasar-dasar materi yang perlu diketahui sebelum beranjak ke bagian
-% selanjutnya. Bagian tersebut membahas apa itu Categorial Grammar (CG), apa itu Combinatory
-% Categorial Grammar (CCG), penjelasan singkat mengenai Lambda Calculus yang digunakan oleh CCG sebagai
-% semantiknya, kemudian penjelasan singkat mengenai CCGweb.
-% \textbf{Sistem yang Dibangun} menjelaskan mengenai teknologi apa saja yang digunakan, mengapa
-% menggunakan teknologi tersebut, seperti apa desain database dan sistemnya, serta mengapa CCGtown
-% memiliki desain UI/UX demikian.
-% \textbf{Evaluasi} memberikan gambaran hasil UEQ yang telah diubah menjadi metrik dengan penjabarannya.
+\textbf{Studi Terkait} menjelaskan dasar-dasar materi yang perlu diketahui sebelum beranjak ke bagian
+selanjutnya. Bagian tersebut membahas apa itu Categorial Grammar (CG), apa itu Combinatory
+Categorial Grammar (CCG), penjelasan singkat mengenai Lambda Calculus yang digunakan oleh CCG sebagai
+semantiknya, kemudian penjelasan singkat mengenai CCGweb.
+\textbf{Sistem yang Dibangun} menjelaskan mengenai teknologi apa saja yang digunakan, mengapa
+menggunakan teknologi tersebut, seperti apa desain database dan sistemnya, serta
+menjelaskan mengenai \textit{deployment} CCGtown.
+\textbf{Evaluasi} memberikan hasil pengujian dengan menggunakan black-box testing
+(state transition test).
 
 
 
@@ -421,7 +441,8 @@ fitur \textit{editable CCG derivation}.
 PostgreSQL juga memiliki banyak fitur lain termasuk di antaranya dukungan
 dari \textit{non-relational database model} (seperti \textit{multi-model graph})
 sehingga apabila di waktu yang akan datang CCGtown memerlukan perubahan signifkan
-terhadap desain \textit{database}-nya tidak perlu mengganti DBMS yang digunakan.
+terhadap desain \textit{database}-nya tidak perlu mengganti DBMS yang digunakan
+\citep{schonig2018mastering}.
 Fitur lain seperti \textit{function} dan \textit{procedure} juga akan sangat membantu
 pengembangan CCGtown di waktu yang akan datang.
 
@@ -742,30 +763,106 @@ Kendati demikian, setidaknya kegiatan anotasi yang repetitif dapat berkurang seh
 dan mempercepat proses anotasi.
 
 
+\noindent\textbf{Deployment}
+
+CCGtown menggunakan Heroku sebagai \textit{cloud application platform} untuk \textit{hosting}
+aplikasi tersebut agar dapat diakses oleh pengguna via internet. Heroku memberikan kemudahan
+untuk melakukan \textit{deployment} dan \textit{scaling} apabila dibutuhkan
+\citep{middleton2013heroku}. Selain itu, integrasi Heroku dengan GitHub memberikan fitur
+\textit{automatic deployment} ke \textit{branch} tertentu sehingga pengembang tidak perlu
+melakukan instalasi manual secara repetitif. Demikian itu, pengembang tidak akan direpotkan
+dengan proses \textit{deployment}. Apa yang perlu dilakukan adalah melakukan \textit{setup}
+terlebih dahulu kemudian \textit{automatic deployment} dapat berjalan sampai dengan dimatikan
+kembali.
+
+CCGtown menggunakan \textit{web framework} yang proses \textit{setup} dan \textit{run}-nya
+dapat dijalankan hanya dengan beberapa perintah CLI\footnote{command line interface} saja.
+Demikian itu, Heroku dapat menjalankan perintah-perintah tersebut dan ketika semua perintahnya
+memberikan \textit{return value} berupa $0$ (sukses), secara otomatis Heroku akan menimpa
+aplikasi yang sedang berjalan dengan yang baru. \textit{Dependency} NLTK seperti \textit{punkt}
+juga tidak perlu di-\textit{install} manual. Hanya dengan menambahkan berkas "nltk.txt",
+Heroku akan secara otomatis melakukan instalasi semua \textit{dependency} NLTK yang terdaftar di
+berkas tersebut. Adapun \textit{dependency} untuk bahasa Python (PyPI) yang digunakan tersedia di
+dalam berkas "requirements.txt" dan Heroku juga akan melakukan instalasi semua \textit{dependency}
+yang terdaftar di dalam berkas tersebut.
+
+
 
 \section{Evaluasi}
 
 \subsection{Hasil Pengujian}
 
-TBA.
+Pengujian dilakukan dengan menggunakan \textit{state transition testing} yang mana merupakan bagian
+dari \textit{black-box testing}. Dalam hal ini, apa yang akan diuji adalah fungsionalitas dari
+CCGtown dan \textit{testing} ini digunakan untuk mencari apakah ada \textit{bug} dari sistem yang
+telah dibangun. Aturan \textit{state transition testing} cukup sederhana yaitu
+(1) kunjungi setiap \textit{state}, (2) cakup semua transisi, dan (3) pastikan tidak ada
+\textit{state} yang tak dapat dijangkau atau tak dapat dikembalikan\citep{black2016pragmatic}.
+Untuk mempercepat proses pengujian, kami menggunakan \textit{state transition table} sebagai ganti
+dari \textit{state transition diagram}. Daftar \textit{state} dapat dilihat pada Tabel
+\ref{table:state-map}. Pada Tabel \ref{table:state-map}, S1 dan S2 merupakan \textit{initial state}
+dan S5 merupakan \textit{final state}.
+
+Pengujian dikelompokkan berdasarkan antarmuka yang dilihat oleh pengguna. Umumnya berupa halaman web
+atau modal layar penuh. Masing-masing tabel memiliki kolom nomor, \textit{start state},
+\textit{input}, \textit{output}, dan \textit{finish state}. Adapun transisi yang telah dikumpulkan
+dapat dilihat pada Tabel \ref{table:register-page} untuk halaman registrasi, Tabel
+\ref{table:login-page} untuk halaman login, Tabel \ref{table:project-page} untuk halaman proyek,
+Tabel \ref{table:editor-page} untuk halaman editor, Tabel \ref{table:ccg-modal} untuk Editable CCG
+Derivation Modal, dan Tabel \ref{table:conf-modal} untuk Configure Derivation Modal.
+
+
+\subsection{Analisis Hasil Pengujian}
+
+Pengguna dapat melakukan login secara langsung apabila telah memiliki akun sehingga dalam hal ini
+\textit{state} S2 merupakan \textit{start state}. Sebaliknya, apabila belum memiliki akun, pengguna
+dapat melakukan registrasi terlebih dahulu. Artinya, \textit{state} S1 juga merupakan
+\textit{start state}. Tujuan CCGtown adalah untuk memfasilitasi \textit{annotator} dalam memberikan
+anotasi CCG. Demikian itu, \textit{final state} CCGtown terdapat pada fitur \textit{export to} JSON
+yang mana merupakan \textit{state} S5.
+
+Pada Tabel \ref{table:register-page}, pengguna akan diarahkan ke \textit{state} selanjutnya yaitu
+S2 ketika \textit{email} yang didaftarkan belum terdaftar dan \textit{password} yang diberikan absah
+saja. Selain itu, pengguna akan dikembalikan ke \textit{state} S1 karena aksi yang dilakukan
+sebelumnya tidak berhasil dilakukan. Adapun pada Tabel \ref{table:login-page}, penggunaan akan
+diarahkan ke halaman proyek yang mana merupakan \textit{state} S3 ketika \textit{email} terdaftar
+dan \textit{password} yang diberikan sesuai dengan yang didaftarkan sebelumnya. Selain itu,
+pengguna akan diarahkan kembali ke halaman login.
+
+Pada Tabel \ref{table:project-page}, ada cukup banyak hal yang dapat dilakukan oleh penggunaan.
+Mulai dari \textit{logout} dari CCGtown, menambahkan proyek baru, menghapus suatu proyek, hingga
+melakukan \textit{export to} JSON. Selanjutnya, apabila pengguna memutuskan untuk melihat atau
+meng-\textit{edit} suatu proyek, ia akan diarahkan ke halaman editor yang mana merupakan
+\textit{state} S4. Pada Tabel \ref{table:editor-page}, hanya ada dua transisi yang memiliki
+\textit{finish state} selain S4 yaitu pada nomor 1, 11, dan 14. Selain ketiga transisi tersebut,
+pengguna tetap berada di \textit{state} S4 yaitu halaman editor. Pengguna juga dapat langsung
+menuju \textit{final state} dengan mengklik \textit{export to JSON} pada menu yang sudah tersedia.
+Adapun transisi yang lain adalah aksi \textit{logout} dan aksi \textit{view ccg derivation} yang
+mana akan membuka Editable CCG Derivation Modal (\textit{state} S6).
+
+Pada Tabel \ref{table:ccg-modal}, pengguna dapat mengubah anotasi CCG dan dapat mengubah
+penurunan CCG. Selain itu, pengguna dapat keluar dari modal tersebut atau dapat mengatur penurunan
+yang ada. Pengaturan dari penurunan tersebut dapat dilakukan di Configure Derivation Modal yang
+mana merupakan \textit{state} S7. Pada Tabel \ref{table:conf-modal}, pengguna dapat menambah
+atau menghapus konfigurasi penurunan CCG. Transisi lainnya adalah keluar dari modal tersebut atau
+simpan konfigurasinya. Demikian itu, dilihat dari \textit{state transition table} yang ada, CCGtown
+selalu dapat kembali ke \textit{state} sebelumnya.
 
 
 
 \section{Kesimpulan}
 
-TBA.
-% CCGtown secara keseluruhan sudah dapat diterima dengan baik oleh pengguna. Secara fungsionalitas,
-% CCGtown sudah menyediakan fitur yang cukup untuk dapat memberikan anotasi CCG dengan bentuk
-% sederhana (tidak memuat semantik CCG). Adapun secara UI/UX dan interaksi pengguna, CCGtown
-% cukup intuitif sehingga dapat langsung digunakan tanpa perlu menghabiskan banyak waktu untuk
-% mempelajari fitur-fiturnya. Kendati demikian, masih ada beberapa UI yang dapat lebih dipercantik
-% lagi dan ada beberapa UX yang perlu diperbaiki untuk meningkatkan efisiensi dalam menggunakan
-% CCGtown.
-
-% Selanjutnya, CCGtown dirasa perlu untuk setidaknya menambahkan fitur tutorial interaktif,
-% menambahkan proyek contoh agar pengguna baru dapat langsung melakukan observasi
-% kemungkinan-kemungkinan apa saja yang dapat dilakukan oleh CCGtown, menerapkan fitur
-% \textit{auto-save}, dan menambahkan fitur untuk melakukan kolaborasi di suatu proyek bersama.
+Berdasarkan \textit{state transition testing}, transisi yang terjadi pada CCGtown dapat berjalan
+maju (misal: dari S3 ke S4) atau pun dapat berjalan mundur (misal: dari S4 ke S2). Hal tersebut
+memungkinkan pengguna untuk kembali ke \textit{initial state} dan berakhir di \textit{final state}.
+Satu-satunya \textit{state} yang tidak memiliki transisi baik maju maupun mundur adalah S7
+yaitu \textit{export to} JSON. Hal ini dikarenakan ketika pengguna mengklik tombol \textit{export},
+tab baru di \textit{browser} pengguna akan terbuka sehingga akan ada setidaknya dua tab aplikasi
+CCGtown yang terbuka. Demikian itu, ketika pengguna menutup halaman hasil \textit{export} tersebut
+lalu membuka CCGtown kembali, secara otomatis \textit{state} aktif tidak lagi S7. Adapun
+\textit{state}-nya dapat berupa S3 atau S4. Apabila sesi pengguna kadaluwarsa, \textit{state} yang
+akan aktif adalah S2. Demikian itu, berdasarkan pengujian ini semua fungsionalitas CCGtown sudah
+berjalan dengan baik dan dapat digunakan oleh pengguna tanpa masalah.
  
 
 
@@ -774,3 +871,132 @@ TBA.
 
 \section*{Lampiran}
 
+\begin{table}
+  \caption{\textbf{Pemetaan State}}
+  \label{table:state-map}
+  \centering
+  \begin{tabular}{| c | l |}
+    \hline
+    \textbf{State} & \textbf{Keterangan} \\ [0.5ex]
+    \hline
+    S1 & Halaman registrasi pengguna \\
+    S2 & Halaman login \\
+    S3 & Halaman proyek \\
+    S4 & Halaman editor \\
+    S5 & Halaman export JSON \\
+    S6 & Editable CCG Derivation Modal \\
+    S7 & Configure Derivation Modal \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada halaman registrasi pengguna}}
+  \label{table:register-page}
+  \centering
+  \begin{tabular}{| c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S1 & invalid email atau invalid password & diarahkan ke halaman registrasi & S1 \\
+    2 & S1 & email terdaftar & diarahkan ke halaman registrasi & S1 \\
+    3 & S1 & email tidak terdaftar dengan invalid password & diarahkan ke halaman registrasi & S1 \\    
+    4 & S1 & email tidak terdaftar dengan valid password & diarahkan ke halaman login & S2 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada halaman login}}
+  \label{table:login-page}
+  \centering
+  \begin{tabular}{|c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S2 & email terdaftar dan password sesuai & diarahkan ke halaman proyek & S3 \\
+    2 & S2 & email tidak terdaftar atau password salah & diarahkan ke halaman login & S2 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada halaman proyek}}
+  \label{table:project-page}
+  \centering
+  \begin{tabular}{|c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S3 & mengklik ikon profil kemudian logout & diarahkan ke halaman login & S2 \\
+    2 & S3 & mengklik nama proyek atau edit proyek & diarahkan ke halaman editor & S4 \\
+    3 & S3 & mengklik "remove project" kemudian "cancel" & tidak terjadi apa-apa & S3 \\
+    4 & S3 & mengklik "remove project" kemudian "remove" & diarahkan ke halaman proyek dan proyek yang dipilih terhapus & S3 \\
+    5 & S3 & mengklik "create new project" kemudian "cancel" & tidak terjadi apa-apa & S3 \\
+    6 & S3 & mengklik "create new project" kemudian "create project" dengan memasukkan nama proyek & diarahkan ke halaman proyek dan proyek baru dibuat & S3 \\
+    7 & S3 & mengklik "export to JSON" & tab baru terbuka dan menampilkan hasil export & S5 \\
+    8 & S3 & sesi pengguna kadaluwarsa atau pengguna belum login & diarahkan ke halaman login & S2 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada halaman editor}}
+  \label{table:editor-page}
+  \centering
+  \begin{tabular}{| c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S4 & mengklik ikon profil kemudian logout & diarahkan ke halaman login & S2 \\
+    2 & S4 & melakukan suatu perubahan kemudian mengklik "save" & diarahkan ke halaman editor dan semua perubahan disimpan & S4 \\
+    3 & S4 & mengubah/menghapus anotasi di suatu kata & anotasi pada kata tersebut berubah & S4 \\
+    4 & S4 & mengklik "add new sentences" kemudian klik cancel & tidak terjadi apa-apa & S4 \\
+    5 & S4 & mengklik "add new sentences" kemudian klik "add sentences" setelah menuliskan kalimat/paragraf & kalimat-kalimat baru ditambahkan & S4 \\
+    6 & S4 & mengklik "generate ccg derivation" kemudian klik "cancel" & tidak terjadi apa-apa & S4 \\
+    7 & S4 & mengklik "generate ccg derivation" kemudian klik "generate now" dengan invalid lexicon & ccg derivation tidak di-generate & S4 \\
+    8 & S4 & mengklik "generate ccg derivation" kemudian klik "generate now" dengan valid lexicon & ccg derivation di-generate & S4 \\
+    9 & S4 & mengklik "remove sentence" kemudian klik "cancel" & tidak terjadi apa-apa & S4 \\
+    10 & S4 & mengklik "remove sentence" kemudian klik "remove sentence" & kalimat tersebut dihapus & S4 \\
+    11 & S4 & mengklik "view ccg derivation" & editable ccg modal terbuka & S6 \\
+    12 & S4 & mengklik "remove project" kemudian klik "cancel" & tidak terjadi apa-apa & S4 \\
+    13 & S4 & mengklik "remove project" kemudian klik "remove project" & proyek dihapus lalu diarahkan ke halaman proyek & S3 \\
+    14 & S4 & mengklik "export to JSON" & tab baru terbuka dan menampilkan hasil export & S5 \\
+    15 & S4 & mengklik "auto-assign category" kemudian klik "cancel" & tidak terjadi apa-apa & S4 \\
+    16 & S4 & mengklik "auto-assign category" kemudian klik "auto-assign now" & kata yang belum dianotasi diberikan anotasi dari kata yang sama di kalimat lain & S4 \\
+    17 & S4 & sesi pengguna kadaluwarsa atau pengguna belum login & diarahkan ke halaman login & S2 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada Editable CCG Derivation Modal}}
+  \label{table:ccg-modal}
+  \centering
+  \begin{tabular}{| c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S6 & mengklik tombol "X" & editable ccg derivation modal ditutup & S4 \\
+    2 & S6 & mengklik "add new row" & baris kosong baru ditambahkan & S6 \\
+    3 & S6 & mengklik anotasi kemudian mengubah/menghapus anotasi & anotasi yang dipilih berubah & S6 \\
+    4 & S6 & mengklik "configure derivation on this row" & configure derivation modal terbuka & S7 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{\textbf{State transition pada Configure CCG Modal}}
+  \label{table:conf-modal}
+  \centering
+  \begin{tabular}{| c | c | m{45mm} | m{45mm} | c |}
+    \hline
+    \textbf{No.} & \textbf{Start State} & \textbf{Input} & \textbf{Output} & \textbf{Finish State} \\ [0.5ex]
+    \hline
+    1 & S7 & mengklik tombol "X" atau "cancel & configure ccg modal ditutup & S6 \\
+    2 & S7 & mengklik tombol "save" & perubahan disimpan kemudian modal ditutup & S6 \\
+    3 & S7 & mengklik "add entry" & konfigurasi kosong baru ditambahkan & S7 \\
+    4 & S7 & mengklik tombol dengan ikon tempat sampah & konfigurasi yang dipilih terhapus & S7 \\ [1ex]
+    \hline
+  \end{tabular}
+\end{table}
