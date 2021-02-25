@@ -12,7 +12,9 @@ repository.
 
 **Status**: **Draft**
 
-The preview is available on [tex/main.pdf](tex/main.pdf).
+The proposal available on [proposal/main.pdf](proposal/main.pdf).
+
+As for the paper, it is available on [book/main.pdf](book/main.pdf).
 
 **Notes**:
 The project structure is messy, I know.
